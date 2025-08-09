@@ -1,0 +1,9 @@
+C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appuntitled_autogen/include/../IVK4DJNV27/moc_cameramodel.cpp.json
+C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appuntitled_autogen/include/../IVK4DJNV27/moc_mediamanager.cpp.json
+C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appuntitled_autogen/include/../IVK4DJNV27/moc_serialmodel.cpp.json
+C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appuntitled_autogen/include/../IVK4DJNV27/moc_thermalcameramodel.cpp.json
+C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appuntitled_autogen/include/../RVZ4ISEY7V/moc_cameraviewmodel.cpp.json
+C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appuntitled_autogen/include/../RVZ4ISEY7V/moc_mapviewmodel.cpp.json
+C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appuntitled_autogen/include/../RVZ4ISEY7V/moc_mediamanagerviewmodel.cpp.json
+C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appuntitled_autogen/include/../RVZ4ISEY7V/moc_serialviewmodel.cpp.json
+C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appuntitled_autogen/include/../RVZ4ISEY7V/moc_thermalcameraviewmodel.cpp.json

@@ -1,0 +1,111 @@
+{
+    "classes": [
+        {
+            "className": "CameraModel",
+            "lineNumber": 12,
+            "object": true,
+            "qualifiedClassName": "CameraModel",
+            "signals": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "streaming",
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 0,
+                    "name": "streamingStatusChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "frameData",
+                            "type": "QByteArray"
+                        }
+                    ],
+                    "index": 1,
+                    "name": "frameReceived",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "error",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 2,
+                    "name": "errorOccurred",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 3,
+                    "name": "connectionEstablished",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "ipAddress",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "port",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 4,
+                    "name": "startStreaming",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 5,
+                    "name": "stopStreaming",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 6,
+                    "isConst": true,
+                    "name": "isStreaming",
+                    "returnType": "bool"
+                },
+                {
+                    "access": "private",
+                    "index": 7,
+                    "name": "readPendingDatagrams",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 8,
+                    "name": "onSocketError",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 9,
+                    "name": "processBuffer",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "cameramodel.h",
+    "outputRevision": 69
+}
