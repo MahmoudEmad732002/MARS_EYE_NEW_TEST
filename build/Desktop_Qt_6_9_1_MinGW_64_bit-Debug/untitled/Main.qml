@@ -493,19 +493,41 @@ ApplicationWindow {
 
                 // Camera display area
                 Item {
-                    anchors.fill: parent
-                    anchors.margins: 10
+                    id: cameraContainer
+                      anchors.centerIn: parent
+
+                      // Maintain 16:9 aspect ratio based on available space
+                      property real targetAspect: 16 / 9
+                      property real availableWidth: parent.width
+                      property real availableHeight: parent.height
+                      property real scaledWidth: availableWidth
+                      property real scaledHeight: availableHeight
+
+                      onAvailableWidthChanged: recalcSize()
+                      onAvailableHeightChanged: recalcSize()
+
+                      function recalcSize() {
+                          var containerAspect = availableWidth / availableHeight
+                          if (containerAspect > targetAspect) {
+                              // Too wide — height limits
+                              scaledHeight = availableHeight
+                              scaledWidth = scaledHeight * targetAspect
+                          } else {
+                              // Too tall — width limits
+                              scaledWidth = availableWidth
+                              scaledHeight = scaledWidth / targetAspect
+                          }
+                      }
 
                     Image {
                         id: cameraImage
-                        anchors.centerIn: parent
-                        fillMode: Image.PreserveAspectFit
-                        source: cameraViewModel.currentFrameUrl
-                        cache: false
-
-                        sourceSize.width: parent.width * 0.9
-                        sourceSize.height: parent.height * 0.9
-
+                               anchors.centerIn: parent
+                               width: cameraContainer.scaledWidth
+                               height: cameraContainer.scaledHeight
+                               fillMode: Image.PreserveAspectFit
+                               source: cameraViewModel.currentFrameUrl
+                               cache: false
+                               smooth: true
                         // Tracking selection overlay rectangle
                         Rectangle {
                             id: selectionOverlay

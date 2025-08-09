@@ -147,3 +147,16 @@
 1617	7499	7764495067753017	CMakeFiles/appuntitled.dir/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_Main_qml.cpp.obj	9f0711eec115bd48
 1602	7629	7764495067609366	CMakeFiles/appuntitled.dir/appuntitled_autogen/mocs_compilation.cpp.obj	dc781ae34c89727f
 7629	9709	7764495127870847	appuntitled.exe	70e30641943656e5
+22	79	7764506209642169	.qt/appuntitled_qml.txt	cd7150c66c700bf8
+22	79	7764506209642169	C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.qt/appuntitled_qml.txt	cd7150c66c700bf8
+32	249	7764506211322522	.qt/qml_imports/appuntitled_build.cmake	7e95cf30ff6c2569
+32	249	7764506211322522	C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.qt/qml_imports/appuntitled_build.cmake	7e95cf30ff6c2569
+256	302	7764506211872655	.qt/rcc/qrc_appuntitled_raw_qml_0.cpp	92e593eaaa574020
+256	302	7764506211872655	C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.qt/rcc/qrc_appuntitled_raw_qml_0.cpp	92e593eaaa574020
+249	658	7764506215309104	.rcc/qmlcache/appuntitled_Main_qml.cpp	eb021d793d3f6be9
+249	658	7764506215309104	.rcc/qmlcache/appuntitled_Main_qml.cpp.aotstats	eb021d793d3f6be9
+249	658	7764506215309104	C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_Main_qml.cpp	eb021d793d3f6be9
+249	658	7764506215309104	C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_Main_qml.cpp.aotstats	eb021d793d3f6be9
+661	737	7764506215516911	CMakeFiles/appuntitled.dir/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.qt/rcc/qrc_appuntitled_raw_qml_0.cpp.obj	f695d65afc4af351
+658	3535	7764506215487238	CMakeFiles/appuntitled.dir/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_Main_qml.cpp.obj	9f0711eec115bd48
+3535	5101	7764506244259754	appuntitled.exe	70e30641943656e5
