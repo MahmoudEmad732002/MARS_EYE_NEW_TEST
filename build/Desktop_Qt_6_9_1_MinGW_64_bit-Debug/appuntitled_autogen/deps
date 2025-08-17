@@ -1,9 +1,11 @@
 appuntitled_autogen/timestamp: \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/QBuffer \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/QByteArray \
+	C:/Qt/6.9.1/mingw_64/include/QtCore/QDateTime \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/QDebug \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/QEvent \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/QList \
+	C:/Qt/6.9.1/mingw_64/include/QtCore/QMap \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/QMargins \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/QMetaType \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/QMutex \
@@ -11,6 +13,7 @@ appuntitled_autogen/timestamp: \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/QPointer \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/QRect \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/QRectF \
+	C:/Qt/6.9.1/mingw_64/include/QtCore/QSet \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/QSharedDataPointer \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/QSize \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/QSizeF \
@@ -18,6 +21,7 @@ appuntitled_autogen/timestamp: \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/QString \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/QThread \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/QTimer \
+	C:/Qt/6.9.1/mingw_64/include/QtCore/QVector \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/QtMath \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/q17memory.h \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/q20functional.h \
@@ -166,6 +170,7 @@ appuntitled_autogen/timestamp: \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/qutf8stringview.h \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/qvariant.h \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/qvarlengtharray.h \
+	C:/Qt/6.9.1/mingw_64/include/QtCore/qvector.h \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/qversionnumber.h \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/qversiontagging.h \
 	C:/Qt/6.9.1/mingw_64/include/QtCore/qxptype_traits.h \

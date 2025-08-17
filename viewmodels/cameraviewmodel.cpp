@@ -223,13 +223,18 @@ void CameraViewModel::onStreamingStatusChanged(bool streaming)
     }
 }
 
-void CameraViewModel::onFrameReceived(const QByteArray &frameData)
+void CameraViewModel::onFrameReceived(const QByteArray &frameData, quint16 frameId)
 {
     m_frameCount++;
     m_framesInLastSecond++;
     m_lastFrameTime = QDateTime::currentMSecsSinceEpoch();
 
-    qDebug() << "Frame received, count:" << m_frameCount << "size:" << frameData.size();
+    if (m_currentFrameId != frameId) {
+        m_currentFrameId = frameId;
+        emit frameIdChanged();
+    }
+
+    qDebug() << "Frame received, frameId:" << frameId << "count:" << m_frameCount << "size:" << frameData.size();
 
     updateFrameUrl(frameData);
 

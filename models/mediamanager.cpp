@@ -56,10 +56,12 @@ void MediaManager::setupRecorder()
     connect(m_mediaRecorder, &QMediaRecorder::errorOccurred,
             this, &MediaManager::onRecorderError);
 
+
     // Set up the primary screen for capture initially
     QScreen *primaryScreen = QApplication::primaryScreen();
     if (primaryScreen) {
         m_screenCapture->setScreen(primaryScreen);
+
     }
 
     m_status = "Screen recorder initialized";

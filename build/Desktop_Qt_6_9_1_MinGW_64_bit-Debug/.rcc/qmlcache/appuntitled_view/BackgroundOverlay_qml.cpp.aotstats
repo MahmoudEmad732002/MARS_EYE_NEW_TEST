@@ -1,0 +1,44 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessful": true,
+                        "column": 14,
+                        "durationMicroseconds": 340,
+                        "errorMessage": "",
+                        "functionName": "opacity",
+                        "line": 7
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 19,
+                        "durationMicroseconds": 87,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 5
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 155,
+                        "errorMessage": "",
+                        "functionName": "onClicked",
+                        "line": 21
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 55,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 20
+                    }
+                ],
+                "filePath": "C:/Users/mahmo/Documents/untitled/view/BackgroundOverlay.qml"
+            }
+        ],
+        "moduleId": "untitled(appuntitled)"
+    }
+]

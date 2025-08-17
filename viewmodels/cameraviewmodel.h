@@ -24,6 +24,12 @@ class CameraViewModel : public QObject
     Q_PROPERTY(QString currentFrameUrl READ currentFrameUrl NOTIFY frameChanged)
     Q_PROPERTY(int frameCount READ frameCount NOTIFY frameCountChanged)
     Q_PROPERTY(double frameRate READ frameRate NOTIFY frameRateChanged)
+    // Add to Q_PROPERTY section:
+    Q_PROPERTY(bool showTrackingRect READ showTrackingRect NOTIFY trackingRectChanged)
+    Q_PROPERTY(int trackingRectX READ trackingRectX NOTIFY trackingRectChanged)
+    Q_PROPERTY(int trackingRectY READ trackingRectY NOTIFY trackingRectChanged)
+
+    Q_PROPERTY(int currentFrameId READ currentFrameId NOTIFY frameIdChanged)
 
 public:
     explicit CameraViewModel(QObject *parent = nullptr);
@@ -45,13 +51,27 @@ public:
     void setIpAddress(const QString &ipAddress);
     void setPort(int port);
 
-    // QML-callable methods
+    //// Add to public getters:
+    bool showTrackingRect() const { return m_showTrackingRect; }
+    int trackingRectX() const { return m_trackingRectX; }
+    int trackingRectY() const { return m_trackingRectY; }
+    int currentFrameId() const { return m_currentFrameId; }
+
     Q_INVOKABLE void toggleStream();
     Q_INVOKABLE void startStream();
     Q_INVOKABLE void stopStream();
     Q_INVOKABLE void enableTracking();
     Q_INVOKABLE void disableTracking();
     Q_INVOKABLE void sendTarget(int x, int y, int w, int h);
+    // Add this new method:
+    Q_INVOKABLE void updateTrackingRect(int x, int y, bool show) {
+        if (m_trackingRectX != x || m_trackingRectY != y || m_showTrackingRect != show) {
+            m_trackingRectX = x;
+            m_trackingRectY = y;
+            m_showTrackingRect = show;
+            emit trackingRectChanged();
+        }
+    }
 signals:
     void ipAddressChanged();
     void portChanged();
@@ -61,14 +81,16 @@ signals:
     void frameCountChanged();
     void frameRateChanged();
     void trackingEnabledChanged();
+    void frameIdChanged();
 
     // Internal signals for thread communication
     void requestStartStream(const QString &ipAddress, int port);
     void requestStopStream();
-
+    // Add to signals:
+    void trackingRectChanged();
 private slots:
     void onStreamingStatusChanged(bool streaming);
-    void onFrameReceived(const QByteArray &frameData);
+    void onFrameReceived(const QByteArray &frameData, quint16 frameId);
     void onCameraError(const QString &error);
     void onConnectionEstablished();
     void calculateFrameRate();
@@ -86,11 +108,16 @@ private:
     QString m_currentFrameUrl;
     int m_frameCount;
     double m_frameRate;
-
+    // Add to private members:
+    bool m_showTrackingRect = false;
+    int m_trackingRectX = 0;
+    int m_trackingRectY = 0;
     // Frame rate calculation
     QTimer *m_frameRateTimer;
     int m_framesInLastSecond;
     qint64 m_lastFrameTime;
+    int m_currentFrameId = 0;
+
     QUdpSocket *m_ctrlSocket;
     bool m_trackingEnabled;
     void setupThread();

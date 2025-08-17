@@ -1,0 +1,260 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessful": true,
+                        "column": 12,
+                        "durationMicroseconds": 322,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 6
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 19,
+                        "durationMicroseconds": 138,
+                        "errorMessage": "",
+                        "functionName": "color",
+                        "line": 7
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 37,
+                        "durationMicroseconds": 155,
+                        "errorMessage": "",
+                        "functionName": "targetAspect",
+                        "line": 27
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 66,
+                        "errorMessage": "",
+                        "functionName": "availableWidth",
+                        "line": 28
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 40,
+                        "durationMicroseconds": 53,
+                        "errorMessage": "",
+                        "functionName": "availableHeight",
+                        "line": 29
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 37,
+                        "durationMicroseconds": 1131,
+                        "errorMessage": "",
+                        "functionName": "displayWidth",
+                        "line": 32
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 38,
+                        "durationMicroseconds": 137,
+                        "errorMessage": "",
+                        "functionName": "displayHeight",
+                        "line": 45
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 58,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 23
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 133,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 50
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 21,
+                        "durationMicroseconds": 68,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 51
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 92,
+                        "errorMessage": "",
+                        "functionName": "fillMode",
+                        "line": 52
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 21,
+                        "durationMicroseconds": 104,
+                        "errorMessage": "Cannot access value for name thermalCameraViewModel",
+                        "functionName": "source",
+                        "line": 53
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 54,
+                        "durationMicroseconds": 150,
+                        "errorMessage": "",
+                        "functionName": "imageAspectRatio",
+                        "line": 62
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 58,
+                        "durationMicroseconds": 140,
+                        "errorMessage": "",
+                        "functionName": "componentAspectRatio",
+                        "line": 63
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 56,
+                        "durationMicroseconds": 245,
+                        "errorMessage": "",
+                        "functionName": "renderedImageWidth",
+                        "line": 66
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 57,
+                        "durationMicroseconds": 250,
+                        "errorMessage": "",
+                        "functionName": "renderedImageHeight",
+                        "line": 76
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 52,
+                        "durationMicroseconds": 169,
+                        "errorMessage": "",
+                        "functionName": "renderedImageX",
+                        "line": 87
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 52,
+                        "durationMicroseconds": 165,
+                        "errorMessage": "",
+                        "functionName": "renderedImageY",
+                        "line": 88
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 13,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "uiToSourceCoordinates",
+                        "line": 91
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 61,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 49
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 47,
+                        "errorMessage": "Cannot access value for name cameraViewModel",
+                        "functionName": "visible",
+                        "line": 133
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 52,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 128
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 31,
+                        "durationMicroseconds": 85,
+                        "errorMessage": "Cannot access value for name cameraViewModel",
+                        "functionName": "color",
+                        "line": 130
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 64,
+                        "errorMessage": "Cannot access value for name cameraViewModel",
+                        "functionName": "enabled",
+                        "line": 140
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 545,
+                        "errorMessage": "Cannot access value for name mouse",
+                        "functionName": "onPressed",
+                        "line": 146
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 1297,
+                        "errorMessage": "Cannot access value for name mouse",
+                        "functionName": "onReleased",
+                        "line": 172
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 84,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 139
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 136,
+                        "errorMessage": "",
+                        "functionName": "onTriggered",
+                        "line": 228
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"running\".",
+                        "functionName": "running",
+                        "line": 236
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"visible\".",
+                        "functionName": "visible",
+                        "line": 237
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 31,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"centerIn\".",
+                        "functionName": "centerIn",
+                        "line": 235
+                    }
+                ],
+                "filePath": "C:/Users/mahmo/Documents/untitled/view/MainCameraDisplay.qml"
+            }
+        ],
+        "moduleId": "untitled(appuntitled)"
+    }
+]

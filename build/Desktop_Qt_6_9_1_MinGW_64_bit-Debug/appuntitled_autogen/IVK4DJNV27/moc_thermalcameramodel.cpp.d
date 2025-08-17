@@ -1,6 +1,7 @@
 C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appuntitled_autogen/IVK4DJNV27/moc_thermalcameramodel.cpp: C:/Users/mahmo/Documents/untitled/models/thermalcameramodel.h \
   C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appuntitled_autogen/moc_predefs.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/QByteArray \
+  C:/Qt/6.9.1/mingw_64/include/QtCore/QMap \
   C:/Qt/6.9.1/mingw_64/include/QtCore/QMutex \
   C:/Qt/6.9.1/mingw_64/include/QtCore/QObject \
   C:/Qt/6.9.1/mingw_64/include/QtCore/QTimer \
@@ -58,6 +59,7 @@ C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appu
   C:/Qt/6.9.1/mingw_64/include/QtCore/qlist.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/qlogging.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/qmalloc.h \
+  C:/Qt/6.9.1/mingw_64/include/QtCore/qmap.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/qmath.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/qmetacontainer.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/qmetatype.h \
@@ -76,6 +78,7 @@ C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appu
   C:/Qt/6.9.1/mingw_64/include/QtCore/qscopedpointer.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/qscopeguard.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/qshareddata.h \
+  C:/Qt/6.9.1/mingw_64/include/QtCore/qshareddata_impl.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/qspan.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/qstdlibdetection.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/qstring.h \

@@ -33,6 +33,17 @@ qt_add_qml_module(appuntitled
         SOURCES viewmodels/mediamanagerviewmodel.h viewmodels/mediamanagerviewmodel.cpp
         SOURCES viewmodels/serialviewmodel.h viewmodels/serialviewmodel.cpp
         SOURCES viewmodels/thermalcameraviewmodel.h viewmodels/thermalcameraviewmodel.cpp
+
+        QML_FILES view/TelemetryPanel.qml
+        QML_FILES view/ControlsPanel.qml
+        QML_FILES view/MapPanel.qml
+         QML_FILES view/CapturePanel.qml
+
+        QML_FILES view/TelemetryPanel.qml
+        QML_FILES view/TopBar.qml
+        QML_FILES view/VisualizationPanel.qml
+
+
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

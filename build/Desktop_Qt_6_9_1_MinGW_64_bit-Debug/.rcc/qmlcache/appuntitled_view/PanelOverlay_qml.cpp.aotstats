@@ -1,0 +1,44 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessful": true,
+                        "column": 14,
+                        "durationMicroseconds": 382,
+                        "errorMessage": "",
+                        "functionName": "opacity",
+                        "line": 7
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 19,
+                        "durationMicroseconds": 99,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 5
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 202,
+                        "errorMessage": "",
+                        "functionName": "onClicked",
+                        "line": 20
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 74,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 19
+                    }
+                ],
+                "filePath": "C:/Users/mahmo/Documents/untitled/view/PanelOverlay.qml"
+            }
+        ],
+        "moduleId": "untitled(appuntitled)"
+    }
+]

@@ -96,6 +96,12 @@
                     "index": 9,
                     "name": "processBuffer",
                     "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 10,
+                    "name": "cleanupIncompleteFrames",
+                    "returnType": "void"
                 }
             ],
             "superClasses": [

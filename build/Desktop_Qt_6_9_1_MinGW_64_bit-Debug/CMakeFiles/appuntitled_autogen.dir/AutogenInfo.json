@@ -1537,6 +1537,8 @@
 		"C:/Qt/6.9.1/mingw_64/lib/cmake/Qt6Core/Qt6CoreConfigureFileTemplate.in",
 		"C:/Qt/6.9.1/mingw_64/lib/cmake/Qt6Qml/Qt6QmlModuleDirMappingTemplate.qrc.in",
 		"C:/Qt/6.9.1/mingw_64/lib/cmake/Qt6Core/Qt6CoreConfigureFileTemplate.in",
+		"C:/Qt/6.9.1/mingw_64/lib/cmake/Qt6Qml/Qt6qmldirTemplate.cmake.in",
+		"C:/Qt/6.9.1/mingw_64/lib/cmake/Qt6Core/Qt6CoreConfigureFileTemplate.in",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/GNUInstallDirs.cmake",
 		"C:/Qt/6.9.1/mingw_64/lib/cmake/Qt6Qml/Qt6qmldirTemplate.cmake.in",
 		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.qt/qml_imports/appuntitled_conf.cmake"
@@ -1711,9 +1713,16 @@
 	"MOC_SKIP" : 
 	[
 		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.qt/rcc/qrc_appuntitled_raw_qml_0.cpp",
+		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.qt/rcc/qrc_appuntitled_raw_qml_0_extra_qmldirs.cpp",
 		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.qt/rcc/qrc_qmake_untitled.cpp",
 		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_Main_qml.cpp",
 		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_qmlcache_loader.cpp",
+		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_view/CapturePanel_qml.cpp",
+		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_view/ControlsPanel_qml.cpp",
+		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_view/MapPanel_qml.cpp",
+		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_view/TelemetryPanel_qml.cpp",
+		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_view/TopBar_qml.cpp",
+		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_view/VisualizationPanel_qml.cpp",
 		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appuntitled_qmltyperegistrations.cpp"
 	],
 	"MULTI_CONFIG" : false,
@@ -1778,9 +1787,16 @@
 	"UIC_SKIP" : 
 	[
 		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.qt/rcc/qrc_appuntitled_raw_qml_0.cpp",
+		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.qt/rcc/qrc_appuntitled_raw_qml_0_extra_qmldirs.cpp",
 		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.qt/rcc/qrc_qmake_untitled.cpp",
 		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_Main_qml.cpp",
 		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_qmlcache_loader.cpp",
+		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_view/CapturePanel_qml.cpp",
+		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_view/ControlsPanel_qml.cpp",
+		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_view/MapPanel_qml.cpp",
+		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_view/TelemetryPanel_qml.cpp",
+		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_view/TopBar_qml.cpp",
+		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.rcc/qmlcache/appuntitled_view/VisualizationPanel_qml.cpp",
 		"C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appuntitled_qmltyperegistrations.cpp"
 	],
 	"UIC_UI_FILES" : [],

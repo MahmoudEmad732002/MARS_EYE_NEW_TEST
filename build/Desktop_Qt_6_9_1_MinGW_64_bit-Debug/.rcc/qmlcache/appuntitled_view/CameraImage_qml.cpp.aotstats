@@ -1,0 +1,148 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessful": true,
+                        "column": 15,
+                        "durationMicroseconds": 289,
+                        "errorMessage": "",
+                        "functionName": "fillMode",
+                        "line": 6
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 13,
+                        "durationMicroseconds": 83,
+                        "errorMessage": "Cannot load property currentThermalFrameUrl from (component in C:/Users/mahmo/Documents/untitled/view/CameraImage.qml)::thermalCameraViewModel with type QVariant.",
+                        "functionName": "source",
+                        "line": 15
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 46,
+                        "durationMicroseconds": 180,
+                        "errorMessage": "",
+                        "functionName": "imageAspectRatio",
+                        "line": 22
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 50,
+                        "durationMicroseconds": 156,
+                        "errorMessage": "",
+                        "functionName": "componentAspectRatio",
+                        "line": 23
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 48,
+                        "durationMicroseconds": 287,
+                        "errorMessage": "",
+                        "functionName": "renderedImageWidth",
+                        "line": 26
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 49,
+                        "durationMicroseconds": 2285,
+                        "errorMessage": "",
+                        "functionName": "renderedImageHeight",
+                        "line": 36
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 44,
+                        "durationMicroseconds": 226,
+                        "errorMessage": "",
+                        "functionName": "renderedImageX",
+                        "line": 47
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 44,
+                        "durationMicroseconds": 151,
+                        "errorMessage": "",
+                        "functionName": "renderedImageY",
+                        "line": 48
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 5,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "uiToSourceCoordinates",
+                        "line": 51
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 18,
+                        "durationMicroseconds": 51,
+                        "errorMessage": "Cannot access value for name cameraViewModel",
+                        "functionName": "visible",
+                        "line": 93
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 58,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 88
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 3780,
+                        "errorMessage": "Cannot access value for name cameraViewModel",
+                        "functionName": "color",
+                        "line": 90
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 18,
+                        "durationMicroseconds": 76,
+                        "errorMessage": "Cannot access value for name cameraViewModel",
+                        "functionName": "enabled",
+                        "line": 100
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 429,
+                        "errorMessage": "Cannot access value for name mouse",
+                        "functionName": "onPressed",
+                        "line": 106
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 21,
+                        "durationMicroseconds": 1054,
+                        "errorMessage": "Cannot access value for name mouse",
+                        "functionName": "onReleased",
+                        "line": 132
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 141,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 99
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 22,
+                        "durationMicroseconds": 149,
+                        "errorMessage": "",
+                        "functionName": "onTriggered",
+                        "line": 188
+                    }
+                ],
+                "filePath": "C:/Users/mahmo/Documents/untitled/view/CameraImage.qml"
+            }
+        ],
+        "moduleId": "untitled(appuntitled)"
+    }
+]

@@ -7,6 +7,15 @@ C:/Qt/6.9.1/mingw_64/qml
 C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.qt/rcc/qmake_untitled.qrc
 --resource
 C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.qt/rcc/appuntitled_raw_qml_0.qrc
+--resource
+C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.qt/rcc/appuntitled_raw_qml_0_extra_qmldirs.qrc
 C:/Users/mahmo/Documents/untitled/Main.qml
+C:/Users/mahmo/Documents/untitled/view/TelemetryPanel.qml
+C:/Users/mahmo/Documents/untitled/view/ControlsPanel.qml
+C:/Users/mahmo/Documents/untitled/view/MapPanel.qml
+C:/Users/mahmo/Documents/untitled/view/CapturePanel.qml
+C:/Users/mahmo/Documents/untitled/view/TelemetryPanel.qml
+C:/Users/mahmo/Documents/untitled/view/TopBar.qml
+C:/Users/mahmo/Documents/untitled/view/VisualizationPanel.qml
 --json
 C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appuntitled_qmllint.json

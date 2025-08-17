@@ -1,7 +1,7 @@
 #include "cameramodel.h"
 #include <QDebug>
 #include <QNetworkDatagram>
-
+#include<QtEndian>
 // JPEG markers
 const QByteArray CameraModel::JPEG_START_MARKER = QByteArray::fromHex("FFD8");
 const QByteArray CameraModel::JPEG_END_MARKER = QByteArray::fromHex("FFD9");
@@ -11,10 +11,16 @@ CameraModel::CameraModel(QObject *parent)
     , m_udpSocket(nullptr)
     , m_processTimer(new QTimer(this))
     , m_streaming(false)
+    , m_fragmentTimeout(5000) // 5 second timeout for incomplete frames
 {
     // Timer to process buffer periodically
     m_processTimer->setInterval(16);
     connect(m_processTimer, &QTimer::timeout, this, &CameraModel::processBuffer);
+
+    // Timer to clean up incomplete frames
+    m_cleanupTimer = new QTimer(this);
+    m_cleanupTimer->setInterval(1000); // Check every second
+    connect(m_cleanupTimer, &QTimer::timeout, this, &CameraModel::cleanupIncompleteFrames);
 }
 
 CameraModel::~CameraModel()
@@ -43,6 +49,7 @@ void CameraModel::startStreaming(const QString &ipAddress, int port)
     if (m_udpSocket->bind(QHostAddress::AnyIPv4, port)) {
         m_streaming = true;
         m_processTimer->start();
+        m_cleanupTimer->start();
         emit streamingStatusChanged(true);
         emit connectionEstablished();
         qDebug() << "Started UDP streaming on port:" << port;
@@ -60,6 +67,7 @@ void CameraModel::stopStreaming()
     }
 
     m_processTimer->stop();
+    m_cleanupTimer->stop();
 
     if (m_udpSocket) {
         m_udpSocket->close();
@@ -68,6 +76,7 @@ void CameraModel::stopStreaming()
     }
 
     clearBuffer();
+    clearIncompleteFrames();
     m_streaming = false;
     emit streamingStatusChanged(false);
     qDebug() << "Stopped UDP streaming";
@@ -85,19 +94,106 @@ void CameraModel::readPendingDatagrams()
         QByteArray data = datagram.data();
 
         if (!data.isEmpty()) {
-            QMutexLocker locker(&m_bufferMutex);
-            m_frameBuffer.append(data);
-
-            // Debug: Log received data size
-            qDebug() << "Received UDP packet, size:" << data.size() << "Total buffer size:" << m_frameBuffer.size();
-
-            // Limit buffer size to prevent memory issues (10MB max)
-            if (m_frameBuffer.size() > 10 * 1024 * 1024) {
-                // Keep only the last 5MB
-                m_frameBuffer = m_frameBuffer.right(5 * 1024 * 1024);
-                qDebug() << "Buffer trimmed to prevent overflow";
-            }
+            processFragmentedPacket(data);
         }
+    }
+}
+
+void CameraModel::processFragmentedPacket(const QByteArray &packet)
+{
+    // Check if packet has header (minimum 16 bytes for header)
+    // Check if packet has header (minimum 14 bytes for header)
+    if (packet.size() < 14) {
+        qDebug() << "Packet too small for header:" << packet.size();
+        return;
+    }
+
+    // Parse header: frame_id(2) + total_fragments(4) + fragment_index(4) + fragment_size(4)
+    const char* data = packet.constData();
+    quint16 frameId = qFromBigEndian<quint16>(reinterpret_cast<const uchar*>(data));
+    quint32 totalFragments = qFromBigEndian<quint32>(reinterpret_cast<const uchar*>(data + 2));
+    quint32 fragmentIndex = qFromBigEndian<quint32>(reinterpret_cast<const uchar*>(data + 6));
+    quint32 fragmentSize = qFromBigEndian<quint32>(reinterpret_cast<const uchar*>(data + 10));
+
+    // Validate header
+    if (fragmentIndex >= totalFragments || fragmentSize != (packet.size() - 14)) {
+        qDebug() << "Invalid fragment " << fragmentIndex
+                 << "Total:" << totalFragments << "Size:" << fragmentSize
+                 << "Actual:" << (packet.size() - 14);
+        return;
+    }
+
+    // Extract fragment data
+    QByteArray fragmentData = packet.mid(14);
+
+    QMutexLocker locker(&m_bufferMutex);
+
+    // Initialize frame reassembly if this is the first fragment
+    if (!m_incompleteFrames.contains(frameId)) {
+        FrameAssembly assembly;
+        assembly.totalFragments = totalFragments;
+        assembly.receivedFragments = 0;
+        assembly.fragments.resize(totalFragments);
+        assembly.timestamp = QDateTime::currentMSecsSinceEpoch();
+        m_incompleteFrames[frameId] = assembly;
+
+        qDebug() << "Started reassembly for frame" << frameId << "with" << totalFragments << "fragments";
+    }
+
+    FrameAssembly& assembly = m_incompleteFrames[frameId];
+
+    // Check if we already have this fragment
+    if (!assembly.fragments[fragmentIndex].isEmpty()) {
+        qDebug() << "Duplicate fragment" << fragmentIndex << "for frame" << frameId;
+        return;
+    }
+
+    // Store the fragment
+    assembly.fragments[fragmentIndex] = fragmentData;
+    assembly.receivedFragments++;
+
+    qDebug() << "Received fragment" << fragmentIndex << "/" << totalFragments
+             << "for frame" << frameId << "(" << assembly.receivedFragments << "/" << totalFragments << ")";
+
+    // Check if frame is complete
+    if (assembly.receivedFragments == assembly.totalFragments) {
+        // Reassemble the complete frame
+        QByteArray completeFrame;
+        for (const QByteArray& fragment : assembly.fragments) {
+            completeFrame.append(fragment);
+        }
+
+        qDebug() << "Frame" << frameId << "complete, total size:" << completeFrame.size();
+
+        // Validate and emit the complete frame
+        if (isValidJpegFrame(completeFrame)) {
+            emit frameReceived(completeFrame, frameId);  // Pass frame ID
+            qDebug() << "Valid complete frame emitted for frame ID:" << frameId;
+        } else {
+            qDebug() << "Invalid complete frame for frame ID:" << frameId;
+        }
+
+        // Remove completed frame from incomplete frames
+        m_incompleteFrames.remove(frameId);
+    }
+}
+
+void CameraModel::cleanupIncompleteFrames()
+{
+    QMutexLocker locker(&m_bufferMutex);
+
+    qint64 currentTime = QDateTime::currentMSecsSinceEpoch();
+    QList<quint16> framesToRemove;
+
+    for (auto it = m_incompleteFrames.begin(); it != m_incompleteFrames.end(); ++it) {
+        if (currentTime - it.value().timestamp > m_fragmentTimeout) {
+            framesToRemove.append(it.key());
+        }
+    }
+
+    for (quint16  frameId : framesToRemove) {
+        qDebug() << "Removing incomplete frame" << frameId << "due to timeout";
+        m_incompleteFrames.remove(frameId);
     }
 }
 
@@ -108,65 +204,8 @@ void CameraModel::processBuffer()
         return;
     }
 
-
-    extractFramesFromBuffer();
 }
 
-void CameraModel::extractFramesFromBuffer()
-{
-    int startPos = 0;
-    int framesExtracted = 0;
-
-    while (true) {
-        // Find JPEG start marker
-        int jpegStart = m_frameBuffer.indexOf( JPEG_START_MARKER, startPos);
-        if (jpegStart == -1) {
-            // No more JPEG start markers, remove processed data
-            if (startPos > 0) {
-                m_frameBuffer.remove(0, startPos);
-            }
-            break;
-        }
-
-        // Find JPEG end marker after the start
-        int jpegEnd = m_frameBuffer.indexOf(JPEG_END_MARKER, jpegStart + 2);
-        if (jpegEnd == -1) {
-            // Incomplete frame, wait for more data
-            if (jpegStart > 0) {
-                // Remove any data before the incomplete frame
-                m_frameBuffer.remove(0, jpegStart);
-            }
-            break;
-        }
-
-        // Extract complete JPEG frame
-        int frameLength = jpegEnd - jpegStart + 2; // +2 for end marker length
-        QByteArray frameData = m_frameBuffer.mid(jpegStart, frameLength);
-
-
-        // Validate frame
-        if (isValidJpegFrame(frameData)) {
-            emit frameReceived(frameData);
-            framesExtracted++;
-            qDebug() << "Valid frame emitted, total extracted:" << framesExtracted;
-        } else {
-            qDebug() << "Invalid frame detected, skipping";
-        }
-
-        // Move to next potential frame
-        startPos = jpegEnd + 2;
-
-        // Remove processed data
-        if (startPos > 1024) { // Only remove if we've processed a reasonable amount
-            m_frameBuffer.remove(0, startPos);
-            startPos = 0;
-        }
-    }
-
-    if (framesExtracted > 0) {
-        qDebug() << "Extracted" << framesExtracted << "frames in this cycle";
-    }
-}
 
 bool CameraModel::isValidJpegFrame(const QByteArray &data)
 {
@@ -186,8 +225,8 @@ bool CameraModel::isValidJpegFrame(const QByteArray &data)
         qDebug() << "Invalid JPEG end marker";
     }
 
-    // Additional validation: reasonable size (1KB to 1MB)
-    if (data.size() < 1024 || data.size() > 1024 * 1024) {
+    // For Full HD frames, allow larger size range
+    if (data.size() < 1024 || data.size() > 5 * 1024 * 1024) { // Up to 5MB for Full HD
         qDebug() << "Frame size out of reasonable range:" << data.size();
         return false;
     }
@@ -200,6 +239,13 @@ void CameraModel::clearBuffer()
     QMutexLocker locker(&m_bufferMutex);
     m_frameBuffer.clear();
     qDebug() << "Buffer cleared";
+}
+
+void CameraModel::clearIncompleteFrames()
+{
+    QMutexLocker locker(&m_bufferMutex);
+    m_incompleteFrames.clear();
+    qDebug() << "Incomplete frames cleared";
 }
 
 void CameraModel::onSocketError()

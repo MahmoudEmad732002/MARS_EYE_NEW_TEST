@@ -46,9 +46,9 @@ private slots:
     void onRecorderError(QMediaRecorder::Error error, const QString &errorString);
 
 private:
-    void setupRecorder();
-    QString generateOutputPath(const QString &outputFolder, const QString &fileType);
-    QPixmap captureWindow();
+    void setupRecorder(); // Initializes screen capture & recorder
+    QString generateOutputPath(const QString &outputFolder, const QString &fileType);//Creates a unique filename with a timestamp
+    QPixmap captureWindow();//Takes a screenshot of the QML window
 
     QScreenCapture *m_screenCapture;
     QMediaCaptureSession *m_captureSession;

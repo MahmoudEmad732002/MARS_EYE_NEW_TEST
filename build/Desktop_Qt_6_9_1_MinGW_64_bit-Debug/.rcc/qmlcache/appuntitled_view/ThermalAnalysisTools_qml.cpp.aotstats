@@ -1,0 +1,396 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessful": false,
+                        "column": 12,
+                        "durationMicroseconds": 4704,
+                        "errorMessage": "Cannot load property backgroundColor from const QMetaObject.",
+                        "functionName": "color",
+                        "line": 9
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 125,
+                        "errorMessage": "Cannot load property objectDetectionInfo from QQuickItem::parent with type QQuickItem.",
+                        "functionName": "objectDetectionInfo",
+                        "line": 17
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 19,
+                        "durationMicroseconds": 29,
+                        "errorMessage": "Cannot load property borderColor from const QMetaObject.",
+                        "functionName": "color",
+                        "line": 10
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 153,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 20
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 39,
+                        "errorMessage": "Cannot load property textColor from const QMetaObject.",
+                        "functionName": "color",
+                        "line": 29
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 137,
+                        "errorMessage": "",
+                        "functionName": "horizontalCenter",
+                        "line": 28
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 90,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 34
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 31,
+                        "errorMessage": "Cannot load property surfaceColor from const QMetaObject.",
+                        "functionName": "color",
+                        "line": 36
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 23,
+                        "errorMessage": "Cannot load property borderColor from const QMetaObject.",
+                        "functionName": "color",
+                        "line": 37
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 35,
+                        "durationMicroseconds": 100,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 41
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 299,
+                        "errorMessage": "Cannot access value for name cameraViewModel",
+                        "functionName": "color",
+                        "line": 48
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 180,
+                        "errorMessage": "Cannot access value for name cameraViewModel",
+                        "functionName": "text",
+                        "line": 58
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 29,
+                        "errorMessage": "Cannot load property textColor from const QMetaObject.",
+                        "functionName": "color",
+                        "line": 67
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 100,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 74
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 27,
+                        "errorMessage": "Cannot load property surfaceColor from const QMetaObject.",
+                        "functionName": "color",
+                        "line": 76
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 115,
+                        "errorMessage": "Cannot access value for name objectDetectionInfo",
+                        "functionName": "color",
+                        "line": 77
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 64,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 82
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 358,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 89
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 29,
+                        "durationMicroseconds": 280,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 90
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 99,
+                        "errorMessage": "",
+                        "functionName": "fillMode",
+                        "line": 91
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 60,
+                        "errorMessage": "Cannot access value for name objectDetectionInfo",
+                        "functionName": "source",
+                        "line": 92
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 85,
+                        "errorMessage": "Cannot access value for name objectDetectionInfo",
+                        "functionName": "visible",
+                        "line": 95
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 67,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 88
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 59,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 98
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 35,
+                        "errorMessage": "Cannot load property successColor from const QMetaObject.",
+                        "functionName": "color",
+                        "line": 100
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 43,
+                        "durationMicroseconds": 61,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 107
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 43,
+                        "durationMicroseconds": 53,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 113
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 139,
+                        "errorMessage": "Cannot access value for name cameraViewModel",
+                        "functionName": "text",
+                        "line": 123
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 42,
+                        "durationMicroseconds": 111,
+                        "errorMessage": "",
+                        "functionName": "horizontalAlignment",
+                        "line": 131
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 138,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 133
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 113,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 122
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 83,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 140
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 34,
+                        "errorMessage": "Cannot load property backgroundColor from const QMetaObject.",
+                        "functionName": "color",
+                        "line": 142
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 39,
+                        "errorMessage": "Cannot access value for name objectDetectionInfo",
+                        "functionName": "visible",
+                        "line": 145
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 24,
+                        "errorMessage": "Cannot load property borderColor from const QMetaObject.",
+                        "functionName": "color",
+                        "line": 143
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 62,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 148
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 30,
+                        "errorMessage": "Cannot load property textColor from const QMetaObject.",
+                        "functionName": "color",
+                        "line": 159
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 195,
+                        "errorMessage": "Cannot access value for name objectDetectionInfo",
+                        "functionName": "text",
+                        "line": 162
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 27,
+                        "errorMessage": "Cannot load property successColor from const QMetaObject.",
+                        "functionName": "color",
+                        "line": 166
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 23,
+                        "errorMessage": "Cannot load property textColor from const QMetaObject.",
+                        "functionName": "color",
+                        "line": 174
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 117,
+                        "errorMessage": "Cannot access value for name objectDetectionInfo",
+                        "functionName": "text",
+                        "line": 177
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 27,
+                        "errorMessage": "Cannot load property successColor from const QMetaObject.",
+                        "functionName": "color",
+                        "line": 181
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 22,
+                        "errorMessage": "Cannot load property textColor from const QMetaObject.",
+                        "functionName": "color",
+                        "line": 189
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 79,
+                        "errorMessage": "Cannot access value for name objectDetectionInfo",
+                        "functionName": "text",
+                        "line": 192
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 23,
+                        "errorMessage": "Cannot load property successColor from const QMetaObject.",
+                        "functionName": "color",
+                        "line": 194
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 23,
+                        "errorMessage": "Cannot load property textColor from const QMetaObject.",
+                        "functionName": "color",
+                        "line": 202
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 152,
+                        "errorMessage": "Cannot access value for name objectDetectionInfo",
+                        "functionName": "text",
+                        "line": 205
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 80,
+                        "errorMessage": "Cannot access value for name objectDetectionInfo",
+                        "functionName": "color",
+                        "line": 209
+                    }
+                ],
+                "filePath": "C:/Users/mahmo/Documents/untitled/view/ThermalAnalysisTools.qml"
+            }
+        ],
+        "moduleId": "untitled(appuntitled)"
+    }
+]

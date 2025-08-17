@@ -1,0 +1,52 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessful": true,
+                        "column": 5,
+                        "durationMicroseconds": 393,
+                        "errorMessage": "",
+                        "functionName": "startFlash",
+                        "line": 10
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 17,
+                        "durationMicroseconds": 118,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 21
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 19,
+                        "durationMicroseconds": 90,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "duration",
+                        "line": 25
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 180,
+                        "errorMessage": "",
+                        "functionName": "onStarted",
+                        "line": 27
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 21,
+                        "durationMicroseconds": 174,
+                        "errorMessage": "",
+                        "functionName": "onFinished",
+                        "line": 31
+                    }
+                ],
+                "filePath": "C:/Users/mahmo/Documents/untitled/view/FlashEffect.qml"
+            }
+        ],
+        "moduleId": "untitled(appuntitled)"
+    }
+]

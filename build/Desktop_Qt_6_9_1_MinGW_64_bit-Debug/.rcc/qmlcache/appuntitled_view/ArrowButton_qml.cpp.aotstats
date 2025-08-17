@@ -1,0 +1,132 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessful": false,
+                        "column": 12,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"width\".",
+                        "functionName": "width",
+                        "line": 11
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 13,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"height\".",
+                        "functionName": "height",
+                        "line": 12
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 258,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "duration",
+                        "line": 17
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 135,
+                        "errorMessage": "Cannot access value for name Easing",
+                        "functionName": "type",
+                        "line": 18
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 16,
+                        "durationMicroseconds": 27,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "color",
+                        "line": 23
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 17,
+                        "durationMicroseconds": 43,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "radius",
+                        "line": 24
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 21,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "color",
+                        "line": 25
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 17,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "width",
+                        "line": 26
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 15,
+                        "durationMicroseconds": 20,
+                        "errorMessage": "Cannot access value for name arrowButton",
+                        "functionName": "text",
+                        "line": 30
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 274,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "horizontalAlignment",
+                        "line": 32
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 257,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "verticalAlignment",
+                        "line": 33
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 25,
+                        "durationMicroseconds": 20,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "pixelSize",
+                        "line": 35
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 22,
+                        "durationMicroseconds": 278,
+                        "errorMessage": "",
+                        "functionName": "cursorShape",
+                        "line": 40
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 26,
+                        "durationMicroseconds": 115,
+                        "errorMessage": "",
+                        "functionName": "acceptedButtons",
+                        "line": 41
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 72,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 39
+                    }
+                ],
+                "filePath": "C:/Users/mahmo/Documents/untitled/view/ArrowButton.qml"
+            }
+        ],
+        "moduleId": "untitled(appuntitled)"
+    }
+]

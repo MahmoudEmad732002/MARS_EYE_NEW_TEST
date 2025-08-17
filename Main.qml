@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.15
 import SerialApp 1.0
 import QtLocation 5.15
 import QtPositioning 5.15
+import "view"
 ApplicationWindow {
     id: root
     visible: true
@@ -23,12 +24,12 @@ ApplicationWindow {
     property string warningColor: "#FFC107"
     property string errorColor: "#F44336"
     property bool mapPanelVisible: false
-
     property bool controlsPanelVisible: false
     property bool telemetryPanelVisible: false
     property bool testPanelVisible: false
     property bool capturePanelVisible: false
     property bool visualizationPanelVisible: false
+    property bool framesSwapped: false
 
     SerialViewModel {
         id: viewModel
@@ -55,20 +56,16 @@ ApplicationWindow {
         Component.onCompleted: {
             viewModel.telemetryChanged.connect(function() {
                 mapViewModel.updateGPSData(
-                    viewModel.latitude,
-                    viewModel.longitude,
-                    viewModel.altitude
+                    viewModel.gimbalPoseLat,
+                    viewModel.gimbalPoseLon,
+                    viewModel.gimbalPoseAlt
                 );
             });
         }
     }
-    ScrollView {
-        anchors.fill: parent
-        anchors.margins: 10
-
-        Column {
-            width: root.width - 40
-            spacing: 15
+    Column {
+            anchors.fill: parent
+             spacing: 15
 
             // Top bar with connection controls
             Rectangle {
@@ -482,211 +479,280 @@ ApplicationWindow {
                 }
             }
 
-            // Main content area with camera stream
-            Rectangle {
-                width: parent.width
-                height: 600
-                color: backgroundColor
-                border.color: borderColor
-                border.width: 1
-                radius: 5
+            // Main content area with camera stream - TAKES ALL REMAINING HEIGHT
+            // Main content area with camera stream - TAKES ALL REMAINING HEIGHT
+                    Rectangle {
+                        width: parent.width
+                        height: root.height - 60 - 60  -30  // Full window height minus: top bar + camera bar + spacing + margins
+                        color: backgroundColor
+                        border.color: borderColor
+                        border.width: 1
+                        radius: 5
 
-                // Camera display area
-                Item {
-                    id: cameraContainer
-                      anchors.centerIn: parent
-
-                      // Maintain 16:9 aspect ratio based on available space
-                      property real targetAspect: 16 / 9
-                      property real availableWidth: parent.width
-                      property real availableHeight: parent.height
-                      property real scaledWidth: availableWidth
-                      property real scaledHeight: availableHeight
-
-                      onAvailableWidthChanged: recalcSize()
-                      onAvailableHeightChanged: recalcSize()
-
-                      function recalcSize() {
-                          var containerAspect = availableWidth / availableHeight
-                          if (containerAspect > targetAspect) {
-                              // Too wide — height limits
-                              scaledHeight = availableHeight
-                              scaledWidth = scaledHeight * targetAspect
-                          } else {
-                              // Too tall — width limits
-                              scaledWidth = availableWidth
-                              scaledHeight = scaledWidth / targetAspect
-                          }
-                      }
-
-                    Image {
-                        id: cameraImage
-                               anchors.centerIn: parent
-                               width: cameraContainer.scaledWidth
-                               height: cameraContainer.scaledHeight
-                               fillMode: Image.PreserveAspectFit
-                               source: cameraViewModel.currentFrameUrl
-                               cache: false
-                               smooth: true
-                        // Tracking selection overlay rectangle
-                        Rectangle {
-                            id: selectionOverlay
-                            visible: false
-                            color: "transparent"
-                            border.color: "#00FF00"
-                            border.width: 2
-                            z: 10
-                        }
-
-                        Rectangle {
+                        // Camera display area
+                        Item {
+                            id: cameraContainer
                             anchors.fill: parent
-                            color: "transparent"
-                            border.color: cameraViewModel.streaming ? primaryColor : borderColor
-                            border.width: 2
-                            radius: 5
-                            visible: cameraViewModel.streaming
-                        }
+                            anchors.margins: 10
 
-                        Text {
-                            anchors.centerIn: parent
-                            text: cameraViewModel.streaming ? "" : "Camera Stream Area\n\nConfigure IP and Port above, then click 'Start Stream'\nOr use the Test panel to send test frames"
-                            font.pixelSize: 16
-                            color: "#888888"
-                            horizontalAlignment: Text.AlignHCenter
-                            lineHeight: 1.5
-                            visible: !cameraViewModel.streaming
-                        }
+                            // Calculate maximum size that maintains 16:9 aspect ratio
+                            property real targetAspect: 16.0 / 9.0
+                            property real availableWidth: width
+                            property real availableHeight: height
 
-                        // Mouse handling for tracking target selection
-                        MouseArea {
-                            id: mouseArea
-                            anchors.fill: parent
-                            enabled: cameraViewModel.streaming && cameraViewModel.trackingEnabled
+                            // Calculate actual display size - fit the largest possible 16:9 rectangle
+                            property real displayWidth: {
+                                var widthBasedOnHeight = availableHeight * targetAspect
+                                var heightBasedOnWidth = availableWidth / targetAspect
 
-                            property real pressX: 0
-                            property real pressY: 0
-                            property bool isDragging: false
-
-                            onPressed: {
-                                if (mouse.button === Qt.LeftButton) {
-                                    pressX = mouse.x
-                                    pressY = mouse.y
-                                    isDragging = false
-
-                                    // Show selection overlay at click point (default 120x120 box)
-                                    var defaultSize = 120
-                                    selectionOverlay.x = Math.max(0, Math.min(cameraImage.width - defaultSize, mouse.x - defaultSize/2))
-                                    selectionOverlay.y = Math.max(0, Math.min(cameraImage.height - defaultSize, mouse.y - defaultSize/2))
-                                    selectionOverlay.width = defaultSize
-                                    selectionOverlay.height = defaultSize
-                                    selectionOverlay.visible = true
+                                if (heightBasedOnWidth <= availableHeight) {
+                                    // Width is the limiting factor
+                                    return availableWidth
+                                } else {
+                                    // Height is the limiting factor
+                                    return widthBasedOnHeight
                                 }
                             }
 
-                            onPositionChanged: {
-                                if (pressed && mouse.buttons & Qt.LeftButton) {
-                                    isDragging = true
+                            property real displayHeight: displayWidth / targetAspect
 
-                                    // Update selection rectangle during drag
-                                    var startX = Math.min(pressX, mouse.x)
-                                    var startY = Math.min(pressY, mouse.y)
-                                    var endX = Math.max(pressX, mouse.x)
-                                    var endY = Math.max(pressY, mouse.y)
+                            // Replace the existing camera Image and MouseArea section in your QML with this:
 
-                                    selectionOverlay.x = Math.max(0, startX)
-                                    selectionOverlay.y = Math.max(0, startY)
-                                    selectionOverlay.width = Math.min(cameraImage.width - selectionOverlay.x, endX - startX)
-                                    selectionOverlay.height = Math.min(cameraImage.height - selectionOverlay.y, endY - startY)
+                            // Replace the existing camera Image and MouseArea section in your QML with this:
+
+                            Image {
+                                id: cameraImage
+                                anchors.centerIn: parent
+                                width: cameraContainer.displayWidth
+                                height: cameraContainer.displayHeight
+                                fillMode: Image.PreserveAspectFit
+                                source: root.framesSwapped ? thermalCameraViewModel.currentThermalFrameUrl : cameraViewModel.currentFrameUrl
+                                cache: false
+                                smooth: true
+
+                                // Constants for source frame dimensions
+                                readonly property int sourceFrameWidth: 1920
+                                readonly property int sourceFrameHeight: 1080
+
+                                // Calculate the actual rendered image dimensions within the Image component
+                                readonly property real imageAspectRatio: sourceFrameWidth / sourceFrameHeight
+                                readonly property real componentAspectRatio: width / height
+
+                                // Determine actual rendered image size based on aspect ratio fitting
+                                readonly property real renderedImageWidth: {
+                                    if (componentAspectRatio > imageAspectRatio) {
+                                        // Component is wider than image - height constrained
+                                        return height * imageAspectRatio
+                                    } else {
+                                        // Component is taller than image - width constrained
+                                        return width
+                                    }
                                 }
-                            }
 
-                            onReleased: {
-                                if (mouse.button === Qt.LeftButton && selectionOverlay.visible) {
-                                    // Calculate coordinates in the original frame space (1920x1080)
-
-                                    // Get the actual painted dimensions of the image
-                                    var paintedWidth = cameraImage.paintedWidth
-                                    var paintedHeight = cameraImage.paintedHeight
-
-                                    console.log("Image dimensions:", cameraImage.width, "x", cameraImage.height)
-                                    console.log("Painted dimensions:", paintedWidth, "x", paintedHeight)
-                                    console.log("Selection overlay:", selectionOverlay.x, selectionOverlay.y, selectionOverlay.width, selectionOverlay.height)
-
-                                    if (paintedWidth <= 0 || paintedHeight <= 0) {
-                                        console.log("ERROR: Invalid painted dimensions")
-                                        return
+                                readonly property real renderedImageHeight: {
+                                    if (componentAspectRatio > imageAspectRatio) {
+                                        // Component is wider than image - height constrained
+                                        return height
+                                    } else {
+                                        // Component is taller than image - width constrained
+                                        return width / imageAspectRatio
                                     }
-
-                                    // Calculate scale factors
-                                    var scaleX = 1920.0 / paintedWidth
-                                    var scaleY = 1080.0 / paintedHeight
-
-                                    console.log("Scale factors:", scaleX, scaleY)
-
-                                    // Calculate the painted image offset within the Image component
-                                    var paintedX = (cameraImage.width - paintedWidth) / 2
-                                    var paintedY = (cameraImage.height - paintedHeight) / 2
-
-                                    console.log("Painted offset:", paintedX, paintedY)
-
-                                    // Convert selection coordinates to frame coordinates
-                                    var frameX = Math.round((selectionOverlay.x - paintedX) * scaleX)
-                                    var frameY = Math.round((selectionOverlay.y - paintedY) * scaleY)
-                                    var frameW = Math.round(selectionOverlay.width * scaleX)
-                                    var frameH = Math.round(selectionOverlay.height * scaleY)
-
-                                    console.log("Before clamping:", frameX, frameY, frameW, frameH)
-
-                                    // Ensure coordinates are within bounds and reasonable
-                                    frameX = Math.max(0, Math.min(1920 - 20, frameX))
-                                    frameY = Math.max(0, Math.min(1080 - 20, frameY))
-                                    frameW = Math.max(20, Math.min(1920 - frameX, frameW))
-                                    frameH = Math.max(20, Math.min(1080 - frameY, frameH))
-
-                                    console.log("Final target coordinates:", frameX, frameY, frameW, frameH)
-
-                                    // Validate before sending
-                                    if (frameW < 10 || frameH < 10) {
-                                        console.log("ERROR: Target too small, ignoring")
-                                        return
-                                    }
-
-                                    if (frameX < 0 || frameY < 0 || frameX + frameW > 1920 || frameY + frameH > 1080) {
-                                        console.log("ERROR: Target outside frame bounds, ignoring")
-                                        return
-                                    }
-
-                                    // Send target to C++ backend
-                                    console.log("Sending target to backend:", frameX, frameY, frameW, frameH)
-                                    cameraViewModel.sendTarget(frameX, frameY, frameW, frameH)
-
-                                    // Hide selection overlay after a short delay
-                                    hideSelectionTimer.start()
                                 }
+
+                                // Calculate offsets of the rendered image within the component
+                                readonly property real renderedImageX: (width - renderedImageWidth) / 2
+                                readonly property real renderedImageY: (height - renderedImageHeight) / 2
+
+                                // Function to convert UI coordinates to source frame coordinates
+                                function uiToSourceCoordinates(uiX, uiY) {
+                                    // Check if click is within the rendered image bounds
+                                    if (uiX < renderedImageX || uiX > renderedImageX + renderedImageWidth ||
+                                        uiY < renderedImageY || uiY > renderedImageY + renderedImageHeight) {
+                                        console.log("Click outside rendered image bounds")
+                                        return null
+                                    }
+
+                                    // Convert to rendered image coordinates (0,0 at top-left of actual image)
+                                    var imageX = uiX - renderedImageX
+                                    var imageY = uiY - renderedImageY
+
+                                    // Scale to source frame coordinates
+                                    var sourceX = Math.round((imageX / renderedImageWidth) * sourceFrameWidth)
+                                    var sourceY = Math.round((imageY / renderedImageHeight) * sourceFrameHeight)
+
+                                    // Clamp to valid range
+                                    sourceX = Math.max(0, Math.min(sourceFrameWidth - 1, sourceX))
+                                    sourceY = Math.max(0, Math.min(sourceFrameHeight - 1, sourceY))
+
+                                    return {
+                                        x: sourceX,
+                                        y: sourceY
+                                    }
+                                }
+
+                                // Tracking selection overlay rectangle
+                                Rectangle {
+                                    id: selectionOverlay
+                                    visible: false
+                                    color: "transparent"
+                                    border.color: "#00FF00"
+                                    border.width: 2
+                                    z: 10
+
+                                    // Auto-resize while visible if the window changes:
+                                    onVisibleChanged: if (visible) adjustSize()
+                                    function adjustSize() {
+                                        var sizeFraction = 0.12
+                                        var minPx = 60
+                                        var maxPx = 320
+                                        var base = Math.min(cameraImage.renderedImageWidth, cameraImage.renderedImageHeight)
+                                        var s = Math.max(minPx, Math.min(maxPx, Math.round(base * sizeFraction)))
+                                        // preserve center point when resizing
+                                        var cx = selectionOverlay.x + selectionOverlay.width/2
+                                        var cy = selectionOverlay.y + selectionOverlay.height/2
+                                        selectionOverlay.width = s
+                                        selectionOverlay.height = s
+                                        selectionOverlay.x = Math.max(cameraImage.renderedImageX,
+                                            Math.min(cameraImage.renderedImageX + cameraImage.renderedImageWidth - s, cx - s/2))
+                                        selectionOverlay.y = Math.max(cameraImage.renderedImageY,
+                                            Math.min(cameraImage.renderedImageY + cameraImage.renderedImageHeight - s, cy - s/2))
+                                    }
+
+                                    // Re-adjust when the rendered image size changes
+                                    Connections {
+                                        target: cameraImage
+                                        function onRenderedImageWidthChanged()  { if (selectionOverlay.visible) selectionOverlay.adjustSize() }
+                                        function onRenderedImageHeightChanged() { if (selectionOverlay.visible) selectionOverlay.adjustSize() }
+                                    }
+                                }
+
+
+                                Rectangle {
+                                    anchors.fill: parent
+                                    color: "transparent"
+                                    border.color: cameraViewModel.streaming ? primaryColor : borderColor
+                                    border.width: 2
+                                    radius: 5
+                                    visible: cameraViewModel.streaming
+                                }
+
+                                // Mouse handling for tracking target selection
+                                // Replace the existing mouse handling section in your QML with this corrected version:
+
+                                MouseArea {
+                                    id: mouseArea
+                                    anchors.fill: parent
+                                    enabled: cameraViewModel.streaming && cameraViewModel.trackingEnabled
+
+                                    property real pressX: 0
+                                    property real pressY: 0
+                                    property bool isDragging: false
+
+                                    onPressed: {
+                                        if (mouse.button === Qt.LeftButton) {
+                                            pressX = mouse.x
+                                            pressY = mouse.y
+                                            isDragging = false
+
+                                            // Convert to source coords to validate click is on the image
+                                            var sourceCoords = cameraImage.uiToSourceCoordinates(mouse.x, mouse.y)
+                                            if (!sourceCoords)
+                                                return
+
+                                            // === NEW: size scales with rendered image size ===
+                                            // Fraction of the smaller image dimension
+                                            var sizeFraction = 0.12      // tweak between 0.08..0.18 to taste
+                                            var minPx = 60               // lower clamp in UI pixels
+                                            var maxPx = 320              // upper clamp in UI pixels
+
+                                            var base = Math.min(cameraImage.renderedImageWidth,
+                                                                cameraImage.renderedImageHeight)
+                                            var defaultUISize = Math.max(minPx,
+                                                                  Math.min(maxPx, Math.round(base * sizeFraction)))
+
+                                            // Keep the square centered on the click and fully inside the image
+                                            var half = defaultUISize / 2
+                                            var left = Math.max(cameraImage.renderedImageX,
+                                                        Math.min(cameraImage.renderedImageX + cameraImage.renderedImageWidth - defaultUISize,
+                                                                 mouse.x - half))
+                                            var top  = Math.max(cameraImage.renderedImageY,
+                                                        Math.min(cameraImage.renderedImageY + cameraImage.renderedImageHeight - defaultUISize,
+                                                                 mouse.y - half))
+
+                                            selectionOverlay.x = left
+                                            selectionOverlay.y = top
+                                            selectionOverlay.width  = defaultUISize
+                                            selectionOverlay.height = defaultUISize
+                                            selectionOverlay.visible = true
+                                        }
+                                    }
+                                      onReleased: {
+                                        if (mouse.button === Qt.LeftButton && selectionOverlay.visible) {
+                                            console.log("=== TARGET SELECTION DEBUG ===")
+                                            console.log("UI Click at:", mouse.x, mouse.y)
+                                            console.log("Image component size:", cameraImage.width, "x", cameraImage.height)
+                                            console.log("Rendered image size:", cameraImage.renderedImageWidth, "x", cameraImage.renderedImageHeight)
+                                            console.log("Rendered image offset:", cameraImage.renderedImageX, cameraImage.renderedImageY)
+                                            console.log("Selection overlay:", selectionOverlay.x, selectionOverlay.y, selectionOverlay.width, selectionOverlay.height)
+
+                                            // Convert selection overlay to source coordinates
+                                            var topLeftSource = cameraImage.uiToSourceCoordinates(selectionOverlay.x, selectionOverlay.y)
+                                            var bottomRightSource = cameraImage.uiToSourceCoordinates(
+                                                selectionOverlay.x + selectionOverlay.width,
+                                                selectionOverlay.y + selectionOverlay.height
+                                            )
+
+                                            if (!topLeftSource || !bottomRightSource) {
+                                                console.log("ERROR: Selection outside image bounds")
+                                                return
+                                            }
+
+                                            var sourceX = topLeftSource.x
+                                            var sourceY = topLeftSource.y
+                                            var sourceW = bottomRightSource.x - topLeftSource.x
+                                            var sourceH = bottomRightSource.y - topLeftSource.y
+
+                                            // Ensure minimum size
+                                            sourceW = Math.max(20, sourceW)
+                                            sourceH = Math.max(20, sourceH)
+
+                                            // Ensure within bounds
+                                            sourceX = Math.max(0, Math.min(cameraImage.sourceFrameWidth - sourceW, sourceX))
+                                            sourceY = Math.max(0, Math.min(cameraImage.sourceFrameHeight - sourceH, sourceY))
+
+                                            console.log("Final source coordinates:", sourceX, sourceY, sourceW, sourceH)
+
+                                            // Get current frame ID from camera view model
+                                            var frameId = cameraViewModel.currentFrameId
+
+                                            console.log("Sending target with frame ID:", frameId)
+
+                                            // Send to serial model via view model
+                                            viewModel.sendSelectTarget(sourceX, sourceY, frameId)
+
+                                            // IMPORTANT: Send the coordinates directly to the camera view model
+                                            // These coordinates are already in 1920x1080 space, no additional scaling needed
+                                            cameraViewModel.sendTarget(sourceX, sourceY, sourceW, sourceH)
+
+                                            // Hide selection overlay after a short delay
+                                            hideSelectionTimer.start()
+                                        }
+                                    }
+                                } Timer {
+                                    id: hideSelectionTimer
+                                    interval: 1000
+                                    repeat: false
+                                    onTriggered: {
+                                        selectionOverlay.visible = false
+                                    }
+                                }
+                            }BusyIndicator {
+                                anchors.centerIn: parent
+                                running: cameraViewModel.cameraStatus.indexOf("Connecting") >= 0
+                                visible: running
                             }
                         }
-
-                        // Timer to hide selection overlay
-                        Timer {
-                            id: hideSelectionTimer
-                            interval: 1000
-                            repeat: false
-                            onTriggered: {
-                                selectionOverlay.visible = false
-                            }
-                        }
-                    }
-                    BusyIndicator {
-                        anchors.centerIn: parent
-                        running: cameraViewModel.cameraStatus.indexOf("Connecting") >= 0
-                        visible: running
-                    }
-                }
-            }
-        }
-    }
-
-    // Left Arrow Button for Telemetry Panel
+                    } }// Left Arrow Button for Telemetry Panel
     Button {
         id: telemetryArrowButton
         width: 40
@@ -731,19 +797,56 @@ ApplicationWindow {
     }
 
     // Floating Telemetry Side Panel (Left)
-    Rectangle {
+    TelemetryPanel {
         id: telemetryPanel
-        width: 300
-        height: root.height - 300
-        x: root.telemetryPanelVisible ? 20 : -width
-        y: 105
+        // Same stacking as before
         z: 1000
-        color: surfaceColor
-        border.color: borderColor
-        border.width: 2
-        radius: 10
-        opacity: 0.95
-        visible: root.telemetryPanelVisible
+
+        // Maintain sizing/position behavior relative to window
+        anchors.left: parent.left
+        anchors.top: parent.top
+
+        // Wire visibility to the existing app flag
+        panelVisible: root.telemetryPanelVisible
+
+        // Theme passthrough to preserve colors/appearance
+        primaryColor:    primaryColor
+        backgroundColor: backgroundColor
+        surfaceColor:    surfaceColor
+        borderColor:     borderColor
+        textColor:       textColor
+        successColor:    successColor
+        warningColor:    warningColor
+        errorColor:      errorColor
+
+        // Bind to your existing backend VM (no changes needed elsewhere)
+        viewModel: viewModel
+
+        // Close button behavior identical to before
+        onCloseRequested: root.telemetryPanelVisible = false
+    }
+    ControlsPanel {
+        id: controlsPanel
+        width: 400
+        height: root.height - 40
+        x: root.controlsPanelVisible ? root.width - width - 20 : root.width
+        y: 20
+        z: 1000
+        visible: root.controlsPanelVisible
+
+        // Theme properties
+        primaryColor: root.primaryColor
+        backgroundColor: root.backgroundColor
+        surfaceColor: root.surfaceColor
+        borderColor: root.borderColor
+        textColor: root.textColor
+        accentColor: root.accentColor
+        successColor: root.successColor
+        warningColor: root.warningColor
+        errorColor: root.errorColor
+
+        // ViewModel
+        viewModel: viewModel
 
         Behavior on x {
             NumberAnimation {
@@ -752,1043 +855,12 @@ ApplicationWindow {
             }
         }
 
-        // Panel header
-        Rectangle {
-            id: telemetryHeader
-            width: parent.width
-            height: 50
-            color: primaryColor
-            border.color: borderColor
-            radius: 10
-            anchors.top: parent.top
-
-            RowLayout {
-                anchors.fill: parent
-                anchors.margins: 10
-
-                Text {
-                    text: "TELEMETRY DATA"
-                    font.pixelSize: 16
-                    font.bold: true
-                    Layout.fillWidth: true
-                    color: textColor
-                }
-
-                Button {
-                    text: "✕"
-                    width: 30
-                    height: 30
-
-                    background: Rectangle {
-                        color: parent.pressed ? Qt.darker(errorColor, 1.2) : errorColor
-                        radius: 15
-                        border.color: borderColor
-                    }
-
-                    contentItem: Text {
-                        text: parent.text
-                        color: textColor
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        font.bold: true
-                    }
-                    MouseArea {
-                           anchors.fill: parent
-                           cursorShape: Qt.PointingHandCursor
-                           acceptedButtons: Qt.NoButton  // Don't interfere with button clicks
-                       }
-                    hoverEnabled: false  // Change this to true to enable hover
-
-                    onClicked: root.telemetryPanelVisible = false
-                }
-
-            }
-        }
-
-        // Panel content
-        ScrollView {
-            anchors.top: telemetryHeader.bottom
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.margins: 15
-
-            GridLayout {
-                columns: 2
-                columnSpacing: 20
-                rowSpacing: 15
-                width: telemetryPanel.width - 30
-
-                // Roll
-                Text {
-                    text: "Roll:"
-                    font.pixelSize: 13
-                    font.bold: true
-                    color: textColor
-                }
-                Rectangle {
-                    Layout.fillWidth: true
-                    height: 30
-                    color: backgroundColor
-                    border.color: primaryColor
-                    radius: 5
-
-                    Text {
-                        anchors.centerIn: parent
-                        text: viewModel.roll + "°"
-                        font.pixelSize: 13
-                        color: successColor
-                        font.bold: true
-                    }
-                }
-
-                // Pitch
-                Text {
-                    text: "Pitch:"
-                    font.pixelSize: 13
-                    font.bold: true
-                    color: textColor
-                }
-                Rectangle {
-                    Layout.fillWidth: true
-                    height: 30
-                    color: backgroundColor
-                    border.color: primaryColor
-                    radius: 5
-
-                    Text {
-                        anchors.centerIn: parent
-                        text: viewModel.pitch + "°"
-                        font.pixelSize: 13
-                        color: successColor
-                        font.bold: true
-                    }
-                }
-
-                // Yaw
-                Text {
-                    text: "Yaw:"
-                    font.pixelSize: 13
-                    font.bold: true
-                    color: textColor
-                }
-                Rectangle {
-                    Layout.fillWidth: true
-                    height: 30
-                    color: backgroundColor
-                    border.color: primaryColor
-                    radius: 5
-
-                    Text {
-                        anchors.centerIn: parent
-                        text: viewModel.yaw + "°"
-                        font.pixelSize: 13
-                        color: successColor
-                        font.bold: true
-                    }
-                }
-
-                // Azimuth Motor
-                Text {
-                    text: "Azimuth Motor:"
-                    font.pixelSize: 13
-                    font.bold: true
-                    color: textColor
-                }
-                Rectangle {
-                    Layout.fillWidth: true
-                    height: 30
-                    color: backgroundColor
-                    border.color: primaryColor
-                    radius: 5
-
-                    Text {
-                        anchors.centerIn: parent
-                        text: viewModel.azimuthMotor.toString()
-                        font.pixelSize: 13
-                        color: successColor
-                        font.bold: true
-                    }
-                }
-
-                // Elevation Motor
-                Text {
-                    text: "Elevation Motor:"
-                    font.pixelSize: 13
-                    font.bold: true
-                    color: textColor
-                }
-                Rectangle {
-                    Layout.fillWidth: true
-                    height: 30
-                    color: backgroundColor
-                    border.color: primaryColor
-                    radius: 5
-
-                    Text {
-                        anchors.centerIn: parent
-                        text: viewModel.elevationMotor.toString()
-                        font.pixelSize: 13
-                        color: successColor
-                        font.bold: true
-                    }
-                }
-
-                // Latitude
-                Text {
-                    text: "Latitude:"
-                    font.pixelSize: 13
-                    font.bold: true
-                    color: textColor
-                }
-                Rectangle {
-                    Layout.fillWidth: true
-                    height: 30
-                    color: backgroundColor
-                    border.color: primaryColor
-                    radius: 5
-
-                    Text {
-                        anchors.centerIn: parent
-                        text: viewModel.latitude.toFixed(7) + "°"
-                        font.pixelSize: 11
-                        color: successColor
-                        font.bold: true
-                    }
-                }
-
-                // Longitude
-                Text {
-                    text: "Longitude:"
-                    font.pixelSize: 13
-                    font.bold: true
-                    color: textColor
-                }
-                Rectangle {
-                    Layout.fillWidth: true
-                    height: 30
-                    color: backgroundColor
-                    border.color: primaryColor
-                    radius: 5
-
-                    Text {
-                        anchors.centerIn: parent
-                        text: viewModel.longitude.toFixed(7) + "°"
-                        font.pixelSize: 11
-                        color: successColor
-                        font.bold: true
-                    }
-                }
-
-                // Altitude
-                Text {
-                    text: "Altitude:"
-                    font.pixelSize: 13
-                    font.bold: true
-                    color: textColor
-                }
-                Rectangle {
-                    Layout.fillWidth: true
-                    height: 30
-                    color: backgroundColor
-                    border.color: primaryColor
-                    radius: 5
-
-                    Text {
-                        anchors.centerIn: parent
-                        text: viewModel.altitude.toFixed(2) + " m"
-                        font.pixelSize: 13
-                        color: successColor
-                        font.bold: true
-                    }
-                }
+        onVisibleChanged: {
+            if (!visible) {
+                root.controlsPanelVisible = false
             }
         }
     }
-
-    // Floating Controls Side Panel (Right)
-       Rectangle {
-           id: controlsPanel
-           width: 400
-           height: root.height - 40
-           x: root.controlsPanelVisible ? root.width - width - 20 : root.width
-           y: 20
-           z: 1000
-           color: surfaceColor
-           border.color: borderColor
-           border.width: 2
-           radius: 10
-           opacity: 0.95
-           visible: root.controlsPanelVisible
-
-           Behavior on x {
-               NumberAnimation {
-                   duration: 300
-                   easing.type: Easing.OutCubic
-               }
-           }
-
-           // Panel header
-           Rectangle {
-               id: panelHeader
-               width: parent.width
-               height: 50
-               color: primaryColor
-               border.color: borderColor
-               radius: 10
-               anchors.top: parent.top
-
-               RowLayout {
-                   anchors.fill: parent
-                   anchors.margins: 10
-
-                   Text {
-                       text: "CONTROLS PANEL"
-                       font.pixelSize: 16
-                       font.bold: true
-                       Layout.fillWidth: true
-                       color: textColor
-                   }
-
-                   Button {
-                       text: "✕"
-                       width: 30
-                       height: 30
-
-                       background: Rectangle {
-                           color: parent.pressed ? Qt.darker(errorColor, 1.2) : errorColor
-                           radius: 15
-                           border.color: borderColor
-                       }
-
-                       contentItem: Text {
-                           text: parent.text
-                           color: textColor
-                           horizontalAlignment: Text.AlignHCenter
-                           verticalAlignment: Text.AlignVCenter
-                           font.bold: true
-                       }
-                       MouseArea {
-                              anchors.fill: parent
-                              cursorShape: Qt.PointingHandCursor
-                              acceptedButtons: Qt.NoButton  // Don't interfere with button clicks
-                          }
-                       hoverEnabled: false  // Change this to true to enable hover
-                       onClicked: root.controlsPanelVisible = false
-                   }
-               }
-           }
-
-           // Panel content
-           ScrollView {
-               anchors.top: panelHeader.bottom
-               anchors.bottom: parent.bottom
-               anchors.left: parent.left
-               anchors.right: parent.right
-               anchors.margins: 15
-
-               Column {
-                   width: controlsPanel.width - 30
-                   spacing: 20
-
-                   // Joystick Control Section
-                   Rectangle {
-                       width: parent.width
-                       height: 320
-                       color: backgroundColor
-                       border.color: borderColor
-                       border.width: 1
-                       radius: 8
-
-                       Column {
-                           anchors.fill: parent
-                           anchors.margins: 15
-                           spacing: 15
-
-                           Text {
-                               text: "JOYSTICK CONTROL"
-                               font.pixelSize: 14
-                               font.bold: true
-                               anchors.horizontalCenter: parent.horizontalCenter
-                               color: textColor
-                           }
-
-                           // Joystick visual representation and controls
-                           Item {
-                               width: parent.width
-                               height: 180
-
-                               // Up button
-                               Button {
-                                   id: upButton
-                                   text: "↑"
-                                   width: 50
-                                   height: 40
-                                   anchors.horizontalCenter: parent.horizontalCenter
-                                   anchors.top: parent.top
-                                   enabled: viewModel.connected
-
-                                   background: Rectangle {
-                                       color: upButton.pressed ? Qt.darker(primaryColor, 1.2) : (upButton.hovered ? Qt.lighter(primaryColor, 1.1) : primaryColor)
-                                       border.color: upButton.pressed ? Qt.lighter(borderColor, 1.5) : borderColor
-                                       border.width: 2
-                                       radius: 8
-
-                                       // Add subtle shadow effect
-                                       Rectangle {
-                                           anchors.fill: parent
-                                           anchors.topMargin: 2
-                                           color: "transparent"
-                                           border.color: Qt.rgba(255, 255, 255, 0.1)
-                                           border.width: 1
-                                           radius: parent.radius
-                                       }
-                                   }
-
-                                   contentItem: Text {
-                                       text: upButton.text
-                                       color: textColor
-                                       horizontalAlignment: Text.AlignHCenter
-                                       verticalAlignment: Text.AlignVCenter
-                                       font.bold: true
-                                   }
-                                   MouseArea {
-                                          anchors.fill: parent
-                                          cursorShape: Qt.PointingHandCursor
-                                          acceptedButtons: Qt.NoButton  // Don't interfere with button clicks
-                                      }
-                                   hoverEnabled: false  // Change this to true to enable hover
-                                   onClicked: viewModel.sendJoystickUp()
-                               }
-
-                               // Left and Right buttons
-                               RowLayout {
-                                   anchors.centerIn: parent
-                                   spacing: 60
-
-                                   Button {
-                                       id: leftButton
-                                       text: "←"
-                                       width: 50        // Add this line
-                                         height: 40       // Add this line
-                                         Layout.preferredWidth: 50   // Add this line for RowLayout
-                                         Layout.preferredHeight: 40  // Add this line for RowLayout
-                                         enabled: viewModel.connected
-
-                                       background: Rectangle {
-                                           color: upButton.pressed ? Qt.darker(primaryColor, 1.2) : (upButton.hovered ? Qt.lighter(primaryColor, 1.1) : primaryColor)
-                                           border.color: upButton.pressed ? Qt.lighter(borderColor, 1.5) : borderColor
-                                           border.width: 2
-                                           radius: 8
-
-                                           // Add subtle shadow effect
-                                           Rectangle {
-                                               anchors.fill: parent
-                                               anchors.topMargin: 2
-                                               color: "transparent"
-                                               border.color: Qt.rgba(255, 255, 255, 0.1)
-                                               border.width: 1
-                                               radius: parent.radius
-                                           }
-                                       }
-
-                                       contentItem: Text {
-                                           text: leftButton.text
-                                           color: textColor
-                                           horizontalAlignment: Text.AlignHCenter
-                                           verticalAlignment: Text.AlignVCenter
-                                           font.bold: true
-                                       }
-
-                                       onClicked: viewModel.sendJoystickLeft()
-                                       MouseArea {
-                                              anchors.fill: parent
-                                              cursorShape: Qt.PointingHandCursor
-                                              acceptedButtons: Qt.NoButton  // Don't interfere with button clicks
-                                          }
-                                       hoverEnabled: false  // Change this to true to enable hover
-                                   }
-
-                                   Button {
-                                       id: rightButton
-                                       text: "→"
-                                       width: 50        // Add this line
-                                         height: 40       // Add this line
-                                         Layout.preferredWidth: 50   // Add this line for RowLayout
-                                         Layout.preferredHeight: 40  // Add this line for RowLayout
-                                       enabled: viewModel.connected
-
-                                       background: Rectangle {
-                                           color: upButton.pressed ? Qt.darker(primaryColor, 1.2) : (upButton.hovered ? Qt.lighter(primaryColor, 1.1) : primaryColor)
-                                           border.color: upButton.pressed ? Qt.lighter(borderColor, 1.5) : borderColor
-                                           border.width: 2
-                                           radius: 8
-
-                                           // Add subtle shadow effect
-                                           Rectangle {
-                                               anchors.fill: parent
-                                               anchors.topMargin: 2
-                                               color: "transparent"
-                                               border.color: Qt.rgba(255, 255, 255, 0.1)
-                                               border.width: 1
-                                               radius: parent.radius
-                                           }
-                                       }
-
-                                       contentItem: Text {
-                                           text: rightButton.text
-                                           color: textColor
-                                           horizontalAlignment: Text.AlignHCenter
-                                           verticalAlignment: Text.AlignVCenter
-                                           font.bold: true
-                                       }
-
-                                       onClicked: viewModel.sendJoystickRight()
-                                       MouseArea {
-                                              anchors.fill: parent
-                                              cursorShape: Qt.PointingHandCursor
-                                              acceptedButtons: Qt.NoButton  // Don't interfere with button clicks
-                                          }
-                                       hoverEnabled: false  // Change this to true to enable hover
-                                   }
-                               }
-
-                               // Down button
-                               Button {
-                                   id: downButton
-                                   text: "↓"
-                                   width: 50
-                                   height: 40
-                                   anchors.horizontalCenter: parent.horizontalCenter
-                                   anchors.bottom: parent.bottom
-                                   enabled: viewModel.connected
-
-                                   background: Rectangle {
-                                       color: upButton.pressed ? Qt.darker(primaryColor, 1.2) : (upButton.hovered ? Qt.lighter(primaryColor, 1.1) : primaryColor)
-                                       border.color: upButton.pressed ? Qt.lighter(borderColor, 1.5) : borderColor
-                                       border.width: 2
-                                       radius: 8
-
-                                       // Add subtle shadow effect
-                                       Rectangle {
-                                           anchors.fill: parent
-                                           anchors.topMargin: 2
-                                           color: "transparent"
-                                           border.color: Qt.rgba(255, 255, 255, 0.1)
-                                           border.width: 1
-                                           radius: parent.radius
-                                       }
-                                   }
-                                   contentItem: Text {
-                                       text: downButton.text
-                                       color: textColor
-                                       horizontalAlignment: Text.AlignHCenter
-                                       verticalAlignment: Text.AlignVCenter
-                                       font.bold: true
-                                   }
-
-                                   onClicked: viewModel.sendJoystickDown()
-                                   MouseArea {
-                                          anchors.fill: parent
-                                          cursorShape: Qt.PointingHandCursor
-                                          acceptedButtons: Qt.NoButton  // Don't interfere with button clicks
-                                      }
-                                   hoverEnabled: false  // Change this to true to enable hover
-                               }
-                           }
-
-                           // Current values display
-                           RowLayout {
-                               width: parent.width
-                               spacing: 20
-
-                               Column {
-                                   Text {
-                                       text: "Pitch Value:"
-                                       font.pixelSize: 11
-                                       font.bold: true
-                                       color: textColor
-                                   }
-                                   SpinBox {
-                                       from: 0
-                                       to: 255
-                                       value: viewModel.joystickPitch
-                                       enabled: viewModel.connected
-                                       Layout.preferredWidth: 80
-
-                                       background: Rectangle {
-                                           implicitWidth: 80
-                                           implicitHeight: 30
-                                           color: surfaceColor
-                                           border.color: borderColor
-                                           border.width: 1
-                                           radius: 3
-                                       }
-
-                                       contentItem: TextInput {
-                                           anchors.fill: parent
-                                           anchors.margins: 4
-                                           text: parent.textFromValue(parent.value, parent.locale)
-                                           color: textColor
-                                           horizontalAlignment: Text.AlignHCenter
-                                           verticalAlignment: Text.AlignVCenter
-                                           font.pixelSize: 13
-                                       }
-
-                                       onValueChanged: {
-                                           if (value !== viewModel.joystickPitch) {
-                                               viewModel.joystickPitch = value
-                                               viewModel.sendCurrentJoystickValues()
-                                           }
-                                       }
-                                   }
-                               }
-
-                               Column {
-                                   Text {
-                                       text: "Yaw Value:"
-                                       font.pixelSize: 11
-                                       font.bold: true
-                                       color: textColor
-                                   }
-                                   SpinBox {
-                                       from: 0
-                                       to: 255
-                                       value: viewModel.joystickYaw
-                                       enabled: viewModel.connected
-                                       Layout.preferredWidth: 80
-
-                                       background: Rectangle {
-                                           implicitWidth: 80
-                                           implicitHeight: 30
-                                           color: surfaceColor
-                                           border.color: borderColor
-                                           border.width: 1
-                                           radius: 3
-                                       }
-
-                                       contentItem: TextInput {
-                                           anchors.fill: parent
-                                           anchors.margins: 4
-                                           text: parent.textFromValue(parent.value, parent.locale)
-                                           color: textColor
-                                           horizontalAlignment: Text.AlignHCenter
-                                           verticalAlignment: Text.AlignVCenter
-                                           font.pixelSize: 13
-                                       }
-
-                                       onValueChanged: {
-                                           if (value !== viewModel.joystickYaw) {
-                                               viewModel.joystickYaw = value
-                                               viewModel.sendCurrentJoystickValues()
-                                           }
-                                       }
-                                   }
-
-                               }
-                           }
-                       }
-                   }
-
-                   // PID Gains Control Section
-                   Rectangle {
-                       width: parent.width
-                       height: 300
-                       color: backgroundColor
-                       border.color: borderColor
-                       border.width: 1
-                       radius: 8
-
-                       Column {
-                           anchors.fill: parent
-                           anchors.margins: 15
-                           spacing: 10
-
-                           Text {
-                               text: "PID GAINS CONTROL"
-                               font.pixelSize: 14
-                               font.bold: true
-                               anchors.horizontalCenter: parent.horizontalCenter
-                               color: textColor
-                           }
-
-                           // Azimuth PID gains
-                           Rectangle {
-                               width: parent.width
-                               height: 90
-                               color: surfaceColor
-                               border.color: borderColor
-                               radius: 5
-
-                               Column {
-                                   anchors.fill: parent
-                                   anchors.margins: 10
-                                   spacing: 8
-
-                                   Text {
-                                       text: "Azimuth Motor PID"
-                                       font.pixelSize: 12
-                                       font.bold: true
-                                       color: textColor
-                                   }
-
-                                   RowLayout {
-                                       width: parent.width
-                                       spacing: 10
-
-                                       Column {
-                                           Text {
-                                               text: "Kp:"
-                                               font.pixelSize: 10
-                                               color: textColor
-                                           }
-                                           SpinBox {
-                                               from: 0
-                                               to: 255
-                                               value: viewModel.azimuthKp
-                                               enabled: viewModel.connected
-                                               Layout.preferredWidth: 80
-
-                                               background: Rectangle {
-                                                   implicitWidth: 80
-                                                   implicitHeight: 30
-                                                   color: backgroundColor
-                                                   border.color: borderColor
-                                                   border.width: 1
-                                                   radius: 3
-                                               }
-
-                                               contentItem: TextInput {
-                                                   text: parent.textFromValue(parent.value, parent.locale)
-                                                   color: textColor
-                                                   horizontalAlignment: Qt.AlignHCenter
-                                                   verticalAlignment: Qt.AlignVCenter
-                                               }
-
-                                               onValueChanged: viewModel.azimuthKp = value
-                                           }
-                                       }
-
-                                       Column {
-                                           Text {
-                                               text: "Ki:"
-                                               font.pixelSize: 10
-                                               color: textColor
-                                           }
-                                           SpinBox {
-                                               from: 0
-                                               to: 255
-                                               value: viewModel.azimuthKi
-                                               enabled: viewModel.connected
-                                               Layout.preferredWidth: 80
-
-                                               background: Rectangle {
-                                                   color: backgroundColor
-                                                   border.color: borderColor
-                                                   border.width: 1
-                                                   radius: 3
-                                                   implicitWidth: 80
-                                                   implicitHeight: 30
-                                               }
-
-                                               contentItem: TextInput {
-                                                   text: parent.textFromValue(parent.value, parent.locale)
-                                                   color: textColor
-                                                   horizontalAlignment: Qt.AlignHCenter
-                                                   verticalAlignment: Qt.AlignVCenter
-                                               }
-
-                                               onValueChanged: viewModel.azimuthKi = value
-                                           }
-                                       }
-
-                                       Column {
-                                           Text {
-                                               text: "Kd:"
-                                               font.pixelSize: 10
-                                               color: textColor
-                                           }
-                                           SpinBox {
-                                               from: 0
-                                               to: 255
-                                               value: viewModel.azimuthKd
-                                               enabled: viewModel.connected
-                                               Layout.preferredWidth: 80
-
-                                               background: Rectangle {
-                                                   color: backgroundColor
-                                                   border.color: borderColor
-                                                   border.width: 1
-                                                   radius: 3
-                                                   implicitWidth: 80
-                                                   implicitHeight: 30
-                                               }
-
-                                               contentItem: TextInput {
-                                                   text: parent.textFromValue(parent.value, parent.locale)
-                                                   color: textColor
-                                                   horizontalAlignment: Qt.AlignHCenter
-                                                   verticalAlignment: Qt.AlignVCenter
-                                               }
-
-                                               onValueChanged: viewModel.azimuthKd = value
-                                           }
-                                       }
-                                   }
-                               }
-                           }
-
-                           // Elevation PID gains
-                           Rectangle {
-                               width: parent.width
-                               height: 90
-                               color: surfaceColor
-                               border.color: borderColor
-                               radius: 5
-
-                               Column {
-                                   anchors.fill: parent
-                                   anchors.margins: 10
-                                   spacing: 8
-
-                                   Text {
-                                       text: "Elevation Motor PID"
-                                       font.pixelSize: 12
-                                       font.bold: true
-                                       color: textColor
-                                   }
-
-                                   RowLayout {
-                                       width: parent.width
-                                       spacing: 10
-
-                                       Column {
-                                           Text {
-                                               text: "Kp:"
-                                               font.pixelSize: 10
-                                               color: textColor
-                                           }
-                                           SpinBox {
-                                               from: 0
-                                               to: 255
-                                               value: viewModel.elevationKp
-                                               enabled: viewModel.connected
-                                               Layout.preferredWidth: 80
-
-                                               background: Rectangle {
-                                                   color: backgroundColor
-                                                   border.color: borderColor
-                                                   border.width: 1
-                                                   radius: 3
-                                                   implicitWidth: 80
-                                                   implicitHeight: 30
-                                               }
-
-                                               contentItem: TextInput {
-                                                   text: parent.textFromValue(parent.value, parent.locale)
-                                                   color: textColor
-                                                   horizontalAlignment: Qt.AlignHCenter
-                                                   verticalAlignment: Qt.AlignVCenter
-                                               }
-
-                                               onValueChanged: viewModel.elevationKp = value
-                                           }
-                                       }
-
-                                       Column {
-                                           Text {
-                                               text: "Ki:"
-                                               font.pixelSize: 10
-                                               color: textColor
-                                           }
-                                           SpinBox {
-                                               from: 0
-                                               to: 255
-                                               value: viewModel.elevationKi
-                                               enabled: viewModel.connected
-                                               Layout.preferredWidth: 80
-
-                                               background: Rectangle {
-                                                   color: backgroundColor
-                                                   border.color: borderColor
-                                                   border.width: 1
-                                                   radius: 3
-                                                   implicitWidth: 80
-                                                   implicitHeight: 30
-                                               }
-
-                                               contentItem: TextInput {
-                                                   text: parent.textFromValue(parent.value, parent.locale)
-                                                   color: textColor
-                                                   horizontalAlignment: Qt.AlignHCenter
-                                                   verticalAlignment: Qt.AlignVCenter
-                                               }
-
-                                               onValueChanged: viewModel.elevationKi = value
-                                           }
-                                       }
-
-                                       Column {
-                                           Text {
-                                               text: "Kd:"
-                                               font.pixelSize: 10
-                                               color: textColor
-                                           }
-                                           SpinBox {
-                                               from: 0
-                                               to: 255
-                                               value: viewModel.elevationKd
-                                               enabled: viewModel.connected
-                                               Layout.preferredWidth: 80
-
-                                               background: Rectangle {
-                                                   color: backgroundColor
-                                                   border.color: borderColor
-                                                   border.width: 1
-                                                   radius: 3
-                                                   implicitWidth: 80
-                                                   implicitHeight: 30
-                                               }
-
-                                               contentItem: TextInput {
-                                                   text: parent.textFromValue(parent.value, parent.locale)
-                                                   color: textColor
-                                                   horizontalAlignment: Qt.AlignHCenter
-                                                   verticalAlignment: Qt.AlignVCenter
-                                               }
-
-                                               onValueChanged: viewModel.elevationKd = value
-                                           }
-                                       }
-                                   }
-                               }
-                           }
-
-                           // Send PID gains button
-                           Button {
-                               text: "Send PID Gains"
-                               width: 150
-                               height: 35
-                               anchors.horizontalCenter: parent.horizontalCenter
-                               enabled: viewModel.connected
-
-                               background: Rectangle {
-                                   color:primaryColor
-                                   radius: 5
-                                   border.color: borderColor
-                               }
-
-                               contentItem: Text {
-                                   text: parent.text
-                                   color: textColor
-                                   horizontalAlignment: Text.AlignHCenter
-                                   verticalAlignment: Text.AlignVCenter
-                                   font.bold: true
-                               }
-
-                               onClicked: viewModel.sendPIDGains()
-                               MouseArea {
-                                      anchors.fill: parent
-                                      cursorShape: Qt.PointingHandCursor
-                                      acceptedButtons: Qt.NoButton  // Don't interfere with button clicks
-                                  }
-                               hoverEnabled: false  // Change this to true to enable hover
-                           }
-                       }
-                   }
-
-                   // Camera Control Section in Controls Panel
-                   Rectangle {
-                       width: parent.width
-                       height: 120
-                       color: backgroundColor
-                       border.color: borderColor
-                       border.width: 1
-                       radius: 8
-
-                       Column {
-                           anchors.fill: parent
-                           anchors.margins: 15
-                           spacing: 15
-
-                           Text {
-                               text: "CAMERA CONTROLS"
-                               font.pixelSize: 14
-                               font.bold: true
-                               anchors.horizontalCenter: parent.horizontalCenter
-                               color: textColor
-                           }
-
-                           // Zoom Control
-                           RowLayout {
-                               width: parent.width
-                               spacing: 15
-
-                               Text {
-                                   text: "Zoom Level:"
-                                   font.pixelSize: 12
-                                   font.bold: true
-                                   color: textColor
-                               }
-
-                               SpinBox {
-                                   id: zoomSpinBox
-                                   from: 0
-                                   to: 255
-                                   value: viewModel.zoomLevel
-                                   enabled: viewModel.connected
-
-                                   background: Rectangle {
-                                       color: surfaceColor
-                                       border.color: borderColor
-                                       border.width: 1
-                                       radius: 3
-                                       implicitWidth: 80
-                                       implicitHeight: 30
-                                   }
-
-                                   contentItem: TextInput {
-                                       text: parent.textFromValue(parent.value, parent.locale)
-                                       color: textColor
-                                       horizontalAlignment: Qt.AlignHCenter
-                                       verticalAlignment: Qt.AlignVCenter
-                                   }
-
-                                   onValueChanged: viewModel.zoomLevel = value
-                               }
-
-                               Button {
-                                   text: "Send Zoom"
-                                   enabled: viewModel.connected
-
-                                   background: Rectangle {
-                                       color: primaryColor
-                                       radius: 5
-                                       border.color: borderColor
-                                   }
-
-                                   contentItem: Text {
-                                       text: parent.text
-                                       color: "white"
-                                       horizontalAlignment: Text.AlignHCenter
-                                       verticalAlignment: Text.AlignVCenter
-                                       font.bold: true
-                                   }
-
-                                   onClicked: viewModel.sendZoom()
-                                   MouseArea {
-                                          anchors.fill: parent
-                                          cursorShape: Qt.PointingHandCursor
-                                          acceptedButtons: Qt.NoButton  // Don't interfere with button clicks
-                                      }
-                                   hoverEnabled: false  // Change this to true to enable hover
-                               }
-                           }
-                       }
-                   }
-               }
-           }
-       }
     Rectangle {
         anchors.fill: parent
         color: "#000000"
@@ -1815,200 +887,31 @@ visible: root.controlsPanelVisible || root.telemetryPanelVisible || root.testPan
     }
 
     // Capture Panel (Floating popup)
-    Rectangle {
+    // Capture Panel (now a component)
+    CapturePanel {
         id: capturePanel
-        width: 300
-        height: 250
-        x: root.capturePanelVisible ? (root.width - width) / 2 : root.width
-        y: root.capturePanelVisible ? (root.height - height) / 2 : -height
-        z: 1003
-        color: surfaceColor
-        border.color: borderColor
-        border.width: 2
-        radius: 15
-        opacity: 0.98
-        visible: root.capturePanelVisible
+        panelVisible: root.capturePanelVisible
 
-        Behavior on x {
-            NumberAnimation {
-                duration: 300
-                easing.type: Easing.OutCubic
-            }
-        }
+        // Theme passthrough (keeps exact colors/appearance)
+        primaryColor:    root.primaryColor
+        backgroundColor: root.backgroundColor
+        surfaceColor:    root.surfaceColor
+        borderColor:     root.borderColor
+        textColor:       root.textColor
+        successColor:    root.successColor
+        warningColor:    root.warningColor
+        errorColor:      root.errorColor
 
-        Behavior on y {
-            NumberAnimation {
-                duration: 300
-                easing.type: Easing.OutCubic
-            }
-        }
+        // Hook to your existing backend
+        mediaViewModel: mediaViewModel
 
-        // Panel header
-        Rectangle {
-            id: captureHeader
-            width: parent.width
-            height: 50
-            color: primaryColor
-            border.color: borderColor
-            radius: 15
-            anchors.top: parent.top
+        // Keep original close behavior
+        onCloseRequested: root.capturePanelVisible = false
 
-            RowLayout {
-                anchors.fill: parent
-                anchors.margins: 10
-
-                Text {
-                    text: "CAPTURE OPTIONS"
-                    font.pixelSize: 16
-                    font.bold: true
-                    Layout.fillWidth: true
-                    color: "white"
-                }
-
-                Button {
-                    text: "✕"
-                    width: 30
-                    height: 30
-
-                    background: Rectangle {
-                        color: parent.pressed ? Qt.darker(errorColor, 1.2) : errorColor
-                        radius: 15
-                        border.color: borderColor
-                    }
-
-                    contentItem: Text {
-                        text: parent.text
-                        color: textColor
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        font.bold: true
-                    }
-
-                    onClicked: root.capturePanelVisible = false
-                    MouseArea {
-                           anchors.fill: parent
-                           cursorShape: Qt.PointingHandCursor
-                           acceptedButtons: Qt.NoButton  // Don't interfere with button clicks
-                       }
-                    hoverEnabled: false  // Change this to true to enable hover
-                }
-            }
-        }
-
-        // Panel content
-        Column {
-            anchors.top: captureHeader.bottom
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.margins: 20
-            spacing: 20
-
-            // Recording Section
-            Rectangle {
-                width: parent.width
-                height: 80
-                color: backgroundColor
-                border.color: borderColor
-                radius: 8
-
-                Column {
-                    anchors.centerIn: parent
-                    spacing: 10
-
-                    Button {
-                        text: mediaViewModel.isRecording ? "Stop Recording" : "Start Recording"
-                        width: 200
-                        height: 40
-                        anchors.horizontalCenter: parent.horizontalCenter
-
-                        background: Rectangle {
-                            color: mediaViewModel.isRecording ? errorColor : "green"
-                            radius: 8
-                            border.color: borderColor
-                            border.width: 1
-                        }
-
-                        contentItem: Text {
-                            text: parent.text
-                            color: textColor
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            font.bold: true
-                        }
-
-                        onClicked: {
-                            root.capturePanelVisible = false
-                            mediaViewModel.startOrStopRecording("")
-                        }
-                        MouseArea {
-                               anchors.fill: parent
-                               cursorShape: Qt.PointingHandCursor
-                               acceptedButtons: Qt.NoButton  // Don't interfere with button clicks
-                           }
-                        hoverEnabled: false  // Change this to true to enable hover
-                    }
-
-
-                }
-            }
-
-            // Screenshot Section
-            Rectangle {
-                width: parent.width
-                height: 60
-                color: backgroundColor
-                border.color: borderColor
-                radius: 8
-
-                Button {
-                    text: "Take Screenshot"
-                    width: 200
-                    height: 40
-                    anchors.centerIn: parent
-
-                    background: Rectangle {
-                        color: "green"
-                        radius: 8
-                        border.color: borderColor
-                        border.width: 1
-                    }
-
-                    contentItem: Text {
-                        text: parent.text
-                        color: "white"
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        font.bold: true
-                    }
-
-                    onClicked: {
-                        root.capturePanelVisible = false
-                        screenshotTimer.start()
-                    }
-                    MouseArea {
-                           anchors.fill: parent
-                           cursorShape: Qt.PointingHandCursor
-                           acceptedButtons: Qt.NoButton  // Don't interfere with button clicks
-                       }
-                    hoverEnabled: false  // Change this to true to enable hover
-                }
-            }
-        }
-
-        // Timer for delayed screenshot
-        Timer {
-            id: screenshotTimer
-            interval: 350
-            repeat: false
-            onTriggered: {
-                flashAnimation.start()
-                mediaViewModel.takeSnapshot("")
-            }
-        }
+        // Ask Main to run the white flash animation (exactly like before)
+        onRequestFlash: flashAnimation.start()
     }
-
-    // Flash effect for screenshot
+     // Flash effect for screenshot
     Rectangle {
         id: flashEffect
         anchors.fill: parent
@@ -2038,19 +941,27 @@ visible: root.controlsPanelVisible || root.telemetryPanelVisible || root.testPan
 
     // 5. ADD THIS MAP PANEL (after test panel, around line 1200)
     // Real Map Panel with Google Maps style
-    Rectangle {
+    // In Main.qml (replace the existing mapPanel)
+    MapPanel {
         id: mapPanel
         width: 400
         height: root.height - 40
         x: root.mapPanelVisible ? root.width - width - 20 : root.width
         y: 20
         z: 1000
-        color: surfaceColor
-        border.color: borderColor
-        border.width: 2
-        radius: 10
-        opacity: 0.95
         visible: root.mapPanelVisible
+
+        // Theme properties
+        surfaceColor: root.surfaceColor
+        borderColor: root.borderColor
+        primaryColor: root.primaryColor
+        textColor: root.textColor
+        successColor: root.successColor
+        warningColor: root.warningColor
+        errorColor: root.errorColor
+
+        // ViewModel
+        mapViewModel: mapViewModel
 
         Behavior on x {
             NumberAnimation {
@@ -2059,257 +970,12 @@ visible: root.controlsPanelVisible || root.telemetryPanelVisible || root.testPan
             }
         }
 
-        // Panel header
-        Rectangle {
-            id: mapHeader
-            width: parent.width
-            height: 50
-            color: primaryColor
-            border.color: borderColor
-            radius: 10
-            anchors.top: parent.top
-
-            RowLayout {
-                anchors.fill: parent
-                anchors.margins: 10
-
-                Text {
-                    text: "MAP VIEW"
-                    font.pixelSize: 16
-                    font.bold: true
-                    Layout.fillWidth: true
-                    color: textColor
-                }
-
-                Button {
-                    text: "✕"
-                    width: 30
-                    height: 30
-
-                    background: Rectangle {
-                        color: parent.pressed ? Qt.darker(errorColor, 1.2) : errorColor
-                        radius: 15
-                        border.color: borderColor
-                    }
-
-                    contentItem: Text {
-                        text: parent.text
-                        color: textColor
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        font.bold: true
-                    }
-
-                    onClicked: root.mapPanelVisible = false
-                    MouseArea {
-                        anchors.fill: parent
-                        cursorShape: Qt.PointingHandCursor
-                        acceptedButtons: Qt.NoButton
-                    }
-                    hoverEnabled: false
-                }
+        onVisibleChanged: {
+            if (!visible) {
+                root.mapPanelVisible = false
             }
         }
-
-        // Panel content
-        Column {
-            anchors.top: mapHeader.bottom
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.margins: 15
-            spacing: 15
-
-            // Map View
-            Rectangle {
-                width: parent.width
-                height: 450
-                color: backgroundColor
-                border.color: borderColor
-                border.width: 2
-                radius: 8
-                clip: true
-
-                Map {
-                    id: map
-                    anchors.fill: parent
-                    anchors.margins: 2
-
-                    // Map plugin - OpenStreetMap (free)
-                    plugin: Plugin {
-                        name: "osm"
-                    }
-
-                    center: mapViewModel.mapCenter
-                    zoomLevel: 12
-
-                    // Disable gestures for simplicity
-
-                    // Plane marker
-                    MapQuickItem {
-                        id: planeMarker
-                        coordinate: mapViewModel.planeCoordinate
-                        anchorPoint.x: planeIcon.width / 2
-                        anchorPoint.y: planeIcon.height / 2
-
-                        sourceItem: Rectangle {
-                            id: planeIcon
-                            width: 32
-                            height: 32
-                            color: "transparent"
-
-                            rotation: mapViewModel.planeHeading
-
-                            // Plane shape
-                            Canvas {
-                                anchors.fill: parent
-                                onPaint: {
-                                    var ctx = getContext("2d");
-                                    ctx.clearRect(0, 0, width, height);
-
-                                    // Set plane color based on GPS status
-                                    ctx.fillStyle = mapViewModel.hasGPSData ? "#00FF00" : "#FFAA00";
-                                    ctx.strokeStyle = "#FFFFFF";
-                                    ctx.lineWidth = 2;
-
-                                    // Draw plane shape
-                                    ctx.beginPath();
-                                    // Nose
-                                    ctx.moveTo(width/2, 2);
-                                    // Right wing
-                                    ctx.lineTo(width/2 + 10, height/2 + 5);
-                                    ctx.lineTo(width/2 + 8, height/2 + 8);
-                                    // Right tail
-                                    ctx.lineTo(width/2 + 3, height - 2);
-                                    ctx.lineTo(width/2 + 1, height - 2);
-                                    ctx.lineTo(width/2 + 1, height/2 + 8);
-                                    // Body
-                                    ctx.lineTo(width/2, height/2 + 6);
-                                    ctx.lineTo(width/2 - 1, height/2 + 8);
-                                    ctx.lineTo(width/2 - 1, height - 2);
-                                    ctx.lineTo(width/2 - 3, height - 2);
-                                    // Left tail
-                                    ctx.lineTo(width/2 - 8, height/2 + 8);
-                                    ctx.lineTo(width/2 - 10, height/2 + 5);
-                                    // Left wing
-                                    ctx.closePath();
-
-                                    ctx.fill();
-                                    ctx.stroke();
-                                }
-                            }
-
-                            // Pulsing effect for GPS mode
-                            Rectangle {
-                                anchors.centerIn: parent
-                                width: parent.width + 10
-                                height: parent.height + 10
-                                color: "transparent"
-                                border.color: mapViewModel.hasGPSData ? "#00FF00" : "#FFAA00"
-                                border.width: 2
-                                radius: width / 2
-                                opacity: 0.3
-
-                                SequentialAnimation on scale {
-                                    running: true
-                                    loops: Animation.Infinite
-                                    NumberAnimation { from: 1.0; to: 1.3; duration: 1000 }
-                                    NumberAnimation { from: 1.3; to: 1.0; duration: 1000 }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            // GPS Data Display Rectangle
-            Rectangle {
-                width: parent.width
-                height: 150
-                color: backgroundColor
-                border.color: mapViewModel.hasGPSData ? successColor : warningColor
-                border.width: 2
-                radius: 8
-
-                Column {
-                    anchors.fill: parent
-                    anchors.margins: 15
-                    spacing: 12
-
-                    Text {
-                        text: mapViewModel.hasGPSData ? "GPS DATA" : "RANDOM MODE"
-                        font.pixelSize: 14
-                        font.bold: true
-                        color: mapViewModel.hasGPSData ? successColor : warningColor
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-
-                    // Latitude
-                    Row {
-                        width: parent.width
-                        spacing: 10
-
-                        Text {
-                            text: "Latitude:"
-                            font.pixelSize: 12
-                            font.bold: true
-                            color: textColor
-                            width: 70
-                        }
-
-                        Text {
-                            text: mapViewModel.latitudeText
-                            font.pixelSize: 12
-                            color: mapViewModel.hasGPSData ? successColor : warningColor
-                            font.bold: true
-                        }
-                    }
-
-                    // Longitude
-                    Row {
-                        width: parent.width
-                        spacing: 10
-
-                        Text {
-                            text: "Longitude:"
-                            font.pixelSize: 12
-                            font.bold: true
-                            color: textColor
-                            width: 70
-                        }
-
-                        Text {
-                            text: mapViewModel.longitudeText
-                            font.pixelSize: 12
-                            color: mapViewModel.hasGPSData ? successColor : warningColor
-                            font.bold: true
-                        }
-                    }
-
-                    // Altitude
-                    Row {
-                        width: parent.width
-                        spacing: 10
-
-                        Text {
-                            text: "Altitude:"
-                            font.pixelSize: 12
-                            font.bold: true
-                            color: textColor
-                            width: 70
-                        }
-
-                        Text {
-                            text: mapViewModel.altitudeText
-                            font.pixelSize: 12
-                            color: mapViewModel.hasGPSData ? successColor : warningColor
-                            font.bold: true
-                        }
-                    }
-                }
-            }
-        }}
-    // Floating Visualization Side Panel (Right)
+    }
     Rectangle {
         id: visualizationPanel
         width: 450
@@ -2384,245 +1050,540 @@ visible: root.controlsPanelVisible || root.telemetryPanelVisible || root.testPan
         }
 
         // Panel content
-        ScrollView {
+        // Panel content - Updated to use ColumnLayout instead of ScrollView
+        // Panel content - Updated to use ColumnLayout instead of ScrollView
+        // Panel content - Updated to use ColumnLayout instead of ScrollView
+        ColumnLayout {
             anchors.top: visualizationHeader.bottom
             anchors.bottom: parent.bottom
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.margins: 15
+            spacing: 20
 
-            Column {
-                width: visualizationPanel.width - 30
-                spacing: 20
+            // Thermal Camera Controls
+            Rectangle {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 100
+                color: backgroundColor
+                border.color: borderColor
+                border.width: 1
+                radius: 8
 
-                // Thermal Camera Controls
-                Rectangle {
-                    width: parent.width
-                    height: 100
-                    color: backgroundColor
-                    border.color: borderColor
-                    border.width: 1
-                    radius: 8
+                Column {
+                    anchors.fill: parent
+                    anchors.margins: 15
+                    spacing: 10
 
-                    Column {
-                        anchors.fill: parent
-                        anchors.margins: 15
+                    Text {
+                        text: "THERMAL CAMERA CONTROLS"
+                        font.pixelSize: 14
+                        font.bold: true
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: textColor
+                    }
+
+                    RowLayout {
+                        width: parent.width
                         spacing: 10
 
                         Text {
-                            text: "THERMAL CAMERA CONTROLS"
-                            font.pixelSize: 14
+                            text: "Thermal IP:"
+                            font.pixelSize: 12
                             font.bold: true
-                            anchors.horizontalCenter: parent.horizontalCenter
                             color: textColor
                         }
 
-                        RowLayout {
-                            width: parent.width
-                            spacing: 10
+                        TextField {
+                            Layout.preferredWidth: 120
+                            text: thermalCameraViewModel.thermalIpAddress
+                            enabled: !thermalCameraViewModel.thermalStreaming
+                            color: textColor
+
+                            background: Rectangle {
+                                color: surfaceColor
+                                border.color: borderColor
+                                border.width: 1
+                                radius: 3
+                            }
+
+                            onTextChanged: {
+                                thermalCameraViewModel.thermalIpAddress = text
+                            }
+                        }
+
+                        Text {
+                            text: "Port:"
+                            font.pixelSize: 12
+                            font.bold: true
+                            color: textColor
+                        }
+
+                        SpinBox {
+                            Layout.preferredWidth: 80
+                            from: 1
+                            to: 65535
+                            value: thermalCameraViewModel.thermalPort
+                            enabled: !thermalCameraViewModel.thermalStreaming
+
+                            background: Rectangle {
+                                color: surfaceColor
+                                border.color: borderColor
+                                border.width: 1
+                                radius: 3
+                            }
+
+                            contentItem: TextInput {
+                                text: parent.textFromValue(parent.value, parent.locale)
+                                color: textColor
+                                horizontalAlignment: Qt.AlignHCenter
+                                verticalAlignment: Qt.AlignVCenter
+                            }
+
+                            onValueChanged: {
+                                thermalCameraViewModel.thermalPort = value
+                            }
+                        }
+
+                        Button {
+                            text: thermalCameraViewModel.thermalStreamButtonText
+                            Layout.preferredWidth: 100
+
+                            background: Rectangle {
+                                color: thermalCameraViewModel.thermalStreaming ? errorColor : "green"
+                                radius: 5
+                                border.color: borderColor
+                                border.width: 1
+                            }
+
+                            contentItem: Text {
+                                text: parent.text
+                                color: textColor
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                                font.bold: true
+                            }
+
+                            onClicked: {
+                                thermalCameraViewModel.toggleThermalStream()
+                            }
+                            MouseArea {
+                                anchors.fill: parent
+                                cursorShape: Qt.PointingHandCursor
+                                acceptedButtons: Qt.NoButton
+                            }
+                            hoverEnabled: false
+                        }
+                    }
+                }
+            }
+
+            // Thermal Camera Display
+            Rectangle {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.preferredHeight: 300
+                color: backgroundColor
+                border.color: borderColor
+                border.width: 2
+                radius: 8
+
+                Column {
+                    anchors.fill: parent
+                    anchors.margins: 10
+                    spacing: 10
+
+                    // Status and frame info
+                    Row {
+                        width: parent.width
+                        spacing: 20
+
+                        Text {
+                            text: thermalCameraViewModel.thermalCameraStatus
+                            font.pixelSize: 12
+                            color: thermalCameraViewModel.thermalStreaming ? successColor : errorColor
+                        }
+
+                        Text {
+                            text: thermalCameraViewModel.thermalStreaming ?
+                                  "Frames: " + thermalCameraViewModel.thermalFrameCount + " | FPS: " + thermalCameraViewModel.thermalFrameRate.toFixed(1) : ""
+                            font.pixelSize: 10
+                            color: "#aaaaaa"
+                        }
+                    }
+
+                    // Thermal video display
+                    Item {
+                        id: thermalContainer
+                        width: parent.width
+                        height: parent.height - 40
+
+                        // Calculate maximum size that maintains 16:9 aspect ratio
+                        property real targetAspect: 16.0 / 9.0
+                        property real availableWidth: width - 20  // Account for margins
+                        property real availableHeight: height - 20
+
+                        // Calculate actual display size - fit the largest possible 16:9 rectangle
+                        property real displayWidth: {
+                            var widthBasedOnHeight = availableHeight * targetAspect
+                            var heightBasedOnWidth = availableWidth / targetAspect
+
+                            if (heightBasedOnWidth <= availableHeight) {
+                                // Width is the limiting factor
+                                return availableWidth
+                            } else {
+                                // Height is the limiting factor
+                                return widthBasedOnHeight
+                            }
+                        }
+
+                        property real displayHeight: displayWidth / targetAspect
+
+                        Image {
+                            id: thermalImage
+                            anchors.centerIn: parent
+                            width: thermalContainer.displayWidth
+                            height: thermalContainer.displayHeight
+                            fillMode: Image.PreserveAspectFit
+                            source: root.framesSwapped ? cameraViewModel.currentFrameUrl : thermalCameraViewModel.currentThermalFrameUrl
+                            cache: false
+                            smooth: true
+
+                            Rectangle {
+                                anchors.fill: parent
+                                color: "transparent"
+                                border.color: thermalCameraViewModel.thermalStreaming ? "#FF6B35" : borderColor
+                                border.width: 2
+                                radius: 5
+                                visible: thermalCameraViewModel.thermalStreaming
+                            }
 
                             Text {
-                                text: "Thermal IP:"
-                                font.pixelSize: 12
-                                font.bold: true
-                                color: textColor
+                                anchors.centerIn: parent
+                                text: thermalCameraViewModel.thermalStreaming ? "" : "Thermal Camera Display\n\nConfigure IP and Port above,\nthen click 'Start Thermal'"
+                                font.pixelSize: 14
+                                color: "#888888"
+                                horizontalAlignment: Text.AlignHCenter
+                                lineHeight: 1.5
+                                visible: !thermalCameraViewModel.thermalStreaming
                             }
 
-                            TextField {
-                                Layout.preferredWidth: 120
-                                text: thermalCameraViewModel.thermalIpAddress
-                                enabled: !thermalCameraViewModel.thermalStreaming
-                                color: textColor
-
-                                background: Rectangle {
-                                    color: surfaceColor
-                                    border.color: borderColor
-                                    border.width: 1
-                                    radius: 3
-                                }
-
-                                onTextChanged: {
-                                    thermalCameraViewModel.thermalIpAddress = text
-                                }
-                            }
-
-                            Text {
-                                text: "Port:"
-                                font.pixelSize: 12
-                                font.bold: true
-                                color: textColor
-                            }
-
-                            SpinBox {
-                                Layout.preferredWidth: 80
-                                from: 1
-                                to: 65535
-                                value: thermalCameraViewModel.thermalPort
-                                enabled: !thermalCameraViewModel.thermalStreaming
-
-                                background: Rectangle {
-                                    color: surfaceColor
-                                    border.color: borderColor
-                                    border.width: 1
-                                    radius: 3
-                                }
-
-                                contentItem: TextInput {
-                                    text: parent.textFromValue(parent.value, parent.locale)
-                                    color: textColor
-                                    horizontalAlignment: Qt.AlignHCenter
-                                    verticalAlignment: Qt.AlignVCenter
-                                }
-
-                                onValueChanged: {
-                                    thermalCameraViewModel.thermalPort = value
-                                }
-                            }
-
-                            Button {
-                                text: thermalCameraViewModel.thermalStreamButtonText
-                                Layout.preferredWidth: 100
-
-                                background: Rectangle {
-                                    color: thermalCameraViewModel.thermalStreaming ? errorColor : "green"
-                                    radius: 5
-                                    border.color: borderColor
-                                    border.width: 1
-                                }
-
-                                contentItem: Text {
-                                    text: parent.text
-                                    color: textColor
-                                    horizontalAlignment: Text.AlignHCenter
-                                    verticalAlignment: Text.AlignVCenter
-                                    font.bold: true
-                                }
+                            // Add click functionality to swap frames
+                            MouseArea {
+                                anchors.fill: parent
+                                enabled: thermalCameraViewModel.thermalStreaming && cameraViewModel.streaming
+                                cursorShape: enabled ? Qt.PointingHandCursor : Qt.ArrowCursor
 
                                 onClicked: {
-                                    thermalCameraViewModel.toggleThermalStream()
+                                    root.framesSwapped = !root.framesSwapped
                                 }
-                                MouseArea {
+                            }
+
+                            // Visual indicator for swap state
+                            Rectangle {
+                                anchors.top: parent.top
+                                anchors.right: parent.right
+                                anchors.margins: 10
+                                width: 80
+                                height: 25
+                                color: Qt.rgba(0, 0, 0, 0.7)
+                                radius: 12
+                                visible: thermalCameraViewModel.thermalStreaming && cameraViewModel.streaming
+
+                                Text {
+                                    anchors.centerIn: parent
+                                    text: root.framesSwapped ? "OPTICAL" : "THERMAL"
+                                    font.pixelSize: 10
+                                    font.bold: true
+                                    color: root.framesSwapped ? "#00FF00" : "#FF6B35"
+                                }
+                            }
+                        }
+
+                        BusyIndicator {
+                            anchors.centerIn: parent
+                            running: thermalCameraViewModel.thermalCameraStatus.indexOf("Connecting") >= 0
+                            visible: running
+                        }
+                    }
+                }
+            }
+
+            // Thermal Analysis Tools
+            Rectangle {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 350  // Increased height
+                color: backgroundColor
+                border.color: borderColor
+                border.width: 1
+                radius: 8
+
+                Column {
+                    anchors.fill: parent
+                    anchors.margins: 15
+                    spacing: 15
+
+                    Text {
+                        text: "DETECTED OBJECT"
+                        font.pixelSize: 14
+                        font.bold: true
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: textColor
+                    }
+
+                    // Object Detection Status
+                    Rectangle {
+                        width: parent.width
+                        height: 40
+                        color: surfaceColor
+                        border.color: borderColor
+                        radius: 5
+
+                        Row {
+                            anchors.centerIn: parent
+                            spacing: 10
+
+                            Rectangle {
+                                width: 12
+                                height: 12
+                                radius: 6
+                                color: {
+                                    if (!cameraViewModel.trackingEnabled) return "#666666"
+                                    if (objectDetectionInfo.status === "tracking") return "#00FF00"
+                                    if (objectDetectionInfo.status === "lost") return "#FF0000"
+                                    if (objectDetectionInfo.status === "waiting_for_target") return "#FFA500"
+                                    return "#666666"
+                                }
+                            }
+
+                            Text {
+                                text: {
+                                    if (!cameraViewModel.trackingEnabled) return "Tracking Disabled"
+                                    if (objectDetectionInfo.status === "tracking") return "TRACKING ACTIVE"
+                                    if (objectDetectionInfo.status === "lost") return "TARGET LOST"
+                                    if (objectDetectionInfo.status === "waiting_for_target") return "WAITING FOR TARGET"
+                                    return "READY"
+                                }
+                                font.pixelSize: 12
+                                font.bold: true
+                                color: textColor
+                            }
+                        }
+                    }
+
+                    // Object ROI Display
+                    Rectangle {
+                        width: parent.width
+                        height: 180
+                        color: surfaceColor
+                        border.color: objectDetectionInfo.status === "tracking" ? successColor : borderColor
+                        border.width: 2
+                        radius: 8
+
+                        Item {
+                            anchors.fill: parent
+                            anchors.margins: 10
+
+                            // ROI Image Display
+                            Image {
+                                id: objectRoiImage
+                                anchors.centerIn: parent
+                                width: Math.min(150, parent.width - 20)
+                                height: Math.min(150, parent.height - 40)
+                                fillMode: Image.PreserveAspectFit
+                                source: objectDetectionInfo.roiImageUrl || ""
+                                cache: false
+                                smooth: true
+                                visible: objectDetectionInfo.status === "tracking" && objectDetectionInfo.roiImageUrl
+
+                                Rectangle {
                                     anchors.fill: parent
-                                    cursorShape: Qt.PointingHandCursor
-                                    acceptedButtons: Qt.NoButton
+                                    color: "transparent"
+                                    border.color: successColor
+                                    border.width: 2
+                                    radius: 5
                                 }
-                                hoverEnabled: false
+
+                                // Crosshair overlay
+                                Rectangle {
+                                    anchors.centerIn: parent
+                                    width: 20
+                                    height: 2
+                                    color: "#FF0000"
+                                }
+                                Rectangle {
+                                    anchors.centerIn: parent
+                                    width: 2
+                                    height: 20
+                                    color: "#FF0000"
+                                }
+                            }
+
+                            // Placeholder text when no object
+                            Text {
+                                anchors.centerIn: parent
+                                text: {
+                                    if (!cameraViewModel.trackingEnabled) return "Enable tracking\nto detect objects"
+                                    if (objectDetectionInfo.status === "waiting_for_target") return "Click on video\nto select target"
+                                    if (objectDetectionInfo.status === "lost") return "Target lost\nSelect new target"
+                                    return "No object\nselected"
+                                }
+                                font.pixelSize: 12
+                                color: "#888888"
+                                horizontalAlignment: Text.AlignHCenter
+                                lineHeight: 1.3
+                                visible: !objectRoiImage.visible
+                            }
+                        }
+                    }
+
+                    // Object Information Grid
+                    Rectangle {
+                        width: parent.width
+                        height: 80
+                        color: backgroundColor
+                        border.color: borderColor
+                        radius: 5
+                        visible: objectDetectionInfo.status === "tracking"
+
+                        GridLayout {
+                            anchors.fill: parent
+                            anchors.margins: 10
+                            columns: 2
+                            rowSpacing: 5
+                            columnSpacing: 15
+
+                            // Position
+                            Text {
+                                text: "Position:"
+                                font.pixelSize: 10
+                                font.bold: true
+                                color: textColor
+                            }
+                            Text {
+                                text: objectDetectionInfo.centerX ?
+                                      "(" + objectDetectionInfo.centerX + ", " + objectDetectionInfo.centerY + ")" :
+                                      "N/A"
+                                font.pixelSize: 10
+                                color: successColor
+                            }
+
+                            // Size
+                            Text {
+                                text: "Size:"
+                                font.pixelSize: 10
+                                font.bold: true
+                                color: textColor
+                            }
+                            Text {
+                                text: objectDetectionInfo.currentBboxWidth ?
+                                      objectDetectionInfo.currentBboxWidth + " × " + objectDetectionInfo.currentBboxHeight :
+                                      "N/A"
+                                font.pixelSize: 10
+                                color: successColor
+                            }
+
+                            // Area
+                            Text {
+                                text: "Area:"
+                                font.pixelSize: 10
+                                font.bold: true
+                                color: textColor
+                            }
+                            Text {
+                                text: objectDetectionInfo.area ? objectDetectionInfo.area + " px²" : "N/A"
+                                font.pixelSize: 10
+                                color: successColor
+                            }
+
+                            // Confidence
+                            Text {
+                                text: "Confidence:"
+                                font.pixelSize: 10
+                                font.bold: true
+                                color: textColor
+                            }
+                            Text {
+                                text: objectDetectionInfo.confidence ?
+                                      (objectDetectionInfo.confidence * 100).toFixed(1) + "%" :
+                                      "N/A"
+                                font.pixelSize: 10
+                                color: objectDetectionInfo.confidence > 0.7 ? successColor : warningColor
                             }
                         }
                     }
                 }
+            }
+         }
+        QtObject {
+            id: objectDetectionInfo
 
-                // Thermal Camera Display
-                Rectangle {
-                    width: parent.width
-                    height: 300
-                    color: backgroundColor
-                    border.color: borderColor
-                    border.width: 2
-                    radius: 8
+            property string status: "waiting_for_target"
+            property int centerX: 0
+            property int centerY: 0
+            property int currentBboxX: 0
+            property int currentBboxY: 0
+            property int currentBboxWidth: 0
+            property int currentBboxHeight: 0
+            property int area: 0
+            property real confidence: 0.0
+            property string roiImageUrl: ""
 
-                    Column {
-                        anchors.fill: parent
-                        anchors.margins: 10
-                        spacing: 10
+            // UDP Socket for receiving object detection info
+            property var detectionSocket: null
 
-                        // Status and frame info
-                        Row {
-                            width: parent.width
-                            spacing: 20
+            Component.onCompleted: {
+                // Create UDP socket for object detection info
+                try {
+                    detectionSocket = Qt.createQmlObject('
+                        import QtNetwork 1.0
+                        UdpSocket {
+                            onMessageReceived: {
+                                try {
+                                    var data = JSON.parse(message);
+                                    objectDetectionInfo.status = data.status || "unknown";
 
-                            Text {
-                                text: thermalCameraViewModel.thermalCameraStatus
-                                font.pixelSize: 12
-                                color: thermalCameraViewModel.thermalStreaming ? successColor : errorColor
+                                    if (data.center_x !== undefined) {
+                                        objectDetectionInfo.centerX = data.center_x;
+                                        objectDetectionInfo.centerY = data.center_y;
+                                    }
+
+                                    if (data.current_bbox !== undefined && data.current_bbox.length === 4) {
+                                        objectDetectionInfo.currentBboxX = data.current_bbox[0];
+                                        objectDetectionInfo.currentBboxY = data.current_bbox[1];
+                                        objectDetectionInfo.currentBboxWidth = data.current_bbox[2];
+                                        objectDetectionInfo.currentBboxHeight = data.current_bbox[3];
+                                    }
+
+                                    if (data.area !== undefined) {
+                                        objectDetectionInfo.area = data.area;
+                                    }
+
+                                    if (data.confidence !== undefined) {
+                                        objectDetectionInfo.confidence = data.confidence;
+                                    }
+
+                                    // Handle ROI image
+                                    if (data.roi_image) {
+                                        // Convert base64 to temporary image URL
+                                        var imageData = "data:image/jpeg;base64," + data.roi_image;
+                                        objectDetectionInfo.roiImageUrl = imageData;
+                                    } else {
+                                        objectDetectionInfo.roiImageUrl = "";
+                                    }
+
+                                } catch (e) {
+                                    console.log("Error parsing object detection data:", e);
+                                }
                             }
+                        }', objectDetectionInfo, "detectionSocket");
 
+                    detectionSocket.bind("127.0.0.1", 5201); // OBJECT_INFO_PORT
+                    console.log("Object detection socket bound to port 5201");
 
-                                          Text {
-                                                                      text: thermalCameraViewModel.thermalStreaming ?
-                                                                            "Frames: " + thermalCameraViewModel.thermalFrameCount + " | FPS: " + thermalCameraViewModel.thermalFrameRate.toFixed(1) : ""
-                                                                      font.pixelSize: 10
-                                                                      color: "#aaaaaa"
-                                                                  }
-                                                              }
-
-                                                              // Thermal video display
-                                                              Item {
-                                                                  width: parent.width
-                                                                  height: 250
-
-                                                                  Image {
-                                                                      id: thermalImage
-                                                                      anchors.centerIn: parent
-                                                                      fillMode: Image.PreserveAspectFit
-                                                                      source: thermalCameraViewModel.currentThermalFrameUrl
-                                                                      cache: false
-
-                                                                      sourceSize.width: parent.width * 0.9
-                                                                      sourceSize.height: parent.height * 0.9
-
-                                                                      Rectangle {
-                                                                          anchors.fill: parent
-                                                                          color: "transparent"
-                                                                          border.color: thermalCameraViewModel.thermalStreaming ? "#FF6B35" : borderColor
-                                                                          border.width: 2
-                                                                          radius: 5
-                                                                          visible: thermalCameraViewModel.thermalStreaming
-                                                                      }
-
-                                                                      Text {
-                                                                          anchors.centerIn: parent
-                                                                          text: thermalCameraViewModel.thermalStreaming ? "" : "Thermal Camera Display\n\nConfigure IP and Port above,\nthen click 'Start Thermal'"
-                                                                          font.pixelSize: 14
-                                                                          color: "#888888"
-                                                                          horizontalAlignment: Text.AlignHCenter
-                                                                          lineHeight: 1.5
-                                                                          visible: !thermalCameraViewModel.thermalStreaming
-                                                                      }
-                                                                  }
-
-                                                                  BusyIndicator {
-                                                                      anchors.centerIn: parent
-                                                                      running: thermalCameraViewModel.thermalCameraStatus.indexOf("Connecting") >= 0
-                                                                      visible: running
-                                                                  }
-                                                              }
-                                                          }
-                                                      }
-
-                                                      // Thermal Analysis Tools (optional section for future expansion)
-                                                      Rectangle {
-                                                          width: parent.width
-                                                          height: 120
-                                                          color: backgroundColor
-                                                          border.color: borderColor
-                                                          border.width: 1
-                                                          radius: 8
-
-                                                          Column {
-                                                              anchors.fill: parent
-                                                              anchors.margins: 15
-                                                              spacing: 10
-
-                                                              Text {
-                                                                  text: "THERMAL ANALYSIS"
-                                                                  font.pixelSize: 14
-                                                                  font.bold: true
-                                                                  anchors.horizontalCenter: parent.horizontalCenter
-                                                                  color: textColor
-                                                              }
-
-                                                              Text {
-                                                                  text: "Temperature range, hotspot detection,\nand thermal analysis tools will be\navailable in future updates."
-                                                                  font.pixelSize: 11
-                                                                  color: "#888888"
-                                                                  horizontalAlignment: Text.AlignHCenter
-                                                                  anchors.horizontalCenter: parent.horizontalCenter
-                                                                  lineHeight: 1.3
-                                                              }
-                                                          }
-                                                      }
-                                                  }
-                                              }
-                                          }
+                } catch (e) {
+                    console.log("Failed to create detection socket:", e);
+                }
+            }
+        }}
 }

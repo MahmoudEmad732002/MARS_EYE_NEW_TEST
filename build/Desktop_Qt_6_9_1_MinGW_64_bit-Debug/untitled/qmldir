@@ -2,4 +2,11 @@ module untitled
 typeinfo appuntitled.qmltypes
 prefer :/qt/qml/untitled/
 Main 1.0 Main.qml
+TelemetryPanel 1.0 view/TelemetryPanel.qml
+ControlsPanel 1.0 view/ControlsPanel.qml
+MapPanel 1.0 view/MapPanel.qml
+CapturePanel 1.0 view/CapturePanel.qml
+TelemetryPanel 1.0 view/TelemetryPanel.qml
+TopBar 1.0 view/TopBar.qml
+VisualizationPanel 1.0 view/VisualizationPanel.qml
 

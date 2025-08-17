@@ -1,0 +1,20 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 1384,
+                        "errorMessage": "Cannot generate efficient code for SetUnwindHandlerh",
+                        "functionName": "onCompleted",
+                        "line": 21
+                    }
+                ],
+                "filePath": "C:/Users/mahmo/Documents/untitled/view/ObjectDetectionInfo.qml"
+            }
+        ],
+        "moduleId": "untitled(appuntitled)"
+    }
+]

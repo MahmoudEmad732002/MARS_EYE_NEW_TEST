@@ -2,4 +2,13 @@
 C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.qt/rcc/qmake_untitled.qrc
 --resource
 C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.qt/rcc/appuntitled_raw_qml_0.qrc
+--resource
+C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.qt/rcc/appuntitled_raw_qml_0_extra_qmldirs.qrc
 /qt/qml/untitled/Main.qml
+/qt/qml/untitled/view/TelemetryPanel.qml
+/qt/qml/untitled/view/ControlsPanel.qml
+/qt/qml/untitled/view/MapPanel.qml
+/qt/qml/untitled/view/CapturePanel.qml
+/qt/qml/untitled/view/TelemetryPanel.qml
+/qt/qml/untitled/view/TopBar.qml
+/qt/qml/untitled/view/VisualizationPanel.qml

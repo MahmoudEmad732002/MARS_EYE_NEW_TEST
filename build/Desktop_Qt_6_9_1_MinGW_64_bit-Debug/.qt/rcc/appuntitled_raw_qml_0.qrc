@@ -1,6 +1,13 @@
 <RCC>
   <qresource prefix="/qt/qml/untitled/">
     <file alias="Main.qml">C:/Users/mahmo/Documents/untitled/Main.qml</file>
+    <file alias="view/TelemetryPanel.qml">C:/Users/mahmo/Documents/untitled/view/TelemetryPanel.qml</file>
+    <file alias="view/ControlsPanel.qml">C:/Users/mahmo/Documents/untitled/view/ControlsPanel.qml</file>
+    <file alias="view/MapPanel.qml">C:/Users/mahmo/Documents/untitled/view/MapPanel.qml</file>
+    <file alias="view/CapturePanel.qml">C:/Users/mahmo/Documents/untitled/view/CapturePanel.qml</file>
+    <file alias="view/TelemetryPanel.qml">C:/Users/mahmo/Documents/untitled/view/TelemetryPanel.qml</file>
+    <file alias="view/TopBar.qml">C:/Users/mahmo/Documents/untitled/view/TopBar.qml</file>
+    <file alias="view/VisualizationPanel.qml">C:/Users/mahmo/Documents/untitled/view/VisualizationPanel.qml</file>
   </qresource>
 </RCC>
 

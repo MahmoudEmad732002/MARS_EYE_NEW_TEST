@@ -1,10 +1,13 @@
 C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appuntitled_autogen/RVZ4ISEY7V/moc_cameraviewmodel.cpp: C:/Users/mahmo/Documents/untitled/viewmodels/cameraviewmodel.h \
   C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appuntitled_autogen/moc_predefs.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/QBuffer \
+  C:/Qt/6.9.1/mingw_64/include/QtCore/QDateTime \
+  C:/Qt/6.9.1/mingw_64/include/QtCore/QMap \
   C:/Qt/6.9.1/mingw_64/include/QtCore/QMutex \
   C:/Qt/6.9.1/mingw_64/include/QtCore/QObject \
   C:/Qt/6.9.1/mingw_64/include/QtCore/QThread \
   C:/Qt/6.9.1/mingw_64/include/QtCore/QTimer \
+  C:/Qt/6.9.1/mingw_64/include/QtCore/QVector \
   C:/Qt/6.9.1/mingw_64/include/QtCore/q17memory.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/q20functional.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/q20iterator.h \
@@ -145,6 +148,7 @@ C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appu
   C:/Qt/6.9.1/mingw_64/include/QtCore/qutf8stringview.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/qvariant.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/qvarlengtharray.h \
+  C:/Qt/6.9.1/mingw_64/include/QtCore/qvector.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/qversionnumber.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/qversiontagging.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/qxptype_traits.h \

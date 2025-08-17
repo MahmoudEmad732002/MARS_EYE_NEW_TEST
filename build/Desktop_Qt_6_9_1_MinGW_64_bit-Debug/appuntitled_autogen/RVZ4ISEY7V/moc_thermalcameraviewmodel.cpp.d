@@ -1,6 +1,7 @@
 C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appuntitled_autogen/RVZ4ISEY7V/moc_thermalcameraviewmodel.cpp: C:/Users/mahmo/Documents/untitled/viewmodels/thermalcameraviewmodel.h \
   C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appuntitled_autogen/moc_predefs.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/QByteArray \
+  C:/Qt/6.9.1/mingw_64/include/QtCore/QMap \
   C:/Qt/6.9.1/mingw_64/include/QtCore/QMutex \
   C:/Qt/6.9.1/mingw_64/include/QtCore/QObject \
   C:/Qt/6.9.1/mingw_64/include/QtCore/QThread \

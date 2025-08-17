@@ -1,0 +1,500 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessful": false,
+                        "column": 12,
+                        "durationMicroseconds": 143,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "color",
+                        "line": 14
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 13,
+                        "durationMicroseconds": 31,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "radius",
+                        "line": 17
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 19,
+                        "durationMicroseconds": 27,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "color",
+                        "line": 15
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 19,
+                        "durationMicroseconds": 21,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "width",
+                        "line": 16
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 18,
+                        "durationMicroseconds": 58,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "spacing",
+                        "line": 22
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 253,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 20
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 54,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "margins",
+                        "line": 21
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 38,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "color",
+                        "line": 29
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 29,
+                        "durationMicroseconds": 43,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "pixelSize",
+                        "line": 26
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 240,
+                        "errorMessage": "",
+                        "functionName": "horizontalCenter",
+                        "line": 28
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 58,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "width",
+                        "line": 34
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 21,
+                        "durationMicroseconds": 31,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "height",
+                        "line": 35
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 31,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "color",
+                        "line": 37
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 21,
+                        "durationMicroseconds": 53,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "radius",
+                        "line": 40
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 158,
+                        "errorMessage": "",
+                        "functionName": "horizontalCenter",
+                        "line": 36
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 63,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "color",
+                        "line": 38
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 35,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "width",
+                        "line": 39
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 49,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "width",
+                        "line": 46
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 25,
+                        "durationMicroseconds": 41,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "height",
+                        "line": 47
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 25,
+                        "durationMicroseconds": 42,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "radius",
+                        "line": 51
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 35,
+                        "durationMicroseconds": 112,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 45
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 31,
+                        "durationMicroseconds": 59,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "color",
+                        "line": 49
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 31,
+                        "durationMicroseconds": 36,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "width",
+                        "line": 50
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 33,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "color",
+                        "line": 59
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 35,
+                        "durationMicroseconds": 116,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 56
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 43,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "color",
+                        "line": 65
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 35,
+                        "durationMicroseconds": 109,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 62
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 59,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "width",
+                        "line": 71
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 25,
+                        "durationMicroseconds": 35,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "height",
+                        "line": 72
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 25,
+                        "durationMicroseconds": 44,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "radius",
+                        "line": 73
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 34,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "color",
+                        "line": 74
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 426,
+                        "errorMessage": "",
+                        "functionName": "x",
+                        "line": 77
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 344,
+                        "errorMessage": "",
+                        "functionName": "y",
+                        "line": 78
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 40,
+                        "durationMicroseconds": 299,
+                        "errorMessage": "",
+                        "functionName": "centerX",
+                        "line": 80
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 40,
+                        "durationMicroseconds": 319,
+                        "errorMessage": "",
+                        "functionName": "centerY",
+                        "line": 81
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 42,
+                        "durationMicroseconds": 49,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "maxRadius",
+                        "line": 82
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 31,
+                        "durationMicroseconds": 44,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "color",
+                        "line": 75
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 31,
+                        "durationMicroseconds": 33,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "width",
+                        "line": 76
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 81,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "color",
+                        "line": 94
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 121,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 90
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 104,
+                        "errorMessage": "Cannot access value for name viewModel",
+                        "functionName": "enabled",
+                        "line": 101
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 70,
+                        "errorMessage": "Cannot access value for name mouse",
+                        "functionName": "onPressed",
+                        "line": 106
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 40,
+                        "durationMicroseconds": 1257,
+                        "errorMessage": "Cannot access value for name viewModel",
+                        "functionName": "onPositionChanged",
+                        "line": 111
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 33,
+                        "durationMicroseconds": 203,
+                        "errorMessage": "Cannot access value for name viewModel",
+                        "functionName": "onReleased",
+                        "line": 144
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 35,
+                        "durationMicroseconds": 104,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 99
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 34,
+                        "durationMicroseconds": 79,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 100
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 33,
+                        "durationMicroseconds": 241,
+                        "errorMessage": "",
+                        "functionName": "onFinished",
+                        "line": 175
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 33,
+                        "durationMicroseconds": 97,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 161
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 29,
+                        "durationMicroseconds": 120,
+                        "errorMessage": "",
+                        "functionName": "to",
+                        "line": 163
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 129,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "duration",
+                        "line": 164
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 38,
+                        "durationMicroseconds": 129,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 165
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 33,
+                        "durationMicroseconds": 99,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 168
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 29,
+                        "durationMicroseconds": 101,
+                        "errorMessage": "",
+                        "functionName": "to",
+                        "line": 170
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 48,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "duration",
+                        "line": 171
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 38,
+                        "durationMicroseconds": 103,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 172
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 362,
+                        "errorMessage": "",
+                        "functionName": "text",
+                        "line": 188
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 49,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "color",
+                        "line": 190
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 33,
+                        "durationMicroseconds": 139,
+                        "errorMessage": "",
+                        "functionName": "bottom",
+                        "line": 185
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 43,
+                        "durationMicroseconds": 150,
+                        "errorMessage": "",
+                        "functionName": "horizontalCenter",
+                        "line": 186
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 65,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "bottomMargin",
+                        "line": 187
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 33,
+                        "durationMicroseconds": 42,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "pixelSize",
+                        "line": 189
+                    }
+                ],
+                "filePath": "C:/Users/mahmo/Documents/untitled/view/SoftwareJoystick.qml"
+            }
+        ],
+        "moduleId": "untitled(appuntitled)"
+    }
+]

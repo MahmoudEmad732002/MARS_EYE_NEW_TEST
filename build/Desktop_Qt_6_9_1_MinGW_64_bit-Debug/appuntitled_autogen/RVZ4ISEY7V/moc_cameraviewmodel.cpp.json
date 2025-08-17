@@ -6,31 +6,31 @@
             "methods": [
                 {
                     "access": "public",
-                    "index": 15,
+                    "index": 17,
                     "name": "toggleStream",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 16,
+                    "index": 18,
                     "name": "startStream",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 17,
+                    "index": 19,
                     "name": "stopStream",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 18,
+                    "index": 20,
                     "name": "enableTracking",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 19,
+                    "index": 21,
                     "name": "disableTracking",
                     "returnType": "void"
                 },
@@ -54,8 +54,28 @@
                             "type": "int"
                         }
                     ],
-                    "index": 20,
+                    "index": 22,
                     "name": "sendTarget",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "x",
+                            "type": "int"
+                        },
+                        {
+                            "name": "y",
+                            "type": "int"
+                        },
+                        {
+                            "name": "show",
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 23,
+                    "name": "updateTrackingRect",
                     "returnType": "void"
                 }
             ],
@@ -202,6 +222,62 @@
                     "stored": true,
                     "type": "double",
                     "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 10,
+                    "name": "showTrackingRect",
+                    "notify": "trackingRectChanged",
+                    "read": "showTrackingRect",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 11,
+                    "name": "trackingRectX",
+                    "notify": "trackingRectChanged",
+                    "read": "trackingRectX",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 12,
+                    "name": "trackingRectY",
+                    "notify": "trackingRectChanged",
+                    "read": "trackingRectY",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 13,
+                    "name": "currentFrameId",
+                    "notify": "frameIdChanged",
+                    "read": "currentFrameId",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false
                 }
             ],
             "qualifiedClassName": "CameraViewModel",
@@ -256,6 +332,12 @@
                 },
                 {
                     "access": "public",
+                    "index": 8,
+                    "name": "frameIdChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
                     "arguments": [
                         {
                             "name": "ipAddress",
@@ -266,14 +348,20 @@
                             "type": "int"
                         }
                     ],
-                    "index": 8,
+                    "index": 9,
                     "name": "requestStartStream",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 9,
+                    "index": 10,
                     "name": "requestStopStream",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 11,
+                    "name": "trackingRectChanged",
                     "returnType": "void"
                 }
             ],
@@ -286,7 +374,7 @@
                             "type": "bool"
                         }
                     ],
-                    "index": 10,
+                    "index": 12,
                     "name": "onStreamingStatusChanged",
                     "returnType": "void"
                 },
@@ -296,9 +384,13 @@
                         {
                             "name": "frameData",
                             "type": "QByteArray"
+                        },
+                        {
+                            "name": "frameId",
+                            "type": "quint16"
                         }
                     ],
-                    "index": 11,
+                    "index": 13,
                     "name": "onFrameReceived",
                     "returnType": "void"
                 },
@@ -310,19 +402,19 @@
                             "type": "QString"
                         }
                     ],
-                    "index": 12,
+                    "index": 14,
                     "name": "onCameraError",
                     "returnType": "void"
                 },
                 {
                     "access": "private",
-                    "index": 13,
+                    "index": 15,
                     "name": "onConnectionEstablished",
                     "returnType": "void"
                 },
                 {
                     "access": "private",
-                    "index": 14,
+                    "index": 16,
                     "name": "calculateFrameRate",
                     "returnType": "void"
                 }

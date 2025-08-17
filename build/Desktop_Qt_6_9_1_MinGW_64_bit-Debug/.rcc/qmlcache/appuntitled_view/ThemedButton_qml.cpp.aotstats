@@ -1,0 +1,92 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessful": false,
+                        "column": 38,
+                        "durationMicroseconds": 4561,
+                        "errorMessage": "Cannot load property primaryColor from const QMetaObject.",
+                        "functionName": "backgroundColor",
+                        "line": 7
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 16,
+                        "durationMicroseconds": 45,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "color",
+                        "line": 12
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 210,
+                        "errorMessage": "Cannot access value for name Theme",
+                        "functionName": "color",
+                        "line": 14
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 15,
+                        "durationMicroseconds": 25,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "text",
+                        "line": 19
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 16,
+                        "durationMicroseconds": 19,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "color",
+                        "line": 20
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 259,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "horizontalAlignment",
+                        "line": 21
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 28,
+                        "durationMicroseconds": 233,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "verticalAlignment",
+                        "line": 22
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 108,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "cursorShape",
+                        "line": 28
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 26,
+                        "durationMicroseconds": 253,
+                        "errorMessage": "",
+                        "functionName": "acceptedButtons",
+                        "line": 29
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 86,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 27
+                    }
+                ],
+                "filePath": "C:/Users/mahmo/Documents/untitled/view/ThemedButton.qml"
+            }
+        ],
+        "moduleId": "untitled(appuntitled)"
+    }
+]

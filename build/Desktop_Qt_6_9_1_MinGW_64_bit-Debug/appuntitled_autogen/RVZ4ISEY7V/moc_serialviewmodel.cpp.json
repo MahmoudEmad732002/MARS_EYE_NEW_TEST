@@ -16,62 +16,118 @@
                             "type": "int"
                         }
                     ],
-                    "index": 12,
+                    "index": 25,
                     "name": "connectToSerial",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 13,
+                    "index": 26,
                     "name": "refreshPorts",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 14,
+                    "index": 27,
+                    "name": "startJoystickCommand",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 28,
+                    "name": "stopJoystickCommand",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "x",
+                            "type": "int"
+                        },
+                        {
+                            "name": "y",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 29,
+                    "name": "sendSoftwareJoystickCommand",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 30,
                     "name": "sendJoystickUp",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 15,
+                    "index": 31,
                     "name": "sendJoystickDown",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 16,
+                    "index": 32,
                     "name": "sendJoystickLeft",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 17,
+                    "index": 33,
                     "name": "sendJoystickRight",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 18,
-                    "name": "sendCurrentJoystickValues",
-                    "returnType": "void"
-                },
-                {
-                    "access": "public",
-                    "index": 19,
+                    "index": 34,
                     "name": "sendPIDGains",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 20,
-                    "name": "sendZoom",
+                    "index": 35,
+                    "name": "sendZoomCommand",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 21,
-                    "name": "sendTrackingCoordinates",
+                    "index": 36,
+                    "name": "sendSelectTarget",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 37,
+                    "name": "startAbsolutePointing",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 38,
+                    "name": "stopAbsolutePointing",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 39,
+                    "name": "sendRequestGains",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "frameW",
+                            "type": "int"
+                        },
+                        {
+                            "name": "frameH",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 40,
+                    "name": "sendFrameInfoAndGains",
                     "returnType": "void"
                 }
             ],
@@ -165,9 +221,9 @@
                     "designable": true,
                     "final": false,
                     "index": 6,
-                    "name": "roll",
+                    "name": "gimbalRoll",
                     "notify": "telemetryChanged",
-                    "read": "roll",
+                    "read": "gimbalRoll",
                     "required": false,
                     "scriptable": true,
                     "stored": true,
@@ -179,9 +235,9 @@
                     "designable": true,
                     "final": false,
                     "index": 7,
-                    "name": "pitch",
+                    "name": "gimbalPitch",
                     "notify": "telemetryChanged",
-                    "read": "pitch",
+                    "read": "gimbalPitch",
                     "required": false,
                     "scriptable": true,
                     "stored": true,
@@ -193,9 +249,9 @@
                     "designable": true,
                     "final": false,
                     "index": 8,
-                    "name": "yaw",
+                    "name": "gimbalYaw",
                     "notify": "telemetryChanged",
-                    "read": "yaw",
+                    "read": "gimbalYaw",
                     "required": false,
                     "scriptable": true,
                     "stored": true,
@@ -207,9 +263,9 @@
                     "designable": true,
                     "final": false,
                     "index": 9,
-                    "name": "azimuthMotor",
+                    "name": "yawMotorPose",
                     "notify": "telemetryChanged",
-                    "read": "azimuthMotor",
+                    "read": "yawMotorPose",
                     "required": false,
                     "scriptable": true,
                     "stored": true,
@@ -221,9 +277,9 @@
                     "designable": true,
                     "final": false,
                     "index": 10,
-                    "name": "elevationMotor",
+                    "name": "pitchMotorPose",
                     "notify": "telemetryChanged",
-                    "read": "elevationMotor",
+                    "read": "pitchMotorPose",
                     "required": false,
                     "scriptable": true,
                     "stored": true,
@@ -235,9 +291,9 @@
                     "designable": true,
                     "final": false,
                     "index": 11,
-                    "name": "latitude",
+                    "name": "gimbalPoseLat",
                     "notify": "telemetryChanged",
-                    "read": "latitude",
+                    "read": "gimbalPoseLat",
                     "required": false,
                     "scriptable": true,
                     "stored": true,
@@ -249,9 +305,9 @@
                     "designable": true,
                     "final": false,
                     "index": 12,
-                    "name": "longitude",
+                    "name": "gimbalPoseLon",
                     "notify": "telemetryChanged",
-                    "read": "longitude",
+                    "read": "gimbalPoseLon",
                     "required": false,
                     "scriptable": true,
                     "stored": true,
@@ -263,9 +319,9 @@
                     "designable": true,
                     "final": false,
                     "index": 13,
-                    "name": "altitude",
+                    "name": "gimbalPoseAlt",
                     "notify": "telemetryChanged",
-                    "read": "altitude",
+                    "read": "gimbalPoseAlt",
                     "required": false,
                     "scriptable": true,
                     "stored": true,
@@ -277,36 +333,275 @@
                     "designable": true,
                     "final": false,
                     "index": 14,
-                    "name": "joystickPitch",
-                    "notify": "joystickChanged",
-                    "read": "joystickPitch",
+                    "name": "battery",
+                    "notify": "telemetryChanged",
+                    "read": "battery",
                     "required": false,
                     "scriptable": true,
                     "stored": true,
                     "type": "int",
-                    "user": false,
-                    "write": "setJoystickPitch"
+                    "user": false
                 },
                 {
                     "constant": false,
                     "designable": true,
                     "final": false,
                     "index": 15,
-                    "name": "joystickYaw",
-                    "notify": "joystickChanged",
-                    "read": "joystickYaw",
+                    "name": "signalStrength",
+                    "notify": "telemetryChanged",
+                    "read": "signalStrength",
                     "required": false,
                     "scriptable": true,
                     "stored": true,
                     "type": "int",
-                    "user": false,
-                    "write": "setJoystickYaw"
+                    "user": false
                 },
                 {
                     "constant": false,
                     "designable": true,
                     "final": false,
                     "index": 16,
+                    "name": "targetPoseLat",
+                    "notify": "targetGPSChanged",
+                    "read": "targetPoseLat",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "double",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 17,
+                    "name": "targetPoseLon",
+                    "notify": "targetGPSChanged",
+                    "read": "targetPoseLon",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "double",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 18,
+                    "name": "targetPoseAlt",
+                    "notify": "targetGPSChanged",
+                    "read": "targetPoseAlt",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "double",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 19,
+                    "name": "targetTrackedPoseXp",
+                    "notify": "trackedPoseChanged",
+                    "read": "targetTrackedPoseXp",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 20,
+                    "name": "targetTrackedPoseYp",
+                    "notify": "trackedPoseChanged",
+                    "read": "targetTrackedPoseYp",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 21,
+                    "name": "zoomFeedback",
+                    "notify": "zoomFeedbackChanged",
+                    "read": "zoomFeedback",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 22,
+                    "name": "frameWidth",
+                    "notify": "frameInfoChanged",
+                    "read": "frameWidth",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 23,
+                    "name": "frameHeight",
+                    "notify": "frameInfoChanged",
+                    "read": "frameHeight",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 24,
+                    "name": "receivedAzKp",
+                    "notify": "frameInfoChanged",
+                    "read": "receivedAzKp",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 25,
+                    "name": "receivedAzKi",
+                    "notify": "frameInfoChanged",
+                    "read": "receivedAzKi",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 26,
+                    "name": "receivedElKp",
+                    "notify": "frameInfoChanged",
+                    "read": "receivedElKp",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 27,
+                    "name": "receivedElKi",
+                    "notify": "frameInfoChanged",
+                    "read": "receivedElKi",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 28,
+                    "name": "lastAcknowledgedMessageId",
+                    "notify": "acknowledgmentChanged",
+                    "read": "lastAcknowledgedMessageId",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 29,
+                    "name": "joystickX",
+                    "notify": "joystickChanged",
+                    "read": "joystickX",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false,
+                    "write": "setJoystickX"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 30,
+                    "name": "joystickY",
+                    "notify": "joystickChanged",
+                    "read": "joystickY",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false,
+                    "write": "setJoystickY"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 31,
+                    "name": "joystickResetFlag",
+                    "notify": "joystickChanged",
+                    "read": "joystickResetFlag",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false,
+                    "write": "setJoystickResetFlag"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 32,
+                    "name": "joystickActive",
+                    "notify": "joystickActiveChanged",
+                    "read": "joystickActive",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 33,
                     "name": "azimuthKp",
                     "notify": "pidGainsChanged",
                     "read": "azimuthKp",
@@ -321,7 +616,7 @@
                     "constant": false,
                     "designable": true,
                     "final": false,
-                    "index": 17,
+                    "index": 34,
                     "name": "azimuthKi",
                     "notify": "pidGainsChanged",
                     "read": "azimuthKi",
@@ -336,22 +631,7 @@
                     "constant": false,
                     "designable": true,
                     "final": false,
-                    "index": 18,
-                    "name": "azimuthKd",
-                    "notify": "pidGainsChanged",
-                    "read": "azimuthKd",
-                    "required": false,
-                    "scriptable": true,
-                    "stored": true,
-                    "type": "int",
-                    "user": false,
-                    "write": "setAzimuthKd"
-                },
-                {
-                    "constant": false,
-                    "designable": true,
-                    "final": false,
-                    "index": 19,
+                    "index": 35,
                     "name": "elevationKp",
                     "notify": "pidGainsChanged",
                     "read": "elevationKp",
@@ -366,7 +646,7 @@
                     "constant": false,
                     "designable": true,
                     "final": false,
-                    "index": 20,
+                    "index": 36,
                     "name": "elevationKi",
                     "notify": "pidGainsChanged",
                     "read": "elevationKi",
@@ -381,22 +661,7 @@
                     "constant": false,
                     "designable": true,
                     "final": false,
-                    "index": 21,
-                    "name": "elevationKd",
-                    "notify": "pidGainsChanged",
-                    "read": "elevationKd",
-                    "required": false,
-                    "scriptable": true,
-                    "stored": true,
-                    "type": "int",
-                    "user": false,
-                    "write": "setElevationKd"
-                },
-                {
-                    "constant": false,
-                    "designable": true,
-                    "final": false,
-                    "index": 22,
+                    "index": 37,
                     "name": "zoomLevel",
                     "notify": "zoomLevelChanged",
                     "read": "zoomLevel",
@@ -411,31 +676,120 @@
                     "constant": false,
                     "designable": true,
                     "final": false,
-                    "index": 23,
-                    "name": "trackingX",
-                    "notify": "trackingChanged",
-                    "read": "trackingX",
+                    "index": 38,
+                    "name": "zoomResetFlag",
+                    "notify": "zoomLevelChanged",
+                    "read": "zoomResetFlag",
                     "required": false,
                     "scriptable": true,
                     "stored": true,
                     "type": "int",
                     "user": false,
-                    "write": "setTrackingX"
+                    "write": "setZoomResetFlag"
                 },
                 {
                     "constant": false,
                     "designable": true,
                     "final": false,
-                    "index": 24,
-                    "name": "trackingY",
-                    "notify": "trackingChanged",
-                    "read": "trackingY",
+                    "index": 39,
+                    "name": "targetX",
+                    "notify": "targetChanged",
+                    "read": "targetX",
                     "required": false,
                     "scriptable": true,
                     "stored": true,
                     "type": "int",
                     "user": false,
-                    "write": "setTrackingY"
+                    "write": "setTargetX"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 40,
+                    "name": "targetY",
+                    "notify": "targetChanged",
+                    "read": "targetY",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false,
+                    "write": "setTargetY"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 41,
+                    "name": "frameNumber",
+                    "notify": "targetChanged",
+                    "read": "frameNumber",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false,
+                    "write": "setFrameNumber"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 42,
+                    "name": "pitchAngleCmd",
+                    "notify": "absolutePointingChanged",
+                    "read": "pitchAngleCmd",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false,
+                    "write": "setPitchAngleCmd"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 43,
+                    "name": "yawAngleCmd",
+                    "notify": "absolutePointingChanged",
+                    "read": "yawAngleCmd",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false,
+                    "write": "setYawAngleCmd"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 44,
+                    "name": "stabilizationFlag",
+                    "notify": "absolutePointingChanged",
+                    "read": "stabilizationFlag",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false,
+                    "write": "setStabilizationFlag"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 45,
+                    "name": "absolutePointingActive",
+                    "notify": "absolutePointingActiveChanged",
+                    "read": "absolutePointingActive",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false
                 }
             ],
             "qualifiedClassName": "SerialViewModel",
@@ -461,31 +815,79 @@
                 {
                     "access": "public",
                     "index": 3,
-                    "name": "statusMessageChanged",
+                    "name": "targetGPSChanged",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
                     "index": 4,
-                    "name": "joystickChanged",
+                    "name": "trackedPoseChanged",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
                     "index": 5,
-                    "name": "pidGainsChanged",
+                    "name": "zoomFeedbackChanged",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
                     "index": 6,
-                    "name": "zoomLevelChanged",
+                    "name": "frameInfoChanged",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
                     "index": 7,
-                    "name": "trackingChanged",
+                    "name": "acknowledgmentChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 8,
+                    "name": "statusMessageChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 9,
+                    "name": "joystickChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 10,
+                    "name": "joystickActiveChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 11,
+                    "name": "pidGainsChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 12,
+                    "name": "zoomLevelChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 13,
+                    "name": "targetChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 14,
+                    "name": "absolutePointingChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 15,
+                    "name": "absolutePointingActiveChanged",
                     "returnType": "void"
                 }
             ],
@@ -498,7 +900,7 @@
                             "type": "bool"
                         }
                     ],
-                    "index": 8,
+                    "index": 16,
                     "name": "onConnectionStatusChanged",
                     "returnType": "void"
                 },
@@ -510,8 +912,68 @@
                             "type": "SerialModel::TelemetryData"
                         }
                     ],
-                    "index": 9,
+                    "index": 17,
                     "name": "onTelemetryDataReceived",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "arguments": [
+                        {
+                            "name": "data",
+                            "type": "SerialModel::TargetGPSData"
+                        }
+                    ],
+                    "index": 18,
+                    "name": "onTargetGPSReceived",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "arguments": [
+                        {
+                            "name": "data",
+                            "type": "SerialModel::TrackedPoseData"
+                        }
+                    ],
+                    "index": 19,
+                    "name": "onTrackedPoseReceived",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "arguments": [
+                        {
+                            "name": "data",
+                            "type": "SerialModel::ZoomFeedbackData"
+                        }
+                    ],
+                    "index": 20,
+                    "name": "onZoomFeedbackReceived",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "arguments": [
+                        {
+                            "name": "data",
+                            "type": "SerialModel::FrameInfoData"
+                        }
+                    ],
+                    "index": 21,
+                    "name": "onFrameInfoReceived",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "arguments": [
+                        {
+                            "name": "data",
+                            "type": "SerialModel::AckData"
+                        }
+                    ],
+                    "index": 22,
+                    "name": "onAcknowledgmentReceived",
                     "returnType": "void"
                 },
                 {
@@ -522,7 +984,7 @@
                             "type": "QString"
                         }
                     ],
-                    "index": 10,
+                    "index": 23,
                     "name": "onErrorOccurred",
                     "returnType": "void"
                 },
@@ -534,7 +996,7 @@
                             "type": "QString"
                         }
                     ],
-                    "index": 11,
+                    "index": 24,
                     "name": "onMessageSent",
                     "returnType": "void"
                 }

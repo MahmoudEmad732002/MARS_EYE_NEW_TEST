@@ -1,0 +1,388 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessful": false,
+                        "column": 18,
+                        "durationMicroseconds": 135,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "spacing",
+                        "line": 29
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 149,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 28
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 114,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 34
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 21,
+                        "durationMicroseconds": 23,
+                        "errorMessage": "Cannot load property topBarHeight from (component in C:/Users/mahmo/Documents/untitled/view/MainContent.qml)::theme with type QVariant.",
+                        "functionName": "height",
+                        "line": 35
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 90,
+                        "errorMessage": "",
+                        "functionName": "theme",
+                        "line": 37
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 24,
+                        "durationMicroseconds": 84,
+                        "errorMessage": "",
+                        "functionName": "viewModel",
+                        "line": 38
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 37,
+                        "durationMicroseconds": 182,
+                        "errorMessage": "",
+                        "functionName": "onVisualizationClicked",
+                        "line": 41
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 32,
+                        "durationMicroseconds": 148,
+                        "errorMessage": "",
+                        "functionName": "onControlsClicked",
+                        "line": 42
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 27,
+                        "durationMicroseconds": 402,
+                        "errorMessage": "",
+                        "functionName": "onMapClicked",
+                        "line": 43
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 215,
+                        "errorMessage": "",
+                        "functionName": "onCaptureClicked",
+                        "line": 44
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 125,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 50
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 21,
+                        "durationMicroseconds": 44,
+                        "errorMessage": "Cannot load property topBarHeight from (component in C:/Users/mahmo/Documents/untitled/view/MainContent.qml)::theme with type QVariant.",
+                        "functionName": "height",
+                        "line": 51
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 116,
+                        "errorMessage": "",
+                        "functionName": "theme",
+                        "line": 53
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 86,
+                        "errorMessage": "",
+                        "functionName": "cameraViewModel",
+                        "line": 54
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 162,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 59
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 21,
+                        "durationMicroseconds": 120,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "height",
+                        "line": 60
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 26,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "color",
+                        "line": 61
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 21,
+                        "durationMicroseconds": 22,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "radius",
+                        "line": 64
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 41,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "color",
+                        "line": 62
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 24,
+                        "durationMicroseconds": 82,
+                        "errorMessage": "",
+                        "functionName": "theme",
+                        "line": 70
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 34,
+                        "durationMicroseconds": 54,
+                        "errorMessage": "",
+                        "functionName": "cameraViewModel",
+                        "line": 71
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 41,
+                        "durationMicroseconds": 63,
+                        "errorMessage": "",
+                        "functionName": "thermalCameraViewModel",
+                        "line": 72
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 47,
+                        "errorMessage": "",
+                        "functionName": "viewModel",
+                        "line": 73
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 32,
+                        "durationMicroseconds": 44,
+                        "errorMessage": "",
+                        "functionName": "framesSwapped",
+                        "line": 74
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 36,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 67
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 34,
+                        "durationMicroseconds": 32,
+                        "errorMessage": "Cannot load property smallMargin from (component in C:/Users/mahmo/Documents/untitled/view/MainContent.qml)::theme with type QVariant.",
+                        "functionName": "margins",
+                        "line": 68
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 16,
+                        "durationMicroseconds": 50,
+                        "errorMessage": "",
+                        "functionName": "theme",
+                        "line": 83
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 45,
+                        "errorMessage": "",
+                        "functionName": "viewModel",
+                        "line": 84
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 45,
+                        "errorMessage": "",
+                        "functionName": "mediaViewModel",
+                        "line": 85
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 33,
+                        "durationMicroseconds": 74,
+                        "errorMessage": "",
+                        "functionName": "thermalCameraViewModel",
+                        "line": 86
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 26,
+                        "durationMicroseconds": 44,
+                        "errorMessage": "",
+                        "functionName": "cameraViewModel",
+                        "line": 87
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 43,
+                        "errorMessage": "",
+                        "functionName": "mapViewModel",
+                        "line": 88
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 26,
+                        "durationMicroseconds": 59,
+                        "errorMessage": "",
+                        "functionName": "mapPanelVisible",
+                        "line": 91
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 40,
+                        "errorMessage": "",
+                        "functionName": "controlsPanelVisible",
+                        "line": 92
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 32,
+                        "durationMicroseconds": 40,
+                        "errorMessage": "",
+                        "functionName": "telemetryPanelVisible",
+                        "line": 93
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 27,
+                        "durationMicroseconds": 40,
+                        "errorMessage": "",
+                        "functionName": "testPanelVisible",
+                        "line": 94
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 40,
+                        "errorMessage": "",
+                        "functionName": "capturePanelVisible",
+                        "line": 95
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 36,
+                        "durationMicroseconds": 63,
+                        "errorMessage": "",
+                        "functionName": "visualizationPanelVisible",
+                        "line": 96
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 24,
+                        "durationMicroseconds": 59,
+                        "errorMessage": "",
+                        "functionName": "framesSwapped",
+                        "line": 97
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 35,
+                        "durationMicroseconds": 90,
+                        "errorMessage": "",
+                        "functionName": "onMapPanelVisibleChanged",
+                        "line": 100
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 40,
+                        "durationMicroseconds": 72,
+                        "errorMessage": "",
+                        "functionName": "onControlsPanelVisibleChanged",
+                        "line": 101
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 41,
+                        "durationMicroseconds": 62,
+                        "errorMessage": "",
+                        "functionName": "onTelemetryPanelVisibleChanged",
+                        "line": 102
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 36,
+                        "durationMicroseconds": 107,
+                        "errorMessage": "",
+                        "functionName": "onTestPanelVisibleChanged",
+                        "line": 103
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 59,
+                        "errorMessage": "",
+                        "functionName": "onCapturePanelVisibleChanged",
+                        "line": 104
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 45,
+                        "durationMicroseconds": 58,
+                        "errorMessage": "",
+                        "functionName": "onVisualizationPanelVisibleChanged",
+                        "line": 105
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 33,
+                        "durationMicroseconds": 57,
+                        "errorMessage": "",
+                        "functionName": "onFramesSwappedChanged",
+                        "line": 106
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 67,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 81
+                    }
+                ],
+                "filePath": "C:/Users/mahmo/Documents/untitled/view/MainContent.qml"
+            }
+        ],
+        "moduleId": "untitled(appuntitled)"
+    }
+]

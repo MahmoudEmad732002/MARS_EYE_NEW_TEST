@@ -1,0 +1,580 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessful": true,
+                        "column": 5,
+                        "durationMicroseconds": 376,
+                        "errorMessage": "",
+                        "functionName": "triggerFlash",
+                        "line": 256
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 12,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"x\".",
+                        "functionName": "x",
+                        "line": 32
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 15,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find property \"text\".",
+                        "functionName": "text",
+                        "line": 35
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"clicked\".",
+                        "functionName": "onClicked",
+                        "line": 59
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 43,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "color",
+                        "line": 38
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 14,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "color",
+                        "line": 40
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 19,
+                        "durationMicroseconds": 16,
+                        "errorMessage": "Cannot access value for name telemetryArrowButton",
+                        "functionName": "text",
+                        "line": 45
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 34,
+                        "durationMicroseconds": 222,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "horizontalAlignment",
+                        "line": 47
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 147,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "verticalAlignment",
+                        "line": 48
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 17,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "duration",
+                        "line": 54
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 58,
+                        "errorMessage": "Cannot access value for name Easing",
+                        "functionName": "type",
+                        "line": 55
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 26,
+                        "durationMicroseconds": 102,
+                        "errorMessage": "",
+                        "functionName": "cursorShape",
+                        "line": 65
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 73,
+                        "errorMessage": "",
+                        "functionName": "acceptedButtons",
+                        "line": 66
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 27,
+                        "durationMicroseconds": 41,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 64
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 17,
+                        "durationMicroseconds": 120,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 75
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 12,
+                        "durationMicroseconds": 153,
+                        "errorMessage": "",
+                        "functionName": "x",
+                        "line": 76
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 18,
+                        "durationMicroseconds": 60,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 79
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 16,
+                        "durationMicroseconds": 67,
+                        "errorMessage": "",
+                        "functionName": "theme",
+                        "line": 81
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 48,
+                        "errorMessage": "",
+                        "functionName": "viewModel",
+                        "line": 82
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 89,
+                        "errorMessage": "",
+                        "functionName": "onCloseClicked",
+                        "line": 91
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 30,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "duration",
+                        "line": 86
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 57,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 87
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 17,
+                        "durationMicroseconds": 102,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 98
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 12,
+                        "durationMicroseconds": 268,
+                        "errorMessage": "",
+                        "functionName": "x",
+                        "line": 99
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 18,
+                        "durationMicroseconds": 52,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 102
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 16,
+                        "durationMicroseconds": 47,
+                        "errorMessage": "",
+                        "functionName": "theme",
+                        "line": 104
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 46,
+                        "errorMessage": "",
+                        "functionName": "viewModel",
+                        "line": 105
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 68,
+                        "errorMessage": "",
+                        "functionName": "onCloseClicked",
+                        "line": 114
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 27,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "duration",
+                        "line": 109
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 48,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 110
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 17,
+                        "durationMicroseconds": 109,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 121
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 12,
+                        "durationMicroseconds": 260,
+                        "errorMessage": "",
+                        "functionName": "x",
+                        "line": 122
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 18,
+                        "durationMicroseconds": 48,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 125
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 16,
+                        "durationMicroseconds": 46,
+                        "errorMessage": "",
+                        "functionName": "theme",
+                        "line": 127
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 55,
+                        "errorMessage": "",
+                        "functionName": "mapViewModel",
+                        "line": 128
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 44,
+                        "errorMessage": "",
+                        "functionName": "viewModel",
+                        "line": 129
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 83,
+                        "errorMessage": "",
+                        "functionName": "onCloseClicked",
+                        "line": 138
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 28,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "duration",
+                        "line": 133
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 47,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 134
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 17,
+                        "durationMicroseconds": 85,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 145
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 12,
+                        "durationMicroseconds": 254,
+                        "errorMessage": "",
+                        "functionName": "x",
+                        "line": 146
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 18,
+                        "durationMicroseconds": 44,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 149
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 16,
+                        "durationMicroseconds": 47,
+                        "errorMessage": "",
+                        "functionName": "theme",
+                        "line": 151
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 33,
+                        "durationMicroseconds": 46,
+                        "errorMessage": "",
+                        "functionName": "thermalCameraViewModel",
+                        "line": 152
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 26,
+                        "durationMicroseconds": 45,
+                        "errorMessage": "",
+                        "functionName": "cameraViewModel",
+                        "line": 153
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 24,
+                        "durationMicroseconds": 41,
+                        "errorMessage": "",
+                        "functionName": "framesSwapped",
+                        "line": 154
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 66,
+                        "errorMessage": "",
+                        "functionName": "onCloseClicked",
+                        "line": 163
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 33,
+                        "durationMicroseconds": 68,
+                        "errorMessage": "",
+                        "functionName": "onFramesSwappedChanged",
+                        "line": 164
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 25,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "duration",
+                        "line": 158
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 84,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 159
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 12,
+                        "durationMicroseconds": 229,
+                        "errorMessage": "",
+                        "functionName": "x",
+                        "line": 172
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 12,
+                        "durationMicroseconds": 213,
+                        "errorMessage": "",
+                        "functionName": "y",
+                        "line": 173
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 18,
+                        "durationMicroseconds": 92,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 175
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 16,
+                        "durationMicroseconds": 49,
+                        "errorMessage": "",
+                        "functionName": "theme",
+                        "line": 177
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 48,
+                        "errorMessage": "",
+                        "functionName": "mediaViewModel",
+                        "line": 178
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 66,
+                        "errorMessage": "",
+                        "functionName": "onCloseClicked",
+                        "line": 194
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 30,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "duration",
+                        "line": 182
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 51,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 183
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 21,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "duration",
+                        "line": 189
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 46,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 190
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 18,
+                        "durationMicroseconds": 449,
+                        "errorMessage": "",
+                        "functionName": "opacity",
+                        "line": 201
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 18,
+                        "durationMicroseconds": 300,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 205
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 40,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 199
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 31,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "duration",
+                        "line": 211
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 24,
+                        "durationMicroseconds": 415,
+                        "errorMessage": "",
+                        "functionName": "onClicked",
+                        "line": 217
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 27,
+                        "durationMicroseconds": 51,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 216
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 33,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 231
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 21,
+                        "durationMicroseconds": 52,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 239
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 33,
+                        "errorMessage": "Cannot access value for name theme",
+                        "functionName": "duration",
+                        "line": 243
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 24,
+                        "durationMicroseconds": 115,
+                        "errorMessage": "",
+                        "functionName": "onStarted",
+                        "line": 245
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 135,
+                        "errorMessage": "",
+                        "functionName": "onFinished",
+                        "line": 249
+                    }
+                ],
+                "filePath": "C:/Users/mahmo/Documents/untitled/view/PanelContainer.qml"
+            }
+        ],
+        "moduleId": "untitled(appuntitled)"
+    }
+]

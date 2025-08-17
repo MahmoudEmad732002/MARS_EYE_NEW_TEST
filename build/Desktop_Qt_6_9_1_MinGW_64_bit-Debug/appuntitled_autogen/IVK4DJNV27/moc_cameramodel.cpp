@@ -44,6 +44,7 @@ template <> constexpr inline auto CameraModel::qt_create_metaobjectdata<qt_meta_
         "streaming",
         "frameReceived",
         "frameData",
+        "frameId",
         "errorOccurred",
         "error",
         "connectionEstablished",
@@ -54,7 +55,8 @@ template <> constexpr inline auto CameraModel::qt_create_metaobjectdata<qt_meta_
         "isStreaming",
         "readPendingDatagrams",
         "onSocketError",
-        "processBuffer"
+        "processBuffer",
+        "cleanupIncompleteFrames"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -63,29 +65,31 @@ template <> constexpr inline auto CameraModel::qt_create_metaobjectdata<qt_meta_
             { QMetaType::Bool, 3 },
         }}),
         // Signal 'frameReceived'
-        QtMocHelpers::SignalData<void(const QByteArray &)>(4, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::QByteArray, 5 },
+        QtMocHelpers::SignalData<void(const QByteArray &, quint16)>(4, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QByteArray, 5 }, { QMetaType::UShort, 6 },
         }}),
         // Signal 'errorOccurred'
-        QtMocHelpers::SignalData<void(const QString &)>(6, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::QString, 7 },
+        QtMocHelpers::SignalData<void(const QString &)>(7, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 8 },
         }}),
         // Signal 'connectionEstablished'
-        QtMocHelpers::SignalData<void()>(8, 2, QMC::AccessPublic, QMetaType::Void),
+        QtMocHelpers::SignalData<void()>(9, 2, QMC::AccessPublic, QMetaType::Void),
         // Slot 'startStreaming'
-        QtMocHelpers::SlotData<void(const QString &, int)>(9, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::QString, 10 }, { QMetaType::Int, 11 },
+        QtMocHelpers::SlotData<void(const QString &, int)>(10, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 11 }, { QMetaType::Int, 12 },
         }}),
         // Slot 'stopStreaming'
-        QtMocHelpers::SlotData<void()>(12, 2, QMC::AccessPublic, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(13, 2, QMC::AccessPublic, QMetaType::Void),
         // Slot 'isStreaming'
-        QtMocHelpers::SlotData<bool() const>(13, 2, QMC::AccessPublic, QMetaType::Bool),
+        QtMocHelpers::SlotData<bool() const>(14, 2, QMC::AccessPublic, QMetaType::Bool),
         // Slot 'readPendingDatagrams'
-        QtMocHelpers::SlotData<void()>(14, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'onSocketError'
         QtMocHelpers::SlotData<void()>(15, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'processBuffer'
+        // Slot 'onSocketError'
         QtMocHelpers::SlotData<void()>(16, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'processBuffer'
+        QtMocHelpers::SlotData<void()>(17, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'cleanupIncompleteFrames'
+        QtMocHelpers::SlotData<void()>(18, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -110,7 +114,7 @@ void CameraModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: _t->streamingStatusChanged((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
-        case 1: _t->frameReceived((*reinterpret_cast< std::add_pointer_t<QByteArray>>(_a[1]))); break;
+        case 1: _t->frameReceived((*reinterpret_cast< std::add_pointer_t<QByteArray>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<quint16>>(_a[2]))); break;
         case 2: _t->errorOccurred((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         case 3: _t->connectionEstablished(); break;
         case 4: _t->startStreaming((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
@@ -120,13 +124,14 @@ void CameraModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 7: _t->readPendingDatagrams(); break;
         case 8: _t->onSocketError(); break;
         case 9: _t->processBuffer(); break;
+        case 10: _t->cleanupIncompleteFrames(); break;
         default: ;
         }
     }
     if (_c == QMetaObject::IndexOfMethod) {
         if (QtMocHelpers::indexOfMethod<void (CameraModel::*)(bool )>(_a, &CameraModel::streamingStatusChanged, 0))
             return;
-        if (QtMocHelpers::indexOfMethod<void (CameraModel::*)(const QByteArray & )>(_a, &CameraModel::frameReceived, 1))
+        if (QtMocHelpers::indexOfMethod<void (CameraModel::*)(const QByteArray & , quint16 )>(_a, &CameraModel::frameReceived, 1))
             return;
         if (QtMocHelpers::indexOfMethod<void (CameraModel::*)(const QString & )>(_a, &CameraModel::errorOccurred, 2))
             return;
@@ -154,14 +159,14 @@ int CameraModel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 10)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 10;
+        _id -= 11;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 10)
+        if (_id < 11)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 10;
+        _id -= 11;
     }
     return _id;
 }
@@ -173,9 +178,9 @@ void CameraModel::streamingStatusChanged(bool _t1)
 }
 
 // SIGNAL 1
-void CameraModel::frameReceived(const QByteArray & _t1)
+void CameraModel::frameReceived(const QByteArray & _t1, quint16 _t2)
 {
-    QMetaObject::activate<void>(this, &staticMetaObject, 1, nullptr, _t1);
+    QMetaObject::activate<void>(this, &staticMetaObject, 1, nullptr, _t1, _t2);
 }
 
 // SIGNAL 2

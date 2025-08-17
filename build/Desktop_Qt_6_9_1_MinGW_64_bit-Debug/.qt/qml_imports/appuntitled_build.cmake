@@ -1,4 +1,4 @@
-set(qml_import_scanner_imports_count 34)
+set(qml_import_scanner_imports_count 37)
 set(qml_import_scanner_import_0 "CLASSNAME;QtQuick2Plugin;LINKTARGET;Qt6::qtquick2plugin;NAME;QtQuick;PATH;C:/Qt/6.9.1/mingw_64/qml/QtQuick;PLUGIN;qtquick2plugin;PLUGINISOPTIONAL;;PREFER;:/qt-project.org/imports/QtQuick/;RELATIVEPATH;QtQuick;TYPE;module;")
 set(qml_import_scanner_import_1 "CLASSNAME;QtQmlPlugin;LINKTARGET;Qt6::qmlplugin;NAME;QtQml;PATH;C:/Qt/6.9.1/mingw_64/qml/QtQml;PLUGIN;qmlplugin;PLUGINISOPTIONAL;;PREFER;:/qt-project.org/imports/QtQml/;RELATIVEPATH;QtQml;TYPE;module;")
 set(qml_import_scanner_import_2 "NAME;QML;PATH;C:/Qt/6.9.1/mingw_64/qml/QML;PREFER;:/qt-project.org/imports/QML/;RELATIVEPATH;QML;TYPE;module;")
@@ -33,4 +33,7 @@ set(qml_import_scanner_import_30 "NAME;SerialApp;TYPE;module;")
 set(qml_import_scanner_import_31 "CLASSNAME;QtLocationDeclarativeModule;COMPONENTS;C:/Qt/6.9.1/mingw_64/qml/QtLocation/MapView.qml;LINKTARGET;Qt6::declarative_location;NAME;QtLocation;PATH;C:/Qt/6.9.1/mingw_64/qml/QtLocation;PLUGIN;declarative_locationplugin;PREFER;:/qt-project.org/imports/QtLocation/;RELATIVEPATH;QtLocation;TYPE;module;")
 set(qml_import_scanner_import_32 "CLASSNAME;QtPositioningDeclarativeModule;LINKTARGET;Qt6::positioningquickplugin;NAME;QtPositioning;PATH;C:/Qt/6.9.1/mingw_64/qml/QtPositioning;PLUGIN;positioningquickplugin;PREFER;:/qt-project.org/imports/QtPositioning/;RELATIVEPATH;QtPositioning;TYPE;module;")
 set(qml_import_scanner_import_33 "CLASSNAME;QtLabsAnimationPlugin;LINKTARGET;Qt6::labsanimationplugin;NAME;Qt.labs.animation;PATH;C:/Qt/6.9.1/mingw_64/qml/Qt/labs/animation;PLUGIN;labsanimationplugin;PLUGINISOPTIONAL;;PREFER;:/qt-project.org/imports/Qt/labs/animation/;RELATIVEPATH;Qt/labs/animation;TYPE;module;")
+set(qml_import_scanner_import_34 "NAME;view;PATH;C:/Users/mahmo/Documents/untitled/view;TYPE;directory;")
+set(qml_import_scanner_import_35 "NAME;view;PATH;C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/untitled/view;TYPE;directory;")
+set(qml_import_scanner_import_36 "NAME;.;PATH;C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/untitled/view;TYPE;directory;")
 

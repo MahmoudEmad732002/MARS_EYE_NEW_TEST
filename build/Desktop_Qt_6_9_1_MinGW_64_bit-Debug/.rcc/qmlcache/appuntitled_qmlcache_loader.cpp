@@ -12,6 +12,53 @@ namespace _qt_qml_untitled_Main_qml {
         reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
     };
 }
+namespace _qt_qml_untitled_view_TelemetryPanel_qml { 
+    extern const unsigned char qmlData[];
+    extern const QQmlPrivate::AOTCompiledFunction aotBuiltFunctions[];
+    const QQmlPrivate::CachedQmlUnit unit = {
+        reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
+    };
+}
+namespace _qt_qml_untitled_view_ControlsPanel_qml { 
+    extern const unsigned char qmlData[];
+    extern const QQmlPrivate::AOTCompiledFunction aotBuiltFunctions[];
+    const QQmlPrivate::CachedQmlUnit unit = {
+        reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
+    };
+}
+namespace _qt_qml_untitled_view_MapPanel_qml { 
+    extern const unsigned char qmlData[];
+    extern const QQmlPrivate::AOTCompiledFunction aotBuiltFunctions[];
+    const QQmlPrivate::CachedQmlUnit unit = {
+        reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
+    };
+}
+namespace _qt_qml_untitled_view_CapturePanel_qml { 
+    extern const unsigned char qmlData[];
+    extern const QQmlPrivate::AOTCompiledFunction aotBuiltFunctions[];
+    const QQmlPrivate::CachedQmlUnit unit = {
+        reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
+    };
+}
+namespace _qt_qml_untitled_view_TelemetryPanel_qml { 
+    extern const unsigned char qmlData[];
+    extern const QQmlPrivate::AOTCompiledFunction aotBuiltFunctions[];
+
+}
+namespace _qt_qml_untitled_view_TopBar_qml { 
+    extern const unsigned char qmlData[];
+    extern const QQmlPrivate::AOTCompiledFunction aotBuiltFunctions[];
+    const QQmlPrivate::CachedQmlUnit unit = {
+        reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
+    };
+}
+namespace _qt_qml_untitled_view_VisualizationPanel_qml { 
+    extern const unsigned char qmlData[];
+    extern const QQmlPrivate::AOTCompiledFunction aotBuiltFunctions[];
+    const QQmlPrivate::CachedQmlUnit unit = {
+        reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
+    };
+}
 
 }
 namespace {
@@ -27,6 +74,13 @@ Q_GLOBAL_STATIC(Registry, unitRegistry)
 
 Registry::Registry() {
     resourcePathToCachedUnit.insert(QStringLiteral("/qt/qml/untitled/Main.qml"), &QmlCacheGeneratedCode::_qt_qml_untitled_Main_qml::unit);
+    resourcePathToCachedUnit.insert(QStringLiteral("/qt/qml/untitled/view/TelemetryPanel.qml"), &QmlCacheGeneratedCode::_qt_qml_untitled_view_TelemetryPanel_qml::unit);
+    resourcePathToCachedUnit.insert(QStringLiteral("/qt/qml/untitled/view/ControlsPanel.qml"), &QmlCacheGeneratedCode::_qt_qml_untitled_view_ControlsPanel_qml::unit);
+    resourcePathToCachedUnit.insert(QStringLiteral("/qt/qml/untitled/view/MapPanel.qml"), &QmlCacheGeneratedCode::_qt_qml_untitled_view_MapPanel_qml::unit);
+    resourcePathToCachedUnit.insert(QStringLiteral("/qt/qml/untitled/view/CapturePanel.qml"), &QmlCacheGeneratedCode::_qt_qml_untitled_view_CapturePanel_qml::unit);
+    resourcePathToCachedUnit.insert(QStringLiteral("/qt/qml/untitled/view/TelemetryPanel.qml"), &QmlCacheGeneratedCode::_qt_qml_untitled_view_TelemetryPanel_qml::unit);
+    resourcePathToCachedUnit.insert(QStringLiteral("/qt/qml/untitled/view/TopBar.qml"), &QmlCacheGeneratedCode::_qt_qml_untitled_view_TopBar_qml::unit);
+    resourcePathToCachedUnit.insert(QStringLiteral("/qt/qml/untitled/view/VisualizationPanel.qml"), &QmlCacheGeneratedCode::_qt_qml_untitled_view_VisualizationPanel_qml::unit);
     QQmlPrivate::RegisterQmlUnitCacheHook registration;
     registration.structVersion = 0;
     registration.lookupCachedQmlUnit = &lookupCachedUnit;

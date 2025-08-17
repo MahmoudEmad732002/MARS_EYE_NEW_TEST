@@ -1,7 +1,8 @@
 #include "ThermalCameraModel.h"
 #include <QDebug>
 #include <QNetworkDatagram>
-
+#include<QtEndian>
+#include<QDateTime>
 // JPEG markers
 const QByteArray ThermalCameraModel::JPEG_START_MARKER = QByteArray::fromHex("FFD8");
 const QByteArray ThermalCameraModel::JPEG_END_MARKER = QByteArray::fromHex("FFD9");
@@ -11,10 +12,16 @@ ThermalCameraModel::ThermalCameraModel(QObject *parent)
     , m_udpSocket(nullptr)
     , m_processTimer(new QTimer(this))
     , m_streaming(false)
+    , m_fragmentTimeout(5000)
 {
     // Timer to process buffer periodically
-    m_processTimer->setInterval(16); // ~60 FPS processing
+    m_processTimer->setInterval(16);
     connect(m_processTimer, &QTimer::timeout, this, &ThermalCameraModel::processBuffer);
+
+    // Timer to clean up incomplete frames
+    m_cleanupTimer = new QTimer(this);
+    m_cleanupTimer->setInterval(1000); // Check every second
+    connect(m_cleanupTimer, &QTimer::timeout, this, &ThermalCameraModel::cleanupIncompleteFrames);
 }
 
 ThermalCameraModel::~ThermalCameraModel()
@@ -43,11 +50,12 @@ void ThermalCameraModel::startStreaming(const QString &ipAddress, int port)
     if (m_udpSocket->bind(QHostAddress::AnyIPv4, port)) {
         m_streaming = true;
         m_processTimer->start();
+        m_cleanupTimer->start();
         emit streamingStatusChanged(true);
         emit connectionEstablished();
-        qDebug() << "Started thermal UDP streaming on port:" << port;
+        qDebug() << "Started UDP streaming on port:" << port;
     } else {
-        emit errorOccurred("Failed to bind to thermal port " + QString::number(port) + ": " + m_udpSocket->errorString());
+        emit errorOccurred("Failed to bind to port " + QString::number(port) + ": " + m_udpSocket->errorString());
         delete m_udpSocket;
         m_udpSocket = nullptr;
     }
@@ -60,6 +68,7 @@ void ThermalCameraModel::stopStreaming()
     }
 
     m_processTimer->stop();
+    m_cleanupTimer->stop();
 
     if (m_udpSocket) {
         m_udpSocket->close();
@@ -68,9 +77,10 @@ void ThermalCameraModel::stopStreaming()
     }
 
     clearBuffer();
+    clearIncompleteFrames();
     m_streaming = false;
     emit streamingStatusChanged(false);
-    qDebug() << "Stopped thermal UDP streaming";
+    qDebug() << "Stopped UDP streaming";
 }
 
 bool ThermalCameraModel::isStreaming() const
@@ -85,19 +95,104 @@ void ThermalCameraModel::readPendingDatagrams()
         QByteArray data = datagram.data();
 
         if (!data.isEmpty()) {
-            QMutexLocker locker(&m_bufferMutex);
-            m_frameBuffer.append(data);
-
-            // Debug: Log received data size
-            qDebug() << "Received thermal UDP packet, size:" << data.size() << "Total buffer size:" << m_frameBuffer.size();
-
-            // Limit buffer size to prevent memory issues (10MB max)
-            if (m_frameBuffer.size() > 10 * 1024 * 1024) {
-                // Keep only the last 5MB
-                m_frameBuffer = m_frameBuffer.right(5 * 1024 * 1024);
-                qDebug() << "Thermal buffer trimmed to prevent overflow";
-            }
+            processFragmentedPacket(data);
         }
+    }
+}
+
+void ThermalCameraModel::processFragmentedPacket(const QByteArray &packet)
+{
+
+    // Check if packet has header (minimum 14 bytes for header)
+    if (packet.size() < 14) {
+        qDebug() << "Packet too small for header:" << packet.size();
+        return;
+    }
+
+    // Parse header: frame_id(2) + total_fragments(4) + fragment_index(4) + fragment_size(4)
+    const char* data = packet.constData();
+    quint16 frameId = qFromBigEndian<quint16>(reinterpret_cast<const uchar*>(data));
+    quint32 totalFragments = qFromBigEndian<quint32>(reinterpret_cast<const uchar*>(data + 2));
+    quint32 fragmentIndex = qFromBigEndian<quint32>(reinterpret_cast<const uchar*>(data + 6));
+    quint32 fragmentSize = qFromBigEndian<quint32>(reinterpret_cast<const uchar*>(data + 10));
+    // Validate header
+    if (fragmentIndex >= totalFragments || fragmentSize != (packet.size() - 14)) {
+        qDebug() << "Invalid fragment header - Index:" << fragmentIndex
+                 << "Total:" << totalFragments << "Size:" << fragmentSize ;
+        return;
+    }
+
+    // Extract fragment data
+    QByteArray fragmentData = packet.mid(14);
+
+    QMutexLocker locker(&m_bufferMutex);
+
+    // Initialize frame reassembly if this is the first fragment
+    if (!m_incompleteFrames.contains(frameId)) {
+        FrameAssembly assembly;
+        assembly.totalFragments = totalFragments;
+        assembly.receivedFragments = 0;
+        assembly.fragments.resize(totalFragments);
+        assembly.timestamp = QDateTime::currentMSecsSinceEpoch();
+        m_incompleteFrames[frameId] = assembly;
+
+        qDebug() << "Started reassembly for frame" << frameId << "with" << totalFragments << "fragments";
+    }
+
+    FrameAssembly& assembly = m_incompleteFrames[frameId];
+
+    // Check if we already have this fragment
+    if (!assembly.fragments[fragmentIndex].isEmpty()) {
+        qDebug() << "Duplicate fragment" << fragmentIndex << "for frame" << frameId;
+        return;
+    }
+
+    // Store the fragment
+    assembly.fragments[fragmentIndex] = fragmentData;
+    assembly.receivedFragments++;
+
+    qDebug() << "Received fragment" << fragmentIndex << "/" << totalFragments
+             << "for frame" << frameId << "(" << assembly.receivedFragments << "/" << totalFragments << ")";
+
+    // Check if frame is complete
+    if (assembly.receivedFragments == assembly.totalFragments) {
+        // Reassemble the complete frame
+        QByteArray completeFrame;
+        for (const QByteArray& fragment : assembly.fragments) {
+            completeFrame.append(fragment);
+        }
+
+        qDebug() << "Frame" << frameId << "complete, total size:" << completeFrame.size();
+
+        // Validate and emit the complete frame
+        if (isValidJpegFrame(completeFrame)) {
+            emit frameReceived(completeFrame);
+            qDebug() << "Valid complete frame emitted for frame ID:" << frameId;
+        } else {
+            qDebug() << "Invalid complete frame for frame ID:" << frameId;
+        }
+
+        // Remove completed frame from incomplete frames
+        m_incompleteFrames.remove(frameId);
+    }
+}
+
+void ThermalCameraModel::cleanupIncompleteFrames()
+{
+    QMutexLocker locker(&m_bufferMutex);
+
+    qint64 currentTime = QDateTime::currentMSecsSinceEpoch();
+    QList<quint32> framesToRemove;
+
+    for (auto it = m_incompleteFrames.begin(); it != m_incompleteFrames.end(); ++it) {
+        if (currentTime - it.value().timestamp > m_fragmentTimeout) {
+            framesToRemove.append(it.key());
+        }
+    }
+
+    for (quint16  frameId : framesToRemove) {
+        qDebug() << "Removing incomplete frame" << frameId << "due to timeout";
+        m_incompleteFrames.remove(frameId);
     }
 }
 
@@ -146,9 +241,9 @@ void ThermalCameraModel::extractFramesFromBuffer()
         if (isValidJpegFrame(frameData)) {
             emit frameReceived(frameData);
             framesExtracted++;
-            qDebug() << "Valid thermal frame emitted, total extracted:" << framesExtracted;
+            qDebug() << "Valid frame emitted, total extracted:" << framesExtracted;
         } else {
-            qDebug() << "Invalid thermal frame detected, skipping";
+            qDebug() << "Invalid frame detected, skipping";
         }
 
         // Move to next potential frame
@@ -162,7 +257,7 @@ void ThermalCameraModel::extractFramesFromBuffer()
     }
 
     if (framesExtracted > 0) {
-        qDebug() << "Extracted" << framesExtracted << "thermal frames in this cycle";
+        qDebug() << "Extracted" << framesExtracted << "frames in this cycle";
     }
 }
 
@@ -170,7 +265,7 @@ bool ThermalCameraModel::isValidJpegFrame(const QByteArray &data)
 {
     // Basic validation: must start with JPEG start marker and end with JPEG end marker
     if (data.size() < 4) {
-        qDebug() << "Thermal frame too small:" << data.size() << "bytes";
+        qDebug() << "Frame too small:" << data.size() << "bytes";
         return false;
     }
 
@@ -178,15 +273,15 @@ bool ThermalCameraModel::isValidJpegFrame(const QByteArray &data)
     bool validEnd = data.endsWith(JPEG_END_MARKER);
 
     if (!validStart) {
-        qDebug() << "Invalid thermal JPEG start marker";
+        qDebug() << "Invalid JPEG start marker";
     }
     if (!validEnd) {
-        qDebug() << "Invalid thermal JPEG end marker";
+        qDebug() << "Invalid JPEG end marker";
     }
 
-    // Additional validation: reasonable size (1KB to 1MB)
-    if (data.size() < 1024 || data.size() > 1024 * 1024) {
-        qDebug() << "Thermal frame size out of reasonable range:" << data.size();
+    // For Full HD frames, allow larger size range
+    if (data.size() < 1024 || data.size() > 5 * 1024 * 1024) { // Up to 5MB for Full HD
+        qDebug() << "Frame size out of reasonable range:" << data.size();
         return false;
     }
 
@@ -197,14 +292,21 @@ void ThermalCameraModel::clearBuffer()
 {
     QMutexLocker locker(&m_bufferMutex);
     m_frameBuffer.clear();
-    qDebug() << "Thermal buffer cleared";
+    qDebug() << "Buffer cleared";
+}
+
+void ThermalCameraModel::clearIncompleteFrames()
+{
+    QMutexLocker locker(&m_bufferMutex);
+    m_incompleteFrames.clear();
+    qDebug() << "Incomplete frames cleared";
 }
 
 void ThermalCameraModel::onSocketError()
 {
     if (m_udpSocket) {
         QString errorString = m_udpSocket->errorString();
-        emit errorOccurred("Thermal UDP Socket Error: " + errorString);
-        qDebug() << "Thermal UDP Socket Error:" << errorString;
+        emit errorOccurred("UDP Socket Error: " + errorString);
+        qDebug() << "UDP Socket Error:" << errorString;
     }
 }

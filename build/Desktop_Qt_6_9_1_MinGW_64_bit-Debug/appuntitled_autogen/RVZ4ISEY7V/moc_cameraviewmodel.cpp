@@ -48,14 +48,17 @@ template <> constexpr inline auto CameraViewModel::qt_create_metaobjectdata<qt_m
         "frameCountChanged",
         "frameRateChanged",
         "trackingEnabledChanged",
+        "frameIdChanged",
         "requestStartStream",
         "ipAddress",
         "port",
         "requestStopStream",
+        "trackingRectChanged",
         "onStreamingStatusChanged",
         "streaming",
         "onFrameReceived",
         "frameData",
+        "frameId",
         "onCameraError",
         "error",
         "onConnectionEstablished",
@@ -70,13 +73,19 @@ template <> constexpr inline auto CameraViewModel::qt_create_metaobjectdata<qt_m
         "y",
         "w",
         "h",
+        "updateTrackingRect",
+        "show",
         "streamButtonText",
         "streamButtonColor",
         "cameraStatus",
         "trackingEnabled",
         "currentFrameUrl",
         "frameCount",
-        "frameRate"
+        "frameRate",
+        "showTrackingRect",
+        "trackingRectX",
+        "trackingRectY",
+        "currentFrameId"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -96,64 +105,80 @@ template <> constexpr inline auto CameraViewModel::qt_create_metaobjectdata<qt_m
         QtMocHelpers::SignalData<void()>(8, 2, QMC::AccessPublic, QMetaType::Void),
         // Signal 'trackingEnabledChanged'
         QtMocHelpers::SignalData<void()>(9, 2, QMC::AccessPublic, QMetaType::Void),
+        // Signal 'frameIdChanged'
+        QtMocHelpers::SignalData<void()>(10, 2, QMC::AccessPublic, QMetaType::Void),
         // Signal 'requestStartStream'
-        QtMocHelpers::SignalData<void(const QString &, int)>(10, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::QString, 11 }, { QMetaType::Int, 12 },
+        QtMocHelpers::SignalData<void(const QString &, int)>(11, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 12 }, { QMetaType::Int, 13 },
         }}),
         // Signal 'requestStopStream'
-        QtMocHelpers::SignalData<void()>(13, 2, QMC::AccessPublic, QMetaType::Void),
+        QtMocHelpers::SignalData<void()>(14, 2, QMC::AccessPublic, QMetaType::Void),
+        // Signal 'trackingRectChanged'
+        QtMocHelpers::SignalData<void()>(15, 2, QMC::AccessPublic, QMetaType::Void),
         // Slot 'onStreamingStatusChanged'
-        QtMocHelpers::SlotData<void(bool)>(14, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Bool, 15 },
+        QtMocHelpers::SlotData<void(bool)>(16, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Bool, 17 },
         }}),
         // Slot 'onFrameReceived'
-        QtMocHelpers::SlotData<void(const QByteArray &)>(16, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::QByteArray, 17 },
+        QtMocHelpers::SlotData<void(const QByteArray &, quint16)>(18, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::QByteArray, 19 }, { QMetaType::UShort, 20 },
         }}),
         // Slot 'onCameraError'
-        QtMocHelpers::SlotData<void(const QString &)>(18, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::QString, 19 },
+        QtMocHelpers::SlotData<void(const QString &)>(21, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::QString, 22 },
         }}),
         // Slot 'onConnectionEstablished'
-        QtMocHelpers::SlotData<void()>(20, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(23, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'calculateFrameRate'
-        QtMocHelpers::SlotData<void()>(21, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(24, 2, QMC::AccessPrivate, QMetaType::Void),
         // Method 'toggleStream'
-        QtMocHelpers::MethodData<void()>(22, 2, QMC::AccessPublic, QMetaType::Void),
-        // Method 'startStream'
-        QtMocHelpers::MethodData<void()>(23, 2, QMC::AccessPublic, QMetaType::Void),
-        // Method 'stopStream'
-        QtMocHelpers::MethodData<void()>(24, 2, QMC::AccessPublic, QMetaType::Void),
-        // Method 'enableTracking'
         QtMocHelpers::MethodData<void()>(25, 2, QMC::AccessPublic, QMetaType::Void),
-        // Method 'disableTracking'
+        // Method 'startStream'
         QtMocHelpers::MethodData<void()>(26, 2, QMC::AccessPublic, QMetaType::Void),
+        // Method 'stopStream'
+        QtMocHelpers::MethodData<void()>(27, 2, QMC::AccessPublic, QMetaType::Void),
+        // Method 'enableTracking'
+        QtMocHelpers::MethodData<void()>(28, 2, QMC::AccessPublic, QMetaType::Void),
+        // Method 'disableTracking'
+        QtMocHelpers::MethodData<void()>(29, 2, QMC::AccessPublic, QMetaType::Void),
         // Method 'sendTarget'
-        QtMocHelpers::MethodData<void(int, int, int, int)>(27, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::Int, 28 }, { QMetaType::Int, 29 }, { QMetaType::Int, 30 }, { QMetaType::Int, 31 },
+        QtMocHelpers::MethodData<void(int, int, int, int)>(30, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Int, 31 }, { QMetaType::Int, 32 }, { QMetaType::Int, 33 }, { QMetaType::Int, 34 },
+        }}),
+        // Method 'updateTrackingRect'
+        QtMocHelpers::MethodData<void(int, int, bool)>(35, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Int, 31 }, { QMetaType::Int, 32 }, { QMetaType::Bool, 36 },
         }}),
     };
     QtMocHelpers::UintData qt_properties {
         // property 'ipAddress'
-        QtMocHelpers::PropertyData<QString>(11, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 0),
+        QtMocHelpers::PropertyData<QString>(12, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 0),
         // property 'port'
-        QtMocHelpers::PropertyData<int>(12, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 1),
+        QtMocHelpers::PropertyData<int>(13, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 1),
         // property 'streaming'
-        QtMocHelpers::PropertyData<bool>(15, QMetaType::Bool, QMC::DefaultPropertyFlags, 2),
+        QtMocHelpers::PropertyData<bool>(17, QMetaType::Bool, QMC::DefaultPropertyFlags, 2),
         // property 'streamButtonText'
-        QtMocHelpers::PropertyData<QString>(32, QMetaType::QString, QMC::DefaultPropertyFlags, 2),
+        QtMocHelpers::PropertyData<QString>(37, QMetaType::QString, QMC::DefaultPropertyFlags, 2),
         // property 'streamButtonColor'
-        QtMocHelpers::PropertyData<QString>(33, QMetaType::QString, QMC::DefaultPropertyFlags, 2),
+        QtMocHelpers::PropertyData<QString>(38, QMetaType::QString, QMC::DefaultPropertyFlags, 2),
         // property 'cameraStatus'
-        QtMocHelpers::PropertyData<QString>(34, QMetaType::QString, QMC::DefaultPropertyFlags, 3),
+        QtMocHelpers::PropertyData<QString>(39, QMetaType::QString, QMC::DefaultPropertyFlags, 3),
         // property 'trackingEnabled'
-        QtMocHelpers::PropertyData<bool>(35, QMetaType::Bool, QMC::DefaultPropertyFlags, 7),
+        QtMocHelpers::PropertyData<bool>(40, QMetaType::Bool, QMC::DefaultPropertyFlags, 7),
         // property 'currentFrameUrl'
-        QtMocHelpers::PropertyData<QString>(36, QMetaType::QString, QMC::DefaultPropertyFlags, 4),
+        QtMocHelpers::PropertyData<QString>(41, QMetaType::QString, QMC::DefaultPropertyFlags, 4),
         // property 'frameCount'
-        QtMocHelpers::PropertyData<int>(37, QMetaType::Int, QMC::DefaultPropertyFlags, 5),
+        QtMocHelpers::PropertyData<int>(42, QMetaType::Int, QMC::DefaultPropertyFlags, 5),
         // property 'frameRate'
-        QtMocHelpers::PropertyData<double>(38, QMetaType::Double, QMC::DefaultPropertyFlags, 6),
+        QtMocHelpers::PropertyData<double>(43, QMetaType::Double, QMC::DefaultPropertyFlags, 6),
+        // property 'showTrackingRect'
+        QtMocHelpers::PropertyData<bool>(44, QMetaType::Bool, QMC::DefaultPropertyFlags, 11),
+        // property 'trackingRectX'
+        QtMocHelpers::PropertyData<int>(45, QMetaType::Int, QMC::DefaultPropertyFlags, 11),
+        // property 'trackingRectY'
+        QtMocHelpers::PropertyData<int>(46, QMetaType::Int, QMC::DefaultPropertyFlags, 11),
+        // property 'currentFrameId'
+        QtMocHelpers::PropertyData<int>(47, QMetaType::Int, QMC::DefaultPropertyFlags, 8),
     };
     QtMocHelpers::UintData qt_enums {
     };
@@ -183,19 +208,22 @@ void CameraViewModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         case 5: _t->frameCountChanged(); break;
         case 6: _t->frameRateChanged(); break;
         case 7: _t->trackingEnabledChanged(); break;
-        case 8: _t->requestStartStream((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
-        case 9: _t->requestStopStream(); break;
-        case 10: _t->onStreamingStatusChanged((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
-        case 11: _t->onFrameReceived((*reinterpret_cast< std::add_pointer_t<QByteArray>>(_a[1]))); break;
-        case 12: _t->onCameraError((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 13: _t->onConnectionEstablished(); break;
-        case 14: _t->calculateFrameRate(); break;
-        case 15: _t->toggleStream(); break;
-        case 16: _t->startStream(); break;
-        case 17: _t->stopStream(); break;
-        case 18: _t->enableTracking(); break;
-        case 19: _t->disableTracking(); break;
-        case 20: _t->sendTarget((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[4]))); break;
+        case 8: _t->frameIdChanged(); break;
+        case 9: _t->requestStartStream((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
+        case 10: _t->requestStopStream(); break;
+        case 11: _t->trackingRectChanged(); break;
+        case 12: _t->onStreamingStatusChanged((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
+        case 13: _t->onFrameReceived((*reinterpret_cast< std::add_pointer_t<QByteArray>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<quint16>>(_a[2]))); break;
+        case 14: _t->onCameraError((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 15: _t->onConnectionEstablished(); break;
+        case 16: _t->calculateFrameRate(); break;
+        case 17: _t->toggleStream(); break;
+        case 18: _t->startStream(); break;
+        case 19: _t->stopStream(); break;
+        case 20: _t->enableTracking(); break;
+        case 21: _t->disableTracking(); break;
+        case 22: _t->sendTarget((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[4]))); break;
+        case 23: _t->updateTrackingRect((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[3]))); break;
         default: ;
         }
     }
@@ -216,9 +244,13 @@ void CameraViewModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
             return;
         if (QtMocHelpers::indexOfMethod<void (CameraViewModel::*)()>(_a, &CameraViewModel::trackingEnabledChanged, 7))
             return;
-        if (QtMocHelpers::indexOfMethod<void (CameraViewModel::*)(const QString & , int )>(_a, &CameraViewModel::requestStartStream, 8))
+        if (QtMocHelpers::indexOfMethod<void (CameraViewModel::*)()>(_a, &CameraViewModel::frameIdChanged, 8))
             return;
-        if (QtMocHelpers::indexOfMethod<void (CameraViewModel::*)()>(_a, &CameraViewModel::requestStopStream, 9))
+        if (QtMocHelpers::indexOfMethod<void (CameraViewModel::*)(const QString & , int )>(_a, &CameraViewModel::requestStartStream, 9))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (CameraViewModel::*)()>(_a, &CameraViewModel::requestStopStream, 10))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (CameraViewModel::*)()>(_a, &CameraViewModel::trackingRectChanged, 11))
             return;
     }
     if (_c == QMetaObject::ReadProperty) {
@@ -234,6 +266,10 @@ void CameraViewModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         case 7: *reinterpret_cast<QString*>(_v) = _t->currentFrameUrl(); break;
         case 8: *reinterpret_cast<int*>(_v) = _t->frameCount(); break;
         case 9: *reinterpret_cast<double*>(_v) = _t->frameRate(); break;
+        case 10: *reinterpret_cast<bool*>(_v) = _t->showTrackingRect(); break;
+        case 11: *reinterpret_cast<int*>(_v) = _t->trackingRectX(); break;
+        case 12: *reinterpret_cast<int*>(_v) = _t->trackingRectY(); break;
+        case 13: *reinterpret_cast<int*>(_v) = _t->currentFrameId(); break;
         default: break;
         }
     }
@@ -266,20 +302,20 @@ int CameraViewModel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 21)
+        if (_id < 24)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 21;
+        _id -= 24;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 21)
+        if (_id < 24)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 21;
+        _id -= 24;
     }
     if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::BindableProperty
             || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);
-        _id -= 10;
+        _id -= 14;
     }
     return _id;
 }
@@ -333,14 +369,26 @@ void CameraViewModel::trackingEnabledChanged()
 }
 
 // SIGNAL 8
-void CameraViewModel::requestStartStream(const QString & _t1, int _t2)
+void CameraViewModel::frameIdChanged()
 {
-    QMetaObject::activate<void>(this, &staticMetaObject, 8, nullptr, _t1, _t2);
+    QMetaObject::activate(this, &staticMetaObject, 8, nullptr);
 }
 
 // SIGNAL 9
+void CameraViewModel::requestStartStream(const QString & _t1, int _t2)
+{
+    QMetaObject::activate<void>(this, &staticMetaObject, 9, nullptr, _t1, _t2);
+}
+
+// SIGNAL 10
 void CameraViewModel::requestStopStream()
 {
-    QMetaObject::activate(this, &staticMetaObject, 9, nullptr);
+    QMetaObject::activate(this, &staticMetaObject, 10, nullptr);
+}
+
+// SIGNAL 11
+void CameraViewModel::trackingRectChanged()
+{
+    QMetaObject::activate(this, &staticMetaObject, 11, nullptr);
 }
 QT_WARNING_POP

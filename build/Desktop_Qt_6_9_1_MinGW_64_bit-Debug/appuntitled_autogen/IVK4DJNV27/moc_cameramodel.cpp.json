@@ -2,7 +2,7 @@
     "classes": [
         {
             "className": "CameraModel",
-            "lineNumber": 12,
+            "lineNumber": 15,
             "object": true,
             "qualifiedClassName": "CameraModel",
             "signals": [
@@ -24,6 +24,10 @@
                         {
                             "name": "frameData",
                             "type": "QByteArray"
+                        },
+                        {
+                            "name": "frameId",
+                            "type": "quint16"
                         }
                     ],
                     "index": 1,
@@ -95,6 +99,12 @@
                     "access": "private",
                     "index": 9,
                     "name": "processBuffer",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 10,
+                    "name": "cleanupIncompleteFrames",
                     "returnType": "void"
                 }
             ],
