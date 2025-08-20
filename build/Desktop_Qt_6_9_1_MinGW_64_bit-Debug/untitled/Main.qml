@@ -771,12 +771,18 @@ visible: root.controlsPanelVisible || root.telemetryPanelVisible || root.testPan
                         }
 
                         SpinBox {
+                            id: thermalPortSpin
                             Layout.preferredWidth: 80
                             from: 1
                             to: 65535
+                            stepSize: 1
                             value: thermalCameraViewModel.thermalPort
                             enabled: !thermalCameraViewModel.thermalStreaming
-                            editable: true  // Make it explicitly editable
+                            editable: true
+
+                            // leave space so arrows receive clicks
+                            leftPadding: 6
+                            rightPadding: 28
 
                             background: Rectangle {
                                 color: surfaceColor
@@ -785,23 +791,25 @@ visible: root.controlsPanelVisible || root.telemetryPanelVisible || root.testPan
                                 radius: 3
                             }
 
+                            // Custom display/editor that doesn't block the arrows
                             contentItem: TextInput {
-                                text: parent.textFromValue(parent.value, parent.locale)
+                                text: thermalPortSpin.displayText
                                 color: textColor
                                 horizontalAlignment: Qt.AlignHCenter
                                 verticalAlignment: Qt.AlignVCenter
+                                validator: IntValidator { bottom: thermalPortSpin.from; top: thermalPortSpin.to }
+                                inputMethodHints: Qt.ImhDigitsOnly
 
-                                onEditingFinished: {
-                                    // This triggers when Enter is pressed or focus is lost
-                                    parent.value = parent.valueFromText(text, parent.locale)
-                                    thermalCameraViewModel.thermalPort = parent.value
+                                // user pressed Enter
+                                onAccepted: {
+                                    thermalPortSpin.value = thermalPortSpin.valueFromText(text, thermalPortSpin.locale)
                                 }
                             }
 
-                            onValueChanged: {
-                                thermalCameraViewModel.thermalPort = value
-                            }
+                            // single source of truth -> ViewModel
+                            onValueChanged: thermalCameraViewModel.thermalPort = value
                         }
+
 
                         Button {
                             text: thermalCameraViewModel.thermalStreamButtonText

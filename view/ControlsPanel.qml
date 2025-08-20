@@ -440,15 +440,18 @@ Rectangle {
                         }
 
                         // Left and Right buttons (same as before but call updated methods)
-                        RowLayout {
+                        // Replace the Left and Right buttons section (around line 277-342) with this:
+
+                        // Left and Right buttons - FIXED to match up/down button sizes
+                        Row {
                             anchors.centerIn: parent
                             spacing: 60
 
                             Button {
                                 id: leftButton
                                 text: "←"
-                                width: 50
-                                height: 40
+                                width: 50  // Same as up/down buttons
+                                height: 40 // Same as up/down buttons
                                 enabled: viewModel.connected
                                 background: Rectangle {
                                     color: leftButton.pressed ? Qt.darker(primaryColor, 1.2) : primaryColor
@@ -475,8 +478,8 @@ Rectangle {
                             Button {
                                 id: rightButton
                                 text: "→"
-                                width: 50
-                                height: 40
+                                width: 50  // Same as up/down buttons
+                                height: 40 // Same as up/down buttons
                                 enabled: viewModel.connected
                                 background: Rectangle {
                                     color: rightButton.pressed ? Qt.darker(primaryColor, 1.2) : primaryColor
@@ -499,9 +502,7 @@ Rectangle {
                                 }
                                 hoverEnabled: false
                             }
-                        }
-
-                        // Down button
+                        } // Down button
                         Button {
                             id: downButton
                             text: "↓"
