@@ -102,7 +102,8 @@ void ThermalCameraModel::readPendingDatagrams()
 
 void ThermalCameraModel::processFragmentedPacket(const QByteArray &packet)
 {
-
+    // Check if packet has header (minimum 16 bytes for header)
+    // Check if packet has header (minimum 16 bytes for header)
     // Check if packet has header (minimum 14 bytes for header)
     if (packet.size() < 14) {
         qDebug() << "Packet too small for header:" << packet.size();

@@ -123,6 +123,183 @@
     {
         "classes": [
             {
+                "className": "JoystickReceiver",
+                "lineNumber": 11,
+                "methods": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "port",
+                                "type": "int"
+                            }
+                        ],
+                        "index": 7,
+                        "name": "startListening",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 8,
+                        "isCloned": true,
+                        "name": "startListening",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 9,
+                        "name": "stopListening",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "timeoutMs",
+                                "type": "int"
+                            }
+                        ],
+                        "index": 10,
+                        "name": "setConnectionTimeout",
+                        "returnType": "void"
+                    }
+                ],
+                "object": true,
+                "properties": [
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 0,
+                        "name": "connected",
+                        "notify": "connectedChanged",
+                        "read": "connected",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 1,
+                        "name": "joystickX",
+                        "notify": "joystickValuesChanged",
+                        "read": "joystickX",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "int",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 2,
+                        "name": "joystickY",
+                        "notify": "joystickValuesChanged",
+                        "read": "joystickY",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "int",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 3,
+                        "name": "physicalJoystickActive",
+                        "notify": "physicalJoystickActiveChanged",
+                        "read": "physicalJoystickActive",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    }
+                ],
+                "qualifiedClassName": "JoystickReceiver",
+                "signals": [
+                    {
+                        "access": "public",
+                        "index": 0,
+                        "name": "connectedChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 1,
+                        "name": "joystickValuesChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 2,
+                        "name": "physicalJoystickActiveChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "x",
+                                "type": "int"
+                            },
+                            {
+                                "name": "y",
+                                "type": "int"
+                            }
+                        ],
+                        "index": 3,
+                        "name": "joystickDataReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "error",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 4,
+                        "name": "errorOccurred",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "private",
+                        "index": 5,
+                        "name": "onDataReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 6,
+                        "name": "onConnectionTimeout",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "joystickreceiver.h",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
                 "className": "MediaManager",
                 "lineNumber": 13,
                 "methods": [
@@ -344,7 +521,7 @@
         "classes": [
             {
                 "className": "SerialModel",
-                "lineNumber": 9,
+                "lineNumber": 12,
                 "object": true,
                 "qualifiedClassName": "SerialModel",
                 "signals": [
@@ -597,6 +774,10 @@
                             {
                                 "name": "frameNumber",
                                 "type": "quint16"
+                            },
+                            {
+                                "name": "resetFlag",
+                                "type": "quint8"
                             }
                         ],
                         "index": 20,
@@ -612,6 +793,10 @@
                             },
                             {
                                 "name": "targetYp",
+                                "type": "quint16"
+                            },
+                            {
+                                "name": "frameNumber",
                                 "type": "quint16"
                             }
                         ],
@@ -1664,6 +1849,12 @@
                 "methods": [
                     {
                         "access": "public",
+                        "index": 25,
+                        "name": "sendPitchYaw",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
                         "arguments": [
                             {
                                 "name": "portName",
@@ -1674,25 +1865,25 @@
                                 "type": "int"
                             }
                         ],
-                        "index": 25,
+                        "index": 26,
                         "name": "connectToSerial",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 26,
+                        "index": 27,
                         "name": "refreshPorts",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 27,
+                        "index": 28,
                         "name": "startJoystickCommand",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 28,
+                        "index": 29,
                         "name": "stopJoystickCommand",
                         "returnType": "void"
                     },
@@ -1708,67 +1899,67 @@
                                 "type": "int"
                             }
                         ],
-                        "index": 29,
+                        "index": 30,
                         "name": "sendSoftwareJoystickCommand",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 30,
+                        "index": 31,
                         "name": "sendJoystickUp",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 31,
+                        "index": 32,
                         "name": "sendJoystickDown",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 32,
+                        "index": 33,
                         "name": "sendJoystickLeft",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 33,
+                        "index": 34,
                         "name": "sendJoystickRight",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 34,
+                        "index": 35,
                         "name": "sendPIDGains",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 35,
+                        "index": 36,
                         "name": "sendZoomCommand",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 36,
+                        "index": 37,
                         "name": "sendSelectTarget",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 37,
+                        "index": 38,
                         "name": "startAbsolutePointing",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 38,
+                        "index": 39,
                         "name": "stopAbsolutePointing",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 39,
+                        "index": 40,
                         "name": "sendRequestGains",
                         "returnType": "void"
                     },
@@ -1784,8 +1975,28 @@
                                 "type": "int"
                             }
                         ],
-                        "index": 40,
+                        "index": 41,
                         "name": "sendFrameInfoAndGains",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "x",
+                                "type": "int"
+                            },
+                            {
+                                "name": "y",
+                                "type": "int"
+                            },
+                            {
+                                "name": "frameNum",
+                                "type": "int"
+                            }
+                        ],
+                        "index": 42,
+                        "name": "sendSelectTarget",
                         "returnType": "void"
                     }
                 ],
@@ -2395,30 +2606,30 @@
                         "designable": true,
                         "final": false,
                         "index": 42,
-                        "name": "pitchAngleCmd",
+                        "name": "pitchAngle",
                         "notify": "absolutePointingChanged",
-                        "read": "pitchAngleCmd",
+                        "read": "pitchAngle",
                         "required": false,
                         "scriptable": true,
                         "stored": true,
-                        "type": "int",
+                        "type": "double",
                         "user": false,
-                        "write": "setPitchAngleCmd"
+                        "write": "setPitchAngle"
                     },
                     {
                         "constant": false,
                         "designable": true,
                         "final": false,
                         "index": 43,
-                        "name": "yawAngleCmd",
+                        "name": "yawAngle",
                         "notify": "absolutePointingChanged",
-                        "read": "yawAngleCmd",
+                        "read": "yawAngle",
                         "required": false,
                         "scriptable": true,
                         "stored": true,
-                        "type": "int",
+                        "type": "double",
                         "user": false,
-                        "write": "setYawAngleCmd"
+                        "write": "setYawAngle"
                     },
                     {
                         "constant": false,

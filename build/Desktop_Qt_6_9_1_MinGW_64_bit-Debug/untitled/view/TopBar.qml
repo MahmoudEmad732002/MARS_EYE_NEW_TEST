@@ -2,163 +2,276 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
-Item {
-    id: root
-    // External API
-    property var serialViewModel   // bind to your C++ SerialViewModel
-    property alias selectedPort: portCombo.currentText
-    property alias selectedBaud: baudCombo.currentText
-    property int  barHeight: 56
+Rectangle {
+    id: topBar
+    width: parent.width
+    height: 60
+    color: surfaceColor
+    border.color: borderColor
+    border.width: 1
+    radius: 5
 
-    // Theme passthrough (match your app colors 1:1)
-    property color primaryColor
-    property color backgroundColor
-    property color surfaceColor
-    property color borderColor
-    property color textColor
-    property color successColor
-    property color warningColor
-    property color errorColor
+    // Theme properties - passed from parent
+    property string primaryColor: "#FF4713"
+    property string backgroundColor: "#1a1a1a"
+    property string surfaceColor: "#2d2d2d"
+    property string borderColor: "#404040"
+    property string textColor: "#ffffff"
+    property string successColor: "#4CAF50"
+    property string errorColor: "#F44336"
 
-    height: barHeight
-    width: parent ? parent.width : implicitWidth
+    // ViewModel reference - passed from parent
+    property var viewModel
 
-    Rectangle {
-        anchors.fill: parent
-        color: surfaceColor
-        border.color: borderColor
-        border.width: 1
-    }
+    // Panel visibility properties - passed from parent
+    property bool visualizationPanelVisible: false
+    property bool controlsPanelVisible: false
+    property bool mapPanelVisible: false
+    property bool capturePanelVisible: false
+
+    // Signals for panel visibility changes
+    signal visualizationPanelToggled()
+    signal controlsPanelToggled()
+    signal mapPanelToggled()
+    signal capturePanelToggled()
 
     RowLayout {
-        id: row
         anchors.fill: parent
         anchors.margins: 10
-        spacing: 10
+        spacing: 15
 
-        // Title / hint (optional—remove if you didn’t have it)
         Text {
-            text: "Serial"
-            font.pixelSize: 14
+            text: "Port:"
+            font.pixelSize: 12
             font.bold: true
             color: textColor
-            Layout.alignment: Qt.AlignVCenter
-            visible: true
         }
 
-        // Ports
         ComboBox {
-            id: portCombo
-            Layout.preferredWidth: 180
-            Layout.alignment: Qt.AlignVCenter
-            model: serialViewModel ? serialViewModel.availablePorts : []
-            editable: false
+            id: portComboBox
+            Layout.preferredWidth: 80
+            model: viewModel ? viewModel.availablePorts : []
+            enabled: viewModel ? !viewModel.connected : false
 
             background: Rectangle {
-                radius: 8
-                color: backgroundColor
+                color: surfaceColor
                 border.color: borderColor
+                border.width: 1
+                radius: 3
             }
+
             contentItem: Text {
-                text: portCombo.displayText
+                text: portComboBox.displayText
                 color: textColor
                 verticalAlignment: Text.AlignVCenter
-                elide: Text.ElideRight
+                leftPadding: 8
             }
-
-            // Pick first port if nothing selected when list appears
-            onModelChanged: if (count > 0 && currentIndex < 0) currentIndex = 0
         }
 
-        // Baud
+        Text {
+            text: "Baud Rate:"
+            font.pixelSize: 12
+            font.bold: true
+            color: textColor
+        }
+
         ComboBox {
-            id: baudCombo
-            Layout.preferredWidth: 120
-            Layout.alignment: Qt.AlignVCenter
-            model: serialViewModel ? serialViewModel.baudRates : []
-            editable: false
+            id: baudRateComboBox
+            Layout.preferredWidth: 100
+            model: viewModel ? viewModel.baudRates : []
+            currentIndex: 4
+            enabled: viewModel ? !viewModel.connected : false
 
             background: Rectangle {
-                radius: 8
-                color: backgroundColor
+                color: surfaceColor
                 border.color: borderColor
+                border.width: 1
+                radius: 3
             }
+
             contentItem: Text {
-                text: baudCombo.displayText
+                text: baudRateComboBox.displayText
                 color: textColor
                 verticalAlignment: Text.AlignVCenter
-                elide: Text.ElideRight
+                leftPadding: 8
             }
-
-            onModelChanged: if (count > 0 && currentIndex < 0) currentIndex = 0
         }
 
-        // Refresh ports
         Button {
-            id: refreshBtn
-            text: "Refresh"
-            Layout.preferredWidth: 96
-            Layout.alignment: Qt.AlignVCenter
+            id: connectButton
+            text: viewModel ? viewModel.connectButtonText : "Connect"
+            Layout.preferredWidth: 100
 
             background: Rectangle {
-                radius: 10
-                color: primaryColor
+                color: (viewModel && viewModel.connected) ? "red" : "green"
+                radius: 5
                 border.color: borderColor
+                border.width: 1
             }
+
             contentItem: Text {
-                text: refreshBtn.text
-                color: "white"
-                font.bold: true
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-            }
-
-            onClicked: if (serialViewModel && serialViewModel.refreshPorts) serialViewModel.refreshPorts()
-            MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; acceptedButtons: Qt.NoButton }
-            hoverEnabled: false
-        }
-
-        // Connect / Disconnect
-        Button {
-            id: connectBtn
-            Layout.preferredWidth: 148
-            Layout.alignment: Qt.AlignVCenter
-            text: serialViewModel ? serialViewModel.connectButtonText : "Connect"
-
-            background: Rectangle {
-                radius: 10
-                color: serialViewModel ? serialViewModel.connectButtonColor : successColor
-                border.color: borderColor
-            }
-            contentItem: Text {
-                text: connectBtn.text
+                text: connectButton.text
                 color: textColor
-                font.bold: true
-                verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                font.bold: true
             }
 
             onClicked: {
-                if (!serialViewModel) return
-                // Prefer your existing method names; these two common ones are supported:
-                if (serialViewModel.connectOrDisconnect) {
-                    serialViewModel.connectOrDisconnect(portCombo.currentText, parseInt(baudCombo.currentText))
-                } else if (serialViewModel.toggleConnection) {
-                    serialViewModel.toggleConnection(portCombo.currentText, parseInt(baudCombo.currentText))
+                if (viewModel && portComboBox.currentText && baudRateComboBox.currentText) {
+                    viewModel.connectToSerial(
+                        portComboBox.currentText,
+                        parseInt(baudRateComboBox.currentText)
+                    )
                 }
             }
-            MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; acceptedButtons: Qt.NoButton }
+
+            MouseArea {
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                acceptedButtons: Qt.NoButton
+            }
             hoverEnabled: false
         }
 
-        // Status text
-        Text {
-            id: statusText
+        // Visualization button
+        Button {
+            id: visualizationButton
+            text: "Visualization"
+            Layout.preferredWidth: 100
+
+            background: Rectangle {
+                color: primaryColor
+                radius: 5
+                border.color: borderColor
+                border.width: 1
+            }
+
+            contentItem: Text {
+                text: visualizationButton.text
+                color: "white"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                font.bold: true
+            }
+
+            onClicked: {
+                visualizationPanelToggled()
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                acceptedButtons: Qt.NoButton
+            }
+            hoverEnabled: false
+        }
+
+        Button {
+            id: controlsButton
+            text: "Controls"
+            Layout.preferredWidth: 80
+            enabled: viewModel ? viewModel.connected : false
+
+            background: Rectangle {
+                color: (viewModel && viewModel.connected) ? primaryColor : "#353638"
+                radius: 5
+                border.color: borderColor
+                border.width: 1
+            }
+
+            contentItem: Text {
+                text: controlsButton.text
+                color: textColor
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                font.bold: true
+            }
+
+            onClicked: {
+                controlsPanelToggled()
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                acceptedButtons: Qt.NoButton
+            }
+            hoverEnabled: false
+        }
+
+        Button {
+            id: mapButton
+            text: "Map"
+            Layout.preferredWidth: 60
+
+            background: Rectangle {
+                color: primaryColor
+                radius: 5
+                border.color: borderColor
+                border.width: 1
+            }
+
+            contentItem: Text {
+                text: mapButton.text
+                color: "white"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                font.bold: true
+            }
+
+            onClicked: {
+                mapPanelToggled()
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                acceptedButtons: Qt.NoButton
+            }
+            hoverEnabled: false
+        }
+
+        Button {
+            id: captureButton
+            text: "Capture"
+            Layout.preferredWidth: 80
+
+            background: Rectangle {
+                color: primaryColor
+                radius: 5
+                border.color: borderColor
+                border.width: 1
+            }
+
+            contentItem: Text {
+                text: captureButton.text
+                color: "white"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                font.bold: true
+            }
+
+            onClicked: {
+                capturePanelToggled()
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                acceptedButtons: Qt.NoButton
+            }
+            hoverEnabled: false
+        }
+
+        Item {
             Layout.fillWidth: true
-            Layout.alignment: Qt.AlignVCenter
-            text: serialViewModel ? serialViewModel.statusMessage : ""
-            color: serialViewModel && serialViewModel.connected ? successColor : textColor
-            elide: Text.ElideRight
+        }
+
+        Text {
+            text: viewModel ? viewModel.statusMessage : ""
+            font.pixelSize: 11
+            color: (viewModel && viewModel.connected) ? successColor : errorColor
         }
     }
 }

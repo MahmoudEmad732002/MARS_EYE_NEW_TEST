@@ -27,6 +27,72 @@ Rectangle {
     // ViewModel reference
     required property var viewModel
 
+    // Add JoystickReceiver
+    JoystickReceiver {
+        id: joystickReceiver
+
+        Component.onCompleted: {
+            // Start listening for UDP joystick data on port 12345
+            joystickReceiver.startListening(12345)
+            console.log("JoystickReceiver: Started listening on port 12345")
+        }
+
+        // When physical joystick data is received, update the software joystick
+        onJoystickDataReceived: function(x, y) {
+            // Only update if physical joystick is active and software joystick isn't being dragged
+            if (joystickReceiver.physicalJoystickActive && !joystickMouseArea.drag.active) {
+                updateSoftwareJoystickPosition(x, y)
+                // Send to backend
+                if (viewModel.connected) {
+                    viewModel.sendSoftwareJoystickCommand(x, y)
+                }
+            }
+        }
+
+        onConnectedChanged: {
+            console.log("Physical joystick connected:", joystickReceiver.connected)
+        }
+
+        onErrorOccurred: function(error) {
+            console.log("Joystick receiver error:", error)
+        }
+    }
+
+    // Helper function to update software joystick position from physical joystick
+    function updateSoftwareJoystickPosition(physicalX, physicalY) {
+        // Convert from 0-200 range to visual position
+        var normalizedX = (physicalX - 100) / 100.0  // Changed from 127
+        var normalizedY = (physicalY - 100) / 100.0  // Changed from 127
+
+        // Convert to visual position
+        var visualX = joystickKnob.centerX + normalizedX * joystickKnob.maxRadius
+        var visualY = joystickKnob.centerY + normalizedY * joystickKnob.maxRadius
+
+        // Update knob position smoothly
+        joystickKnob.x = visualX
+        joystickKnob.y = visualY
+        joystickKnob.joystickX = physicalX
+        joystickKnob.joystickY = physicalY
+    }
+    function updateJoystickValuesFromPosition() {
+        // Calculate normalized position
+        var normalizedX = (joystickKnob.x - joystickKnob.centerX) / joystickKnob.maxRadius
+        var normalizedY = (joystickKnob.y - joystickKnob.centerY) / joystickKnob.maxRadius
+
+        // Convert to joystick values (100 is center, 0-200 range)
+        joystickKnob.joystickX = Math.round(100 + normalizedX * 100)  // Changed from 127
+        joystickKnob.joystickY = Math.round(100 - normalizedY * 100)  // Changed from 127
+
+        // Clamp values to 0-200 range
+        joystickKnob.joystickX = Math.max(0, Math.min(200, joystickKnob.joystickX))  // Changed from 255
+        joystickKnob.joystickY = Math.max(0, Math.min(200, joystickKnob.joystickY))  // Changed from 255
+
+        // Send joystick command to backend
+        if (viewModel.connected) {
+            viewModel.sendSoftwareJoystickCommand(joystickKnob.joystickX, joystickKnob.joystickY)
+        }
+    }
+
     // Panel header
     Rectangle {
         id: panelHeader
@@ -49,32 +115,7 @@ Rectangle {
                 color: textColor
             }
 
-            Button {
-                text: "✕"
-                width: 30
-                height: 30
 
-                background: Rectangle {
-                    color: parent.pressed ? Qt.darker(errorColor, 1.2) : errorColor
-                    radius: 15
-                    border.color: borderColor
-                }
-
-                contentItem: Text {
-                    text: parent.text
-                    color: textColor
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    font.bold: true
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    cursorShape: Qt.PointingHandCursor
-                    acceptedButtons: Qt.NoButton
-                }
-                hoverEnabled: false
-                onClicked: controlsPanel.visible = false
-            }
         }
     }
 
@@ -90,10 +131,10 @@ Rectangle {
             width: controlsPanel.width - 30
             spacing: 20
 
-            // Software Joystick Control Section
+            // Software Joystick Control Section - UPDATED
             Rectangle {
                 width: parent.width
-                height: 280
+                height: 300  // Increased height for status indicator
                 color: backgroundColor
                 border.color: borderColor
                 border.width: 1
@@ -104,15 +145,45 @@ Rectangle {
                     anchors.margins: 15
                     spacing: 15
 
-                    Text {
-                        text: "SOFTWARE JOYSTICK"
-                        font.pixelSize: 14
-                        font.bold: true
+                    // Title with physical joystick status indicator
+                    Row {
                         anchors.horizontalCenter: parent.horizontalCenter
-                        color: textColor
+                        spacing: 10
+
+                        Text {
+                            text: "SOFTWARE JOYSTICK"
+                            font.pixelSize: 14
+                            font.bold: true
+                            color: textColor
+                        }
+
+                        // Physical joystick status indicator
+                        Rectangle {
+                            width: 12
+                            height: 12
+                            radius: 6
+                            color: joystickReceiver.connected ? successColor : "#666666"
+                            anchors.verticalCenter: parent.verticalCenter
+
+                            // Pulsing animation when connected
+                            SequentialAnimation on opacity {
+                                running: joystickReceiver.connected
+                                loops: Animation.Infinite
+                                NumberAnimation { to: 0.5; duration: 1000 }
+                                NumberAnimation { to: 1.0; duration: 1000 }
+                            }
+                        }
+
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: joystickReceiver.connected ? "Physical" : "Manual Only"
+                            font.pixelSize: 10
+                            color: joystickReceiver.connected ? successColor : "#888888"
+                            font.bold: true
+                        }
                     }
 
-                    // Software joystick area
+                    // Software joystick area - UPDATED
                     Rectangle {
                         width: 200
                         height: 200
@@ -122,14 +193,14 @@ Rectangle {
                         border.width: 2
                         radius: 100
 
-                        // Outer circle
+                        // Outer circle - changes color based on control mode
                         Rectangle {
                             id: outerCircle
                             anchors.centerIn: parent
                             width: 180
                             height: 180
                             color: "transparent"
-                            border.color: primaryColor
+                            border.color: joystickReceiver.physicalJoystickActive ? successColor : primaryColor
                             border.width: 2
                             radius: 90
                         }
@@ -148,13 +219,13 @@ Rectangle {
                             color: "#666666"
                         }
 
-                        // Draggable knob
+                        // Draggable knob - UPDATED
                         Rectangle {
                             id: joystickKnob
                             width: 40
                             height: 40
                             radius: 20
-                            color: primaryColor
+                            color: joystickReceiver.physicalJoystickActive ? successColor : primaryColor
                             border.color: accentColor
                             border.width: 2
                             x: parent.width/2 - width/2
@@ -163,23 +234,33 @@ Rectangle {
                             property real centerX: parent.width/2 - width/2
                             property real centerY: parent.height/2 - height/2
                             property real maxRadius: 70  // Maximum distance from center
-                            property int joystickX: 100
-                            property int joystickY: 100
+                            property int joystickX: 100  // Start at center (0-255 range)
+                            property int joystickY: 100  // Start at center (0-255 range)
 
-                            // Inner highlight
+                            // Inner highlight - changes based on control mode
                             Rectangle {
                                 anchors.centerIn: parent
-                                width: 20
-                                height: 20
-                                radius: 10
-                                color: Qt.lighter(primaryColor, 1.3)
+                                width: joystickReceiver.physicalJoystickActive ? 30 : 20
+                                height: joystickReceiver.physicalJoystickActive ? 30 : 20
+                                radius: width / 2
+                                color: joystickReceiver.physicalJoystickActive ?
+                                       Qt.lighter(successColor, 1.3) : Qt.lighter(primaryColor, 1.3)
+
+                                // Pulsing animation when physical joystick is active
+                                SequentialAnimation on opacity {
+                                    running: joystickReceiver.physicalJoystickActive
+                                    loops: Animation.Infinite
+                                    NumberAnimation { to: 0.5; duration: 500 }
+                                    NumberAnimation { to: 1.0; duration: 500 }
+                                }
                             }
 
                             MouseArea {
                                 id: joystickMouseArea
                                 anchors.fill: parent
                                 drag.target: parent
-                                enabled: viewModel.connected
+                                // Disable manual control when physical joystick is active
+                                enabled: viewModel.connected && !joystickReceiver.physicalJoystickActive
 
                                 property real startX: 0
                                 property real startY: 0
@@ -190,7 +271,7 @@ Rectangle {
                                 }
 
                                 onPositionChanged: {
-                                    if (drag.active) {
+                                    if (drag.active && !joystickReceiver.physicalJoystickActive) {
                                         // Calculate distance from center
                                         var deltaX = joystickKnob.x - joystickKnob.centerX
                                         var deltaY = joystickKnob.y - joystickKnob.centerY
@@ -203,40 +284,24 @@ Rectangle {
                                             joystickKnob.y = joystickKnob.centerY + joystickKnob.maxRadius * Math.sin(angle)
                                         }
 
-                                        // Update joystick values (convert to 0-255 range with 127 center)
-                                        var normalizedX = (joystickKnob.x - joystickKnob.centerX) / joystickKnob.maxRadius
-                                        var normalizedY = (joystickKnob.y - joystickKnob.centerY) / joystickKnob.maxRadius
-
-                                        // Convert to joystick values (127 is center, 0-255 range)
-                                        joystickKnob.joystickX = Math.round(127 + normalizedX * 127)
-                                        joystickKnob.joystickY = Math.round(127 - normalizedY * 127)  // Invert Y axis
-
-                                        // Clamp values to 0-255 range
-                                        joystickKnob.joystickX = Math.max(0, Math.min(255, joystickKnob.joystickX))
-                                        joystickKnob.joystickY = Math.max(0, Math.min(255, joystickKnob.joystickY))
-
-                                        // Send joystick command to backend
-                                        if (viewModel.connected) {
-                                            viewModel.sendSoftwareJoystickCommand(joystickKnob.joystickX, joystickKnob.joystickY)
-                                        }
+                                        // Update joystick values and send to backend
+                                        updateJoystickValuesFromPosition()
                                     }
                                 }
-                                onReleased: {
-                                    // Return to center with animation
-                                    returnAnimation.start()
 
-                                    // Reset to center values and send
-                                    joystickKnob.joystickX = 127
-                                    joystickKnob.joystickY = 127
-                                    if (viewModel.connected) {
-                                        viewModel.stopJoystickCommand()
+                                onReleased: {
+                                    if (!joystickReceiver.physicalJoystickActive) {
+                                        // Return to center with animation only if not controlled by physical joystick
+                                        returnAnimation.start()
                                     }
                                 }
                             }
 
-                            // Return to center animation
+                            // Return to center animation - UPDATED
                             ParallelAnimation {
                                 id: returnAnimation
+                                running: false
+
                                 NumberAnimation {
                                     target: joystickKnob
                                     property: "x"
@@ -253,23 +318,62 @@ Rectangle {
                                 }
 
                                 onFinished: {
-                                    // Ensure center values are set after animation
-                                    joystickKnob.joystickX = 100
-                                    joystickKnob.joystickY = 100
+                                    if (!joystickReceiver.physicalJoystickActive) {
+                                        joystickKnob.joystickX = 100
+                                        joystickKnob.joystickY = 100
+                                        if (viewModel.connected) {
+                                            viewModel.stopJoystickCommand()
+                                        }
+                                    }
+                                }
+                            }
+
+                            // Function to calculate joystick values from visual position
+                            function updateJoystickValuesFromPosition() {
+                                // Calculate normalized position
+                                var normalizedX = (joystickKnob.x - joystickKnob.centerX) / joystickKnob.maxRadius
+                                var normalizedY = (joystickKnob.y - joystickKnob.centerY) / joystickKnob.maxRadius
+
+                                // Convert to joystick values (127 is center, 0-255 range)
+                                joystickKnob.joystickX = Math.round(127 + normalizedX * 127)
+                                joystickKnob.joystickY = Math.round(127 - normalizedY * 127)  // Invert Y axis
+
+                                // Clamp values to 0-255 range
+                                joystickKnob.joystickX = Math.max(0, Math.min(255, joystickKnob.joystickX))
+                                joystickKnob.joystickY = Math.max(0, Math.min(255, joystickKnob.joystickY))
+
+                                // Send joystick command to backend
+                                if (viewModel.connected) {
+                                    viewModel.sendSoftwareJoystickCommand(joystickKnob.joystickX, joystickKnob.joystickY)
                                 }
                             }
                         }
                     }
 
-                    // Value display overlay - Updated to show 0-200 range
-                    Text {
-                        anchors.bottom: parent.bottom
+                    // Value display overlay - UPDATED to show source and connection status
+                    Row {
                         anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.bottomMargin: 5
-                        text: "X:" + joystickKnob.joystickX + " Y:" + joystickKnob.joystickY
-                        font.pixelSize: 10
-                        color: textColor
-                        font.bold: true
+                        spacing: 15
+
+                        Text {
+                            text: "X:" + joystickKnob.joystickX + " Y:" + joystickKnob.joystickY
+                            font.pixelSize: 10
+                            color: textColor
+                            font.bold: true
+                        }
+
+                        Text {
+                            text: joystickReceiver.physicalJoystickActive ? "PHYSICAL" : "MANUAL"
+                            font.pixelSize: 9
+                            color: joystickReceiver.physicalJoystickActive ? successColor : "#aaaaaa"
+                            font.bold: true
+                        }
+
+                        Text {
+                            text: joystickReceiver.connected ? "🎮" : "⚫"
+                            font.pixelSize: 12
+                            visible: true
+                        }
                     }
                 }
             }
@@ -277,7 +381,7 @@ Rectangle {
             // Joystick Control Section
             Rectangle {
                 width: parent.width
-                height: 370
+                height: 420  // Increased height for new button
                 color: backgroundColor
                 border.color: borderColor
                 border.width: 1
@@ -312,20 +416,10 @@ Rectangle {
                             enabled: viewModel.connected
 
                             background: Rectangle {
-                                color: upButton.pressed ? Qt.darker(primaryColor, 1.2) : (upButton.hovered ? Qt.lighter(primaryColor, 1.1) : primaryColor)
-                                border.color: upButton.pressed ? Qt.lighter(borderColor, 1.5) : borderColor
+                                color: upButton.pressed ? Qt.darker(primaryColor, 1.2) : primaryColor
+                                border.color: borderColor
                                 border.width: 2
                                 radius: 8
-
-                                // Add subtle shadow effect
-                                Rectangle {
-                                    anchors.fill: parent
-                                    anchors.topMargin: 2
-                                    color: "transparent"
-                                    border.color: Qt.rgba(255, 255, 255, 0.1)
-                                    border.width: 1
-                                    radius: parent.radius
-                                }
                             }
 
                             contentItem: Text {
@@ -345,7 +439,7 @@ Rectangle {
                             hoverEnabled: false
                         }
 
-                        // Left and Right buttons
+                        // Left and Right buttons (same as before but call updated methods)
                         RowLayout {
                             anchors.centerIn: parent
                             spacing: 60
@@ -355,27 +449,13 @@ Rectangle {
                                 text: "←"
                                 width: 50
                                 height: 40
-                                Layout.preferredWidth: 50
-                                Layout.preferredHeight: 40
                                 enabled: viewModel.connected
-
                                 background: Rectangle {
-                                    color: upButton.pressed ? Qt.darker(primaryColor, 1.2) : (upButton.hovered ? Qt.lighter(primaryColor, 1.1) : primaryColor)
-                                    border.color: upButton.pressed ? Qt.lighter(borderColor, 1.5) : borderColor
+                                    color: leftButton.pressed ? Qt.darker(primaryColor, 1.2) : primaryColor
+                                    border.color: borderColor
                                     border.width: 2
                                     radius: 8
-
-                                    // Add subtle shadow effect
-                                    Rectangle {
-                                        anchors.fill: parent
-                                        anchors.topMargin: 2
-                                        color: "transparent"
-                                        border.color: Qt.rgba(255, 255, 255, 0.1)
-                                        border.width: 1
-                                        radius: parent.radius
-                                    }
                                 }
-
                                 contentItem: Text {
                                     text: leftButton.text
                                     color: textColor
@@ -383,7 +463,6 @@ Rectangle {
                                     verticalAlignment: Text.AlignVCenter
                                     font.bold: true
                                 }
-
                                 onClicked: viewModel.sendJoystickLeft()
                                 MouseArea {
                                     anchors.fill: parent
@@ -398,27 +477,13 @@ Rectangle {
                                 text: "→"
                                 width: 50
                                 height: 40
-                                Layout.preferredWidth: 50
-                                Layout.preferredHeight: 40
                                 enabled: viewModel.connected
-
                                 background: Rectangle {
-                                    color: upButton.pressed ? Qt.darker(primaryColor, 1.2) : (upButton.hovered ? Qt.lighter(primaryColor, 1.1) : primaryColor)
-                                    border.color: upButton.pressed ? Qt.lighter(borderColor, 1.5) : borderColor
+                                    color: rightButton.pressed ? Qt.darker(primaryColor, 1.2) : primaryColor
+                                    border.color: borderColor
                                     border.width: 2
                                     radius: 8
-
-                                    // Add subtle shadow effect
-                                    Rectangle {
-                                        anchors.fill: parent
-                                        anchors.topMargin: 2
-                                        color: "transparent"
-                                        border.color: Qt.rgba(255, 255, 255, 0.1)
-                                        border.width: 1
-                                        radius: parent.radius
-                                    }
                                 }
-
                                 contentItem: Text {
                                     text: rightButton.text
                                     color: textColor
@@ -426,7 +491,6 @@ Rectangle {
                                     verticalAlignment: Text.AlignVCenter
                                     font.bold: true
                                 }
-
                                 onClicked: viewModel.sendJoystickRight()
                                 MouseArea {
                                     anchors.fill: parent
@@ -448,20 +512,10 @@ Rectangle {
                             enabled: viewModel.connected
 
                             background: Rectangle {
-                                color: upButton.pressed ? Qt.darker(primaryColor, 1.2) : (upButton.hovered ? Qt.lighter(primaryColor, 1.1) : primaryColor)
-                                border.color: upButton.pressed ? Qt.lighter(borderColor, 1.5) : borderColor
+                                color: downButton.pressed ? Qt.darker(primaryColor, 1.2) : primaryColor
+                                border.color: borderColor
                                 border.width: 2
                                 radius: 8
-
-                                // Add subtle shadow effect
-                                Rectangle {
-                                    anchors.fill: parent
-                                    anchors.topMargin: 2
-                                    color: "transparent"
-                                    border.color: Qt.rgba(255, 255, 255, 0.1)
-                                    border.width: 1
-                                    radius: parent.radius
-                                }
                             }
                             contentItem: Text {
                                 text: downButton.text
@@ -470,7 +524,6 @@ Rectangle {
                                 verticalAlignment: Text.AlignVCenter
                                 font.bold: true
                             }
-
                             onClicked: viewModel.sendJoystickDown()
                             MouseArea {
                                 anchors.fill: parent
@@ -481,27 +534,30 @@ Rectangle {
                         }
                     }
 
-                    // Current values display with text fields instead of spinboxes
+                    // Current values display with UPDATED ranges
                     RowLayout {
                         width: parent.width
                         spacing: 20
 
                         Column {
                             Text {
-                                text: "Pitch Angle:"
+                                text: "Pitch Angle (-90° to 10°):"
                                 font.pixelSize: 11
                                 font.bold: true
                                 color: textColor
                             }
-                            TextField {
-                                width: 80
+                            SpinBox {
+                                id: pitchSpin
+                                width: 120
                                 height: 30
-                                text: viewModel.pitchAngleCmd.toString()
+                                from: -90
+                                to: 10
+                                stepSize: 1
+                                value: Math.round(viewModel.pitchAngle)
                                 enabled: viewModel.connected
-                                color: textColor
-                                placeholderText: "0-65535"
-                                placeholderTextColor: "#888888"
-                                selectByMouse: true
+                                editable: false          // keep it non-editable
+                                leftPadding: 6
+                                rightPadding: 28         // <-- reserve space for the up/down buttons
 
                                 background: Rectangle {
                                     color: surfaceColor
@@ -510,40 +566,39 @@ Rectangle {
                                     radius: 3
                                 }
 
-                                validator: IntValidator {
-                                    bottom: 0
-                                    top: 65535
+                                // Use Text for read-only display so no input steals clicks
+                                contentItem: TextInput {
+                                    text: pitchSpin.displayText
+                                    readOnly: true           // important
+                                    horizontalAlignment: Qt.AlignHCenter
+                                    verticalAlignment: Qt.AlignVCenter
+                                    color: textColor
                                 }
 
-                                onTextChanged: {
-                                    var value = parseInt(text)
-                                    if (!isNaN(value) && value >= 0 && value <= 65535) {
-                                        viewModel.pitchAngleCmd = value
-                                    }
-                                }
-
-                                onEditingFinished: {
-                                    text = viewModel.pitchAngleCmd.toString()
-                                }
+                                onValueChanged: viewModel.pitchAngle = value
                             }
+
                         }
 
                         Column {
                             Text {
-                                text: "Yaw Angle:"
+                                text: "Yaw Angle (-180° to 180°):"
                                 font.pixelSize: 11
                                 font.bold: true
                                 color: textColor
                             }
-                            TextField {
-                                width: 80
+                            SpinBox {
+                                id: yawSpin
+                                width: 120
                                 height: 30
-                                text: viewModel.yawAngleCmd.toString()
+                                from: -180
+                                to: 180
+                                stepSize: 1
+                                value: Math.round(viewModel.yawAngle)
                                 enabled: viewModel.connected
-                                color: textColor
-                                placeholderText: "0-65535"
-                                placeholderTextColor: "#888888"
-                                selectByMouse: true
+                                editable: false      // keep it read-only
+                                leftPadding: 6
+                                rightPadding: 28     // <-- important: leave room for the arrows
 
                                 background: Rectangle {
                                     color: surfaceColor
@@ -552,22 +607,19 @@ Rectangle {
                                     radius: 3
                                 }
 
-                                validator: IntValidator {
-                                    bottom: 0
-                                    top: 65535
+                                // Use Text for read-only display (simpler, no input issues)
+                                contentItem: TextInput {
+                                    text: yawSpin.displayText
+                                    readOnly: true
+                                    color: textColor
+                                    horizontalAlignment: Qt.AlignHCenter
+                                    verticalAlignment: Qt.AlignVCenter
                                 }
 
-                                onTextChanged: {
-                                    var value = parseInt(text)
-                                    if (!isNaN(value) && value >= 0 && value <= 65535) {
-                                        viewModel.yawAngleCmd = value
-                                    }
-                                }
 
-                                onEditingFinished: {
-                                    text = viewModel.yawAngleCmd.toString()
-                                }
+                                onValueChanged: viewModel.yawAngle = value
                             }
+
                         }
 
                         Column {
@@ -580,7 +632,6 @@ Rectangle {
                             CheckBox {
                                 checked: viewModel.stabilizationFlag
                                 enabled: viewModel.connected
-
                                 onCheckedChanged: {
                                     viewModel.stabilizationFlag = checked ? 1 : 0
                                 }
@@ -588,52 +639,15 @@ Rectangle {
                         }
                     }
 
-                    // Reset button
+                    // NEW: Send Pitch/Yaw button (replaces auto-send behavior)
                     RowLayout {
                         width: parent.width
                         spacing: 15
                         anchors.horizontalCenter: parent.horizontalCenter
 
                         Button {
-                            text: viewModel.absolutePointingActive ? "Stop Pointing" : "Start Pointing"
-                            width: 120
-                            height: 35
-                            enabled: viewModel.connected
-
-                            background: Rectangle {
-                                color: viewModel.absolutePointingActive ? errorColor : "green"
-                                radius: 5
-                                border.color: borderColor
-                                border.width: 1
-                            }
-
-                            contentItem: Text {
-                                text: parent.text
-                                color: textColor
-                                horizontalAlignment: Text.AlignHCenter
-                                verticalAlignment: Text.AlignVCenter
-                                font.bold: true
-                            }
-
-                            onClicked: {
-                                if (viewModel.absolutePointingActive) {
-                                    viewModel.stopAbsolutePointing()
-                                } else {
-                                    viewModel.startAbsolutePointing()
-                                }
-                            }
-
-                            MouseArea {
-                                anchors.fill: parent
-                                cursorShape: Qt.PointingHandCursor
-                                acceptedButtons: Qt.NoButton
-                            }
-                            hoverEnabled: false
-                        }
-
-                        Button {
-                            text: "Reset Center"
-                            width: 100
+                            text: "Send Pitch/Yaw"
+                            width: 130
                             height: 35
                             enabled: viewModel.connected
 
@@ -653,8 +667,45 @@ Rectangle {
                             }
 
                             onClicked: {
-                                viewModel.pitchAngleCmd = 32767
-                                viewModel.yawAngleCmd = 32767
+                                viewModel.sendPitchYaw()
+                            }
+
+                            MouseArea {
+                                anchors.fill: parent
+                                cursorShape: Qt.PointingHandCursor
+                                acceptedButtons: Qt.NoButton
+                            }
+                            hoverEnabled: false
+                        }
+
+                        Button {
+                            text: viewModel.absolutePointingActive ? "Stop Pointing" : "Reset"
+                            width: 120
+                            height: 35
+                            enabled: viewModel.connected
+
+                            background: Rectangle {
+                                color: viewModel.absolutePointingActive ? errorColor : primaryColor
+                                radius: 5
+                                border.color: borderColor
+                                border.width: 1
+                            }
+
+                            contentItem: Text {
+                                text: parent.text
+                                color: textColor
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                                font.bold: true
+                            }
+
+                            onClicked: {
+                                if (viewModel.absolutePointingActive) {
+                                    viewModel.stopAbsolutePointing()
+                                } else {
+                                    viewModel.pitchAngle = 0.0
+                                    viewModel.yawAngle = 0.0
+                                }
                             }
 
                             MouseArea {
@@ -665,11 +716,12 @@ Rectangle {
                             hoverEnabled: false
                         }
                     }
+
                     Text {
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: viewModel.absolutePointingActive ?
                               "🔴 ACTIVE - Sending continuously until acknowledged" :
-                              "⚪ INACTIVE - Click Start Pointing to begin"
+                              "⚪ INACTIVE - Click 'Send Pitch/Yaw' to transmit"
                         font.pixelSize: 10
                         color: viewModel.absolutePointingActive ? errorColor : "#aaaaaa"
                         wrapMode: Text.WordWrap
@@ -677,9 +729,7 @@ Rectangle {
                         horizontalAlignment: Text.AlignHCenter
                     }
                 }
-            }
-
-            // PID Gains Control Section
+            } // PID Gains Control Section
             Rectangle {
                 width: parent.width
                 height: 300
@@ -726,85 +776,37 @@ Rectangle {
                                 spacing: 10
 
                                 Column {
-                                    Text {
-                                        text: "Kp:"
-                                        font.pixelSize: 10
-                                        color: textColor
-                                    }
+                                    Text { text: "Azimuth Kp:"; font.pixelSize: 11; font.bold: true; color: textColor }
                                     TextField {
-                                        width: 80
-                                        height: 30
-                                        text: viewModel.azimuthKp.toString()
-                                        enabled: viewModel.connected
-                                        color: textColor
-                                        placeholderText: "Enter value"
-                                        placeholderTextColor: "#888888"
-                                        selectByMouse: true
-
-                                        background: Rectangle {
-                                            color: backgroundColor
-                                            border.color: borderColor
-                                            border.width: 1
-                                            radius: 3
-                                        }
-
-                                        validator: IntValidator {
-                                            bottom: -2147483648
-                                            top: 2147483647
-                                        }
-
-                                        onTextChanged: {
-                                            var value = parseInt(text)
-                                            if (!isNaN(value)) {
-                                                viewModel.azimuthKp = value
+                                            id: azKpField
+                                            width: 80; height: 30
+                                            text: (viewModel.azimuthKp / 1000.0).toString()
+                                            validator: DoubleValidator { bottom: 0.0; top: 50.0; decimals: 3 }
+                                            onEditingFinished: {
+                                                var v = parseFloat(text)
+                                                if (!isNaN(v) && v >= 0 && v <= 50) {
+                                                    viewModel.azimuthKp = Math.round(v * 1000)
+                                                }
+                                                text = (viewModel.azimuthKp / 1000.0).toString()
                                             }
                                         }
-
-                                        onEditingFinished: {
-                                            text = viewModel.azimuthKp.toString()
-                                        }
-                                    }
                                 }
 
                                 Column {
-                                    Text {
-                                        text: "Ki:"
-                                        font.pixelSize: 10
-                                        color: textColor
-                                    }
+                                    Text { text: "Azimuth Ki:"; font.pixelSize: 11; font.bold: true; color: textColor }
                                     TextField {
-                                        width: 80
-                                        height: 30
-                                        text: viewModel.azimuthKi.toString()
-                                        enabled: viewModel.connected
-                                        color: textColor
-                                        placeholderText: "Enter value"
-                                        placeholderTextColor: "#888888"
-                                        selectByMouse: true
-
-                                        background: Rectangle {
-                                            color: backgroundColor
-                                            border.color: borderColor
-                                            border.width: 1
-                                            radius: 3
-                                        }
-
-                                        validator: IntValidator {
-                                            bottom: -2147483648
-                                            top: 2147483647
-                                        }
-
-                                        onTextChanged: {
-                                            var value = parseInt(text)
-                                            if (!isNaN(value)) {
-                                                viewModel.azimuthKi = value
-                                            }
-                                        }
-
-                                        onEditingFinished: {
-                                            text = viewModel.azimuthKi.toString()
-                                        }
-                                    }
+                                          id: azKiField
+                                          width: 80; height: 30
+                                          text: (viewModel.azimuthKi / 1000.0).toString()
+                                          validator: DoubleValidator { bottom: 0.0; top: 50.0; decimals: 3 }
+                                          onEditingFinished: {
+                                              var v = parseFloat(text)
+                                              if (!isNaN(v) && v >= 0 && v <= 50) {
+                                                  viewModel.azimuthKi = Math.round(v * 1000)
+                                              }
+                                              text = (viewModel.azimuthKi / 1000.0).toString()
+                                          }
+                                      }
                                 }
                             }
                         }
@@ -835,85 +837,38 @@ Rectangle {
                                 spacing: 10
 
                                 Column {
-                                    Text {
-                                        text: "Kp:"
-                                        font.pixelSize: 10
-                                        color: textColor
-                                    }
+                                    Text { text: "Elevation Kp:"; font.pixelSize: 11; font.bold: true; color: textColor }
                                     TextField {
-                                        width: 80
-                                        height: 30
-                                        text: viewModel.elevationKp.toString()
-                                        enabled: viewModel.connected
-                                        color: textColor
-                                        placeholderText: "Enter value"
-                                        placeholderTextColor: "#888888"
-                                        selectByMouse: true
+                                           id: elKpField
+                                           width: 80; height: 30
+                                           text: (viewModel.elevationKp / 1000.0).toString()
+                                           validator: DoubleValidator { bottom: 0.0; top: 50.0; decimals: 3 }
+                                           onEditingFinished: {
+                                               var v = parseFloat(text)
+                                               if (!isNaN(v) && v >= 0 && v <= 50) {
+                                                   viewModel.elevationKp = Math.round(v * 1000)
+                                               }
+                                               text = (viewModel.elevationKp / 1000.0).toString()
+                                           }
 
-                                        background: Rectangle {
-                                            color: backgroundColor
-                                            border.color: borderColor
-                                            border.width: 1
-                                            radius: 3
-                                        }
-
-                                        validator: IntValidator {
-                                            bottom: -2147483648
-                                            top: 2147483647
-                                        }
-
-                                        onTextChanged: {
-                                            var value = parseInt(text)
-                                            if (!isNaN(value)) {
-                                                viewModel.elevationKp = value
-                                            }
-                                        }
-
-                                        onEditingFinished: {
-                                            text = viewModel.elevationKp.toString()
-                                        }
-                                    }
+                                       }
                                 }
 
                                 Column {
-                                    Text {
-                                        text: "Ki:"
-                                        font.pixelSize: 10
-                                        color: textColor
-                                    }
+                                    Text { text: "Elevation Ki:"; font.pixelSize: 11; font.bold: true; color: textColor }
                                     TextField {
-                                        width: 80
-                                        height: 30
-                                        text: viewModel.elevationKi.toString()
-                                        enabled: viewModel.connected
-                                        color: textColor
-                                        placeholderText: "Enter value"
-                                        placeholderTextColor: "#888888"
-                                        selectByMouse: true
-
-                                        background: Rectangle {
-                                            color: backgroundColor
-                                            border.color: borderColor
-                                            border.width: 1
-                                            radius: 3
-                                        }
-
-                                        validator: IntValidator {
-                                            bottom: -2147483648
-                                            top: 2147483647
-                                        }
-
-                                        onTextChanged: {
-                                            var value = parseInt(text)
-                                            if (!isNaN(value)) {
-                                                viewModel.elevationKi = value
+                                            id: elKiField
+                                            width: 80; height: 30
+                                            text: (viewModel.elevationKi / 1000.0).toString()
+                                            validator: DoubleValidator { bottom: 0.0; top: 50.0; decimals: 3 }
+                                            onEditingFinished: {
+                                                var v = parseFloat(text)
+                                                if (!isNaN(v) && v >= 0 && v <= 50) {
+                                                    viewModel.elevationKi = Math.round(v * 1000)
+                                                }
+                                                text = (viewModel.elevationKi / 1000.0).toString()
                                             }
                                         }
-
-                                        onEditingFinished: {
-                                            text = viewModel.elevationKi.toString()
-                                        }
-                                    }
                                 }
                             }
                         }
@@ -935,6 +890,7 @@ Rectangle {
                                 color: primaryColor
                                 radius: 5
                                 border.color: borderColor
+
                             }
 
                             contentItem: Text {
@@ -945,7 +901,19 @@ Rectangle {
                                 font.bold: true
                             }
 
-                            onClicked: viewModel.sendPIDGains()
+                            onClicked: {
+                                       function isValid(tf) {
+                                           var v = parseFloat(tf.text)
+                                           return !isNaN(v) && v >= 0 && v <= 50
+                                       }
+
+                                       if (isValid(azKpField) && isValid(azKiField) &&
+                                           isValid(elKpField) && isValid(elKiField)) {
+                                           viewModel.sendPIDGains()
+                                       } else {
+                                           console.log("❌ PID Gains not sent: one or more fields out of range (0–50).")
+                                       }
+                                   }
                             MouseArea {
                                 anchors.fill: parent
                                 cursorShape: Qt.PointingHandCursor
@@ -1026,8 +994,11 @@ Rectangle {
                             id: zoomSpinBox
                             from: 0
                             to: 255
+                            stepSize: 1
                             value: viewModel.zoomLevel
                             enabled: viewModel.connected
+                            leftPadding: 6
+                            rightPadding: 28    // <-- leaves space for up/down buttons
 
                             background: Rectangle {
                                 color: surfaceColor
@@ -1038,15 +1009,19 @@ Rectangle {
                                 implicitHeight: 30
                             }
 
+                            // Use Text for clean, read-only display
                             contentItem: TextInput {
-                                text: parent.textFromValue(parent.value, parent.locale)
+                                text: zoomSpinBox.displayText
+                                readOnly: true
                                 color: textColor
                                 horizontalAlignment: Qt.AlignHCenter
                                 verticalAlignment: Qt.AlignVCenter
                             }
 
+
                             onValueChanged: viewModel.zoomLevel = value
                         }
+
 
                         CheckBox {
                             id: resetZoom
@@ -1096,7 +1071,7 @@ Rectangle {
 
             Rectangle {
                 width: parent.width
-                height: 100
+                height: 120  // Increased height for physical joystick status
                 color: backgroundColor
                 border.color: borderColor
                 border.width: 1
@@ -1150,6 +1125,31 @@ Rectangle {
                             radius: 5
                             color: viewModel.absolutePointingActive ? "orange" : "gray"
                         }
+
+                        Text {
+                            text: "Physical:"
+                            font.pixelSize: 10
+                            color: textColor
+                        }
+                        Rectangle {
+                            width: 10
+                            height: 10
+                            radius: 5
+                            color: joystickReceiver.connected ? successColor : "gray"
+                        }
+                    }
+
+                    // Physical joystick connection info
+                    Text {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: joystickReceiver.connected ?
+                              "🎮 Physical joystick connected (UDP:12345)" :
+                              "🎮 No physical joystick (Start Python bridge)"
+                        font.pixelSize: 9
+                        color: joystickReceiver.connected ? successColor : "#888888"
+                        wrapMode: Text.WordWrap
+                        width: parent.width
+                        horizontalAlignment: Text.AlignHCenter
                     }
                 }
             }

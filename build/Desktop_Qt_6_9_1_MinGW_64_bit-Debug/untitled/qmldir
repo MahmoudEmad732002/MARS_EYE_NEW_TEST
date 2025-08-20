@@ -8,5 +8,5 @@ MapPanel 1.0 view/MapPanel.qml
 CapturePanel 1.0 view/CapturePanel.qml
 TelemetryPanel 1.0 view/TelemetryPanel.qml
 TopBar 1.0 view/TopBar.qml
-VisualizationPanel 1.0 view/VisualizationPanel.qml
+CameraControlBar 1.0 view/CameraControlBar.qml
 

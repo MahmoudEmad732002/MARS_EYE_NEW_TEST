@@ -6,6 +6,8 @@
 #include "viewmodels/mediamanagerviewmodel.h"
 #include "viewmodels/mapviewmodel.h"
 #include "viewmodels/thermalcameraviewmodel.h"
+#include "models/joystickreceiver.h"
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -15,6 +17,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<MediaManagerViewModel>("SerialApp", 1, 0, "MediaManagerViewModel");
     qmlRegisterType<MapViewModel>("SerialApp", 1, 0, "MapViewModel");
     qmlRegisterType<ThermalCameraViewModel>("SerialApp", 1, 0, "ThermalCameraViewModel");
+    qmlRegisterType<JoystickReceiver>("SerialApp", 1, 0, "JoystickReceiver");
 
     QQmlApplicationEngine engine;
 

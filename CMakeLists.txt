@@ -12,6 +12,8 @@ find_package(Qt6 REQUIRED COMPONENTS SerialPort)
 find_package(Qt6 REQUIRED COMPONENTS Positioning)
 find_package(Qt6 REQUIRED COMPONENTS Multimedia)
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Widgets SerialPort Multimedia MultimediaWidgets Location Positioning)
+find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS Core)
 
 qt_standard_project_setup(REQUIRES 6.8)
 
@@ -41,7 +43,10 @@ qt_add_qml_module(appuntitled
 
         QML_FILES view/TelemetryPanel.qml
         QML_FILES view/TopBar.qml
-        QML_FILES view/VisualizationPanel.qml
+        QML_FILES
+        QML_FILES view/CameraControlBar.qml
+        SOURCES
+        SOURCES models/joystickreceiver.h models/joystickreceiver.cpp
 
 
 )
@@ -68,6 +73,8 @@ target_link_libraries(appuntitled
                 Qt6::Location
                 Qt6::Positioning
 )
+target_link_libraries(appuntitled PRIVATE Qt6::Core)
+target_link_libraries(appuntitled PRIVATE Qt6::Core)
 target_link_libraries(appuntitled PRIVATE Qt6::Core)
 target_link_libraries(appuntitled PRIVATE Qt6::Core)
 target_link_libraries(appuntitled PRIVATE Qt6::Core)

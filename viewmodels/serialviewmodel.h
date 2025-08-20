@@ -74,8 +74,8 @@ class SerialViewModel : public QObject
     Q_PROPERTY(int frameNumber READ frameNumber WRITE setFrameNumber NOTIFY targetChanged)
 
     // Absolute pointing properties
-    Q_PROPERTY(int pitchAngleCmd READ pitchAngleCmd WRITE setPitchAngleCmd NOTIFY absolutePointingChanged)
-    Q_PROPERTY(int yawAngleCmd READ yawAngleCmd WRITE setYawAngleCmd NOTIFY absolutePointingChanged)
+    Q_PROPERTY(double pitchAngle READ pitchAngle WRITE setPitchAngle NOTIFY absolutePointingChanged)
+    Q_PROPERTY(double yawAngle READ yawAngle WRITE setYawAngle NOTIFY absolutePointingChanged)
     Q_PROPERTY(int stabilizationFlag READ stabilizationFlag WRITE setStabilizationFlag NOTIFY absolutePointingChanged)
     Q_PROPERTY(bool absolutePointingActive READ absolutePointingActive NOTIFY absolutePointingActiveChanged)
 
@@ -103,10 +103,10 @@ public:
     int signalStrength() const { return m_telemetryData.signalStrength; }
 
     // Target GPS getters (updated names)
-    double targetPoseLat() const { return m_targetGPSData.targetPoseLat; }
-    double targetPoseLon() const { return m_targetGPSData.targetPoseLon; }
-    double targetPoseAlt() const { return m_targetGPSData.targetPoseAlt; }
-
+    // Target GPS getters (updated names) - with proper coordinate conversion
+    double targetPoseLat() const { return static_cast<double>(m_targetGPSData.targetPoseLat) / 10000000.0; }
+    double targetPoseLon() const { return static_cast<double>(m_targetGPSData.targetPoseLon) / 10000000.0; }
+    double targetPoseAlt() const { return static_cast<double>(m_targetGPSData.targetPoseAlt); }
     // Tracked pose getters (updated names)
     int targetTrackedPoseXp() const { return m_trackedPoseData.targetTrackedPoseXp; }
     int targetTrackedPoseYp() const { return m_trackedPoseData.targetTrackedPoseYp; }
@@ -159,14 +159,16 @@ public:
     void setFrameNumber(int frameNum);
 
     // Absolute pointing getters/setters
-    int pitchAngleCmd() const { return m_pitchAngleCmd; }
-    void setPitchAngleCmd(int angle);
-    int yawAngleCmd() const { return m_yawAngleCmd; }
-    void setYawAngleCmd(int angle);
+    double pitchAngle() const { return m_pitchAngle; }
+    void setPitchAngle(double angle);
+    double yawAngle() const { return m_yawAngle; }
+    void setYawAngle(double angle);
     int stabilizationFlag() const { return m_stabilizationFlag; }
     void setStabilizationFlag(int flag);
     bool absolutePointingActive() const { return m_absolutePointingActive; }
 
+    // Add new method to Q_INVOKABLE section:
+    Q_INVOKABLE void sendPitchYaw();
     // QML-callable slots
     Q_INVOKABLE void connectToSerial(const QString &portName, int baudRate);
     Q_INVOKABLE void refreshPorts();
@@ -187,6 +189,7 @@ public:
     Q_INVOKABLE void stopAbsolutePointing();
     Q_INVOKABLE void sendRequestGains();
     Q_INVOKABLE void sendFrameInfoAndGains(int frameW, int frameH);
+    Q_INVOKABLE void sendSelectTarget(int x, int y, int frameNum);  // New overloaded method
 
 signals:
     void availablePortsChanged();
@@ -247,6 +250,8 @@ private:
     int m_yawAngleCmd;
     int m_stabilizationFlag;
     bool m_absolutePointingActive;
+    double m_pitchAngle;    // Range: -90 to 10
+    double m_yawAngle;      // Range: -180 to 180
 };
 
 #endif // SERIALVIEWMODEL_H

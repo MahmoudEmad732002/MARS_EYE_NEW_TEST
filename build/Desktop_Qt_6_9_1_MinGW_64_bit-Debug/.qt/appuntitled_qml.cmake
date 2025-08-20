@@ -16,8 +16,8 @@ set(src_and_dest_list
     "C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/untitled/view/TelemetryPanel.qml"
     "C:/Users/mahmo/Documents/untitled/view/TopBar.qml"
     "C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/untitled/view/TopBar.qml"
-    "C:/Users/mahmo/Documents/untitled/view/VisualizationPanel.qml"
-    "C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/untitled/view/VisualizationPanel.qml"
+    "C:/Users/mahmo/Documents/untitled/view/CameraControlBar.qml"
+    "C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/untitled/view/CameraControlBar.qml"
 
 )
 set(timestamp_file "C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/.qt/appuntitled_qml.txt")

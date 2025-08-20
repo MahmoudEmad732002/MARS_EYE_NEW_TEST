@@ -1,10 +1,13 @@
+#ifndef SERIALMODEL_H
+#define SERIALMODEL_H
+
 #include <QSerialPort>
 #include <QSerialPortInfo>
 #include <QTimer>
 #include <QDebug>
 #include <QMap>
 #include <QSet>
-#pragma once
+#include <QObject>
 
 class SerialModel : public QObject
 {
@@ -17,6 +20,7 @@ public:
     // Updated Telemetry Data (ID=1) - 22B body
     struct TelemetryData
     {
+
         quint16 gimbalRoll = 0;
         quint16 gimbalPitch = 0;
         quint16 gimbalYaw = 0;
@@ -47,14 +51,14 @@ public:
         quint8 zoomFeedback = 0;
     };
 
-    // Frame Info + Gains Data (ID=10) - 8B body
+    // Frame Info + Gains Data (ID=10) - 12B body (UPDATED: PID gains now 2B each)
     struct FrameInfoData {
         quint16 frameWidth = 0;
         quint16 frameHeight = 0;
-        quint8 azimuthKp = 0;
-        quint8 azimuthKi = 0;
-        quint8 elevationKp = 0;
-        quint8 elevationKi = 0;
+        quint16 azimuthKp = 0;    // UPDATED: Changed from quint8 to quint16 (2B)
+        quint16 azimuthKi = 0;    // UPDATED: Changed from quint8 to quint16 (2B)
+        quint16 elevationKp = 0;  // UPDATED: Changed from quint8 to quint16 (2B)
+        quint16 elevationKi = 0;  // UPDATED: Changed from quint8 to quint16 (2B)
     };
 
     // Acknowledgment Data (ID=12) - 1B body
@@ -62,12 +66,12 @@ public:
         quint8 acknowledgedMessageId = 0;
     };
 
-    // PID Gains (only Kp/Ki) - 4B body
+    // PID Gains (UPDATED: now 2B each) - 8B body
     struct PIDGains {
-        quint8 azimuthKp = 0;
-        quint8 azimuthKi = 0;
-        quint8 elevationKp = 0;
-        quint8 elevationKi = 0;
+        quint16 azimuthKp = 0;    // UPDATED: Changed from quint8 to quint16 (2B)
+        quint16 azimuthKi = 0;    // UPDATED: Changed from quint8 to quint16 (2B)
+        quint16 elevationKp = 0;  // UPDATED: Changed from quint8 to quint16 (2B)
+        quint16 elevationKi = 0;  // UPDATED: Changed from quint8 to quint16 (2B)
     };
 
 public slots:
@@ -82,7 +86,7 @@ public slots:
     void stopJoystickCommand();
     void sendPIDGains(const PIDGains &gains);
     void sendZoomCommand(quint8 zoomCmd, quint8 zoomResetFlag = 0);
-    void sendSelectTarget(quint16 targetXp, quint16 targetYp, quint16 frameNumber = 0);
+    void sendSelectTarget(quint16 targetXp, quint16 targetYp, quint16 frameNumber, quint8 resetFlag = 0); // UPDATED: Added resetFlag
     void sendAbsolutePointing(quint16 pitchAngleCmd, quint16 yawAngleCmd, quint8 stabilizationFlag = 1);
     void stopAbsolutePointing();
     void sendRequestGains();
@@ -118,7 +122,7 @@ private:
 
     // Message creation methods
     QByteArray createMessage(quint8 messageId, const QByteArray &payload);
-    quint16 calculateChecksum(const QByteArray &data);
+    quint8  calculateChecksum(const QByteArray &data);
 
     // Multiple continuous sending management
     void startContinuousSending(quint8 messageId, const QByteArray &message);
@@ -141,40 +145,40 @@ private:
     quint8 m_lastJoyResetFlag;
 
     // Message constants
-    static constexpr  quint16 HEADER = 0xA1A4;
+    static constexpr quint16 HEADER = 0xA1A4;
 
-    // Rx Message IDs
-    static constexpr  quint8 TELEMETRY_MESSAGE_ID = 0x01;
-    static constexpr  quint8 TARGET_GPS_MESSAGE_ID = 0x07;
-    static constexpr  quint8 TRACKED_POSE_MESSAGE_ID = 0x08;
-    static constexpr  quint8 ZOOM_FEEDBACK_MESSAGE_ID = 0x0B;
-    static constexpr  quint8 FRAME_INFO_MESSAGE_ID = 0x0A;
-    static constexpr  quint8 ACK_MESSAGE_ID = 0x0C;
+    // Rx Message IDs (UPDATED: New message IDs)
+    static constexpr quint8 TELEMETRY_MESSAGE_ID = 0x01;
+    static constexpr quint8 TARGET_GPS_MESSAGE_ID = 0x07;
+    static constexpr quint8 TRACKED_POSE_MESSAGE_ID = 0x08;
+    static constexpr quint8 ZOOM_FEEDBACK_MESSAGE_ID = 0x11;     // UPDATED: Changed from 0x0B
+    static constexpr quint8 FRAME_INFO_MESSAGE_ID = 0x10;        // UPDATED: Changed from 0x0A
+    static constexpr quint8 ACK_MESSAGE_ID = 0x12;               // UPDATED: Changed from 0x0C
 
     // Tx Message IDs
-    static constexpr  quint8 PID_GAINS_MESSAGE_ID = 0x02;
-    static constexpr  quint8 JOYSTICK_MESSAGE_ID = 0x03;
-    static constexpr  quint8 ZOOM_COMMAND_MESSAGE_ID = 0x04;
-    static constexpr  quint8 SELECT_TARGET_MESSAGE_ID = 0x05;
-    static constexpr  quint8 ABSOLUTE_POINTING_MESSAGE_ID = 0x06;
-    static constexpr  quint8 REQUEST_GAINS_MESSAGE_ID = 0x09;
+    static constexpr quint8 PID_GAINS_MESSAGE_ID = 0x02;
+    static constexpr quint8 JOYSTICK_MESSAGE_ID = 0x03;
+    static constexpr quint8 ZOOM_COMMAND_MESSAGE_ID = 0x04;
+    static constexpr quint8 SELECT_TARGET_MESSAGE_ID = 0x05;
+    static constexpr quint8 ABSOLUTE_POINTING_MESSAGE_ID = 0x06;
+    static constexpr quint8 REQUEST_GAINS_MESSAGE_ID = 0x09;
 
-    // Message lengths (header + ID + body + checksum)
-    static constexpr  int TELEMETRY_MESSAGE_LENGTH = 27;        // 2+1+22+2
-    static constexpr  int TARGET_GPS_MESSAGE_LENGTH = 15;       // 2+1+10+2
-    static constexpr  int TRACKED_POSE_MESSAGE_LENGTH = 9;      // 2+1+4+2
-    static constexpr  int ZOOM_FEEDBACK_MESSAGE_LENGTH = 6;     // 2+1+1+2
-    static constexpr  int FRAME_INFO_MESSAGE_LENGTH = 13;       // 2+1+8+2
-    static constexpr  int ACK_MESSAGE_LENGTH = 6;               // 2+1+1+2
+    static constexpr int TELEMETRY_MESSAGE_LENGTH = 26;        // 2+1+22+1 (was 27)
+    static constexpr int TARGET_GPS_MESSAGE_LENGTH = 14;       // 2+1+10+1 (was 15)
+    static constexpr int TRACKED_POSE_MESSAGE_LENGTH = 8;      // 2+1+4+1 (was 9)
+    static constexpr int ZOOM_FEEDBACK_MESSAGE_LENGTH = 5;     // 2+1+1+1 (was 6)
+    static constexpr int FRAME_INFO_MESSAGE_LENGTH = 16;       // 2+1+12+1 (was 17)
+    static constexpr int ACK_MESSAGE_LENGTH = 5;               // 2+1+1+1 (was 6)
 
-    // Tx message lengths
-    static constexpr  int PID_GAINS_TX_LENGTH = 9;              // 2+1+4+2
-    static constexpr  int JOYSTICK_TX_LENGTH = 8;               // 2+1+3+2
-    static constexpr  int ZOOM_COMMAND_TX_LENGTH = 7;           // 2+1+2+2
-    static constexpr  int SELECT_TARGET_TX_LENGTH = 11;         // 2+1+6+2
-    static constexpr  int ABSOLUTE_POINTING_TX_LENGTH = 10;     // 2+1+5+2
-    static constexpr  int REQUEST_GAINS_TX_LENGTH = 6;          // 2+1+1+2
-
+    // Tx message lengths - UPDATED with 1-byte checksum
+    static constexpr int PID_GAINS_TX_LENGTH = 12;             // 2+1+8+1 (was 13)
+    static constexpr int JOYSTICK_TX_LENGTH = 7;               // 2+1+3+1 (was 8)
+    static constexpr int ZOOM_COMMAND_TX_LENGTH = 6;           // 2+1+2+1 (was 7)
+    static constexpr int SELECT_TARGET_TX_LENGTH = 11;         // 2+1+7+1 (was 12)
+    static constexpr int ABSOLUTE_POINTING_TX_LENGTH = 9;      // 2+1+5+1 (was 10)
+    static constexpr int REQUEST_GAINS_TX_LENGTH = 5;         // 2+1+1+1 (was 6)
     // Continuous sending interval (ms)
-    static constexpr  int CONTINUOUS_SEND_INTERVAL = 100;
+    static constexpr int CONTINUOUS_SEND_INTERVAL = 100;
 };
+
+#endif // SERIALMODEL_H

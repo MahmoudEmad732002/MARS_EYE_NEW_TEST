@@ -6,6 +6,12 @@
             "methods": [
                 {
                     "access": "public",
+                    "index": 25,
+                    "name": "sendPitchYaw",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
                     "arguments": [
                         {
                             "name": "portName",
@@ -16,25 +22,25 @@
                             "type": "int"
                         }
                     ],
-                    "index": 25,
+                    "index": 26,
                     "name": "connectToSerial",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 26,
+                    "index": 27,
                     "name": "refreshPorts",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 27,
+                    "index": 28,
                     "name": "startJoystickCommand",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 28,
+                    "index": 29,
                     "name": "stopJoystickCommand",
                     "returnType": "void"
                 },
@@ -50,67 +56,67 @@
                             "type": "int"
                         }
                     ],
-                    "index": 29,
+                    "index": 30,
                     "name": "sendSoftwareJoystickCommand",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 30,
+                    "index": 31,
                     "name": "sendJoystickUp",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 31,
+                    "index": 32,
                     "name": "sendJoystickDown",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 32,
+                    "index": 33,
                     "name": "sendJoystickLeft",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 33,
+                    "index": 34,
                     "name": "sendJoystickRight",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 34,
+                    "index": 35,
                     "name": "sendPIDGains",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 35,
+                    "index": 36,
                     "name": "sendZoomCommand",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 36,
+                    "index": 37,
                     "name": "sendSelectTarget",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 37,
+                    "index": 38,
                     "name": "startAbsolutePointing",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 38,
+                    "index": 39,
                     "name": "stopAbsolutePointing",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 39,
+                    "index": 40,
                     "name": "sendRequestGains",
                     "returnType": "void"
                 },
@@ -126,8 +132,28 @@
                             "type": "int"
                         }
                     ],
-                    "index": 40,
+                    "index": 41,
                     "name": "sendFrameInfoAndGains",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "x",
+                            "type": "int"
+                        },
+                        {
+                            "name": "y",
+                            "type": "int"
+                        },
+                        {
+                            "name": "frameNum",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 42,
+                    "name": "sendSelectTarget",
                     "returnType": "void"
                 }
             ],
@@ -737,30 +763,30 @@
                     "designable": true,
                     "final": false,
                     "index": 42,
-                    "name": "pitchAngleCmd",
+                    "name": "pitchAngle",
                     "notify": "absolutePointingChanged",
-                    "read": "pitchAngleCmd",
+                    "read": "pitchAngle",
                     "required": false,
                     "scriptable": true,
                     "stored": true,
-                    "type": "int",
+                    "type": "double",
                     "user": false,
-                    "write": "setPitchAngleCmd"
+                    "write": "setPitchAngle"
                 },
                 {
                     "constant": false,
                     "designable": true,
                     "final": false,
                     "index": 43,
-                    "name": "yawAngleCmd",
+                    "name": "yawAngle",
                     "notify": "absolutePointingChanged",
-                    "read": "yawAngleCmd",
+                    "read": "yawAngle",
                     "required": false,
                     "scriptable": true,
                     "stored": true,
-                    "type": "int",
+                    "type": "double",
                     "user": false,
-                    "write": "setYawAngleCmd"
+                    "write": "setYawAngle"
                 },
                 {
                     "constant": false,

@@ -34,7 +34,7 @@ public:
     QString thermalIpAddress() const { return m_thermalIpAddress; }
     int thermalPort() const { return m_thermalPort; }
     bool thermalStreaming() const { return m_thermalStreaming; }
-    QString thermalStreamButtonText() const { return m_thermalStreaming ? "Stop Thermal" : "Start Thermal"; }
+    QString thermalStreamButtonText() const { return m_thermalStreaming ? "Stop" : "Start"; }
     QString thermalStreamButtonColor() const { return m_thermalStreaming ? "#FF4444" : "#44BB44"; }
     QString thermalCameraStatus() const { return m_thermalCameraStatus; }
     QString currentThermalFrameUrl() const { return m_currentThermalFrameUrl; }

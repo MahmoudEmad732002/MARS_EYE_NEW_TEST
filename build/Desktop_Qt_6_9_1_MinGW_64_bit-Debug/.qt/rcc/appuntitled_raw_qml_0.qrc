@@ -7,7 +7,7 @@
     <file alias="view/CapturePanel.qml">C:/Users/mahmo/Documents/untitled/view/CapturePanel.qml</file>
     <file alias="view/TelemetryPanel.qml">C:/Users/mahmo/Documents/untitled/view/TelemetryPanel.qml</file>
     <file alias="view/TopBar.qml">C:/Users/mahmo/Documents/untitled/view/TopBar.qml</file>
-    <file alias="view/VisualizationPanel.qml">C:/Users/mahmo/Documents/untitled/view/VisualizationPanel.qml</file>
+    <file alias="view/CameraControlBar.qml">C:/Users/mahmo/Documents/untitled/view/CameraControlBar.qml</file>
   </qresource>
 </RCC>
 

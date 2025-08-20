@@ -52,7 +52,7 @@ namespace _qt_qml_untitled_view_TopBar_qml {
         reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
     };
 }
-namespace _qt_qml_untitled_view_VisualizationPanel_qml { 
+namespace _qt_qml_untitled_view_CameraControlBar_qml { 
     extern const unsigned char qmlData[];
     extern const QQmlPrivate::AOTCompiledFunction aotBuiltFunctions[];
     const QQmlPrivate::CachedQmlUnit unit = {
@@ -80,7 +80,7 @@ Registry::Registry() {
     resourcePathToCachedUnit.insert(QStringLiteral("/qt/qml/untitled/view/CapturePanel.qml"), &QmlCacheGeneratedCode::_qt_qml_untitled_view_CapturePanel_qml::unit);
     resourcePathToCachedUnit.insert(QStringLiteral("/qt/qml/untitled/view/TelemetryPanel.qml"), &QmlCacheGeneratedCode::_qt_qml_untitled_view_TelemetryPanel_qml::unit);
     resourcePathToCachedUnit.insert(QStringLiteral("/qt/qml/untitled/view/TopBar.qml"), &QmlCacheGeneratedCode::_qt_qml_untitled_view_TopBar_qml::unit);
-    resourcePathToCachedUnit.insert(QStringLiteral("/qt/qml/untitled/view/VisualizationPanel.qml"), &QmlCacheGeneratedCode::_qt_qml_untitled_view_VisualizationPanel_qml::unit);
+    resourcePathToCachedUnit.insert(QStringLiteral("/qt/qml/untitled/view/CameraControlBar.qml"), &QmlCacheGeneratedCode::_qt_qml_untitled_view_CameraControlBar_qml::unit);
     QQmlPrivate::RegisterQmlUnitCacheHook registration;
     registration.structVersion = 0;
     registration.lookupCachedQmlUnit = &lookupCachedUnit;

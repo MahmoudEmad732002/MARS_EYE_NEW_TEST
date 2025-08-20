@@ -6,8 +6,8 @@ SerialModel::SerialModel(QObject *parent)
     , m_connected(false)
     , m_continuousTimer(new QTimer(this))
     , m_isJoystickActive(false)
-    , m_lastJoyX(127)
-    , m_lastJoyY(127)
+    , m_lastJoyX(100)
+    , m_lastJoyY(100)
     , m_lastJoyResetFlag(0)
 {
     connect(m_serialPort, &QSerialPort::readyRead, this, &SerialModel::readData);
@@ -126,13 +126,13 @@ void SerialModel::processBuffer()
         case TRACKED_POSE_MESSAGE_ID:
             expectedLength = TRACKED_POSE_MESSAGE_LENGTH;
             break;
-        case ZOOM_FEEDBACK_MESSAGE_ID:
+        case ZOOM_FEEDBACK_MESSAGE_ID: // UPDATED: 0x11
             expectedLength = ZOOM_FEEDBACK_MESSAGE_LENGTH;
             break;
-        case FRAME_INFO_MESSAGE_ID:
+        case FRAME_INFO_MESSAGE_ID: // UPDATED: 0x10
             expectedLength = FRAME_INFO_MESSAGE_LENGTH;
             break;
-        case ACK_MESSAGE_ID:
+        case ACK_MESSAGE_ID: // UPDATED: 0x12
             expectedLength = ACK_MESSAGE_LENGTH;
             break;
         default:
@@ -165,17 +165,25 @@ void SerialModel::processBuffer()
                 emit trackedPoseReceived(data);
                 break;
             }
-            case ZOOM_FEEDBACK_MESSAGE_ID: {
+            case ZOOM_FEEDBACK_MESSAGE_ID: { // UPDATED: 0x11
                 ZoomFeedbackData data = parseZoomFeedbackMessage(message);
                 emit zoomFeedbackReceived(data);
+
+                // UPDATED: Stop zoom command continuous sending when feedback is received
+                stopContinuousSending(ZOOM_COMMAND_MESSAGE_ID);
+                qDebug() << "Received zoom feedback, stopping zoom commands";
                 break;
             }
-            case FRAME_INFO_MESSAGE_ID: {
+            case FRAME_INFO_MESSAGE_ID: { // UPDATED: 0x10
                 FrameInfoData data = parseFrameInfoMessage(message);
                 emit frameInfoReceived(data);
+
+                // UPDATED: Stop request gains continuous sending when frame info is received
+                stopContinuousSending(REQUEST_GAINS_MESSAGE_ID);
+                qDebug() << "Received frame info, stopping request gains";
                 break;
             }
-            case ACK_MESSAGE_ID: {
+            case ACK_MESSAGE_ID: { // UPDATED: 0x12
                 AckData data = parseAckMessage(message);
                 emit acknowledgmentReceived(data);
 
@@ -195,20 +203,19 @@ void SerialModel::processBuffer()
 
 bool SerialModel::validateChecksum(const QByteArray &data)
 {
-    if (data.size() < 4) return false;
+    if (data.size() < 3) return false;  // Changed from 4 to 3 (header + ID + 1 byte checksum)
 
-    quint16 calculatedChecksum = 0;
-    for (int i = 0; i < data.size() - 2; ++i) {
+    quint8 calculatedChecksum = 0;  // Changed from quint16 to quint8
+    for (int i = 0; i < data.size() - 1; ++i) {  // Changed from -2 to -1
         calculatedChecksum += static_cast<quint8>(data[i]);
     }
 
-    quint16 receivedChecksum = (static_cast<quint8>(data[data.size() - 2]) << 8) |
-                               static_cast<quint8>(data[data.size() - 1]);
+    quint8 receivedChecksum = static_cast<quint8>(data[data.size() - 1]);  // Only last byte
 
     return calculatedChecksum == receivedChecksum;
 }
 
-// Parsing methods (updated field names)
+// Parsing methods
 SerialModel::TelemetryData SerialModel::parseTelemetryMessage(const QByteArray &data)
 {
     TelemetryData telemetry;
@@ -313,6 +320,7 @@ SerialModel::ZoomFeedbackData SerialModel::parseZoomFeedbackMessage(const QByteA
     return zoom;
 }
 
+// UPDATED: Frame info parsing - PID gains now 2 bytes each
 SerialModel::FrameInfoData SerialModel::parseFrameInfoMessage(const QByteArray &data)
 {
     FrameInfoData frameInfo;
@@ -326,20 +334,20 @@ SerialModel::FrameInfoData SerialModel::parseFrameInfoMessage(const QByteArray &
     frameInfo.frameHeight = (static_cast<quint8>(data[offset]) << 8) | static_cast<quint8>(data[offset + 1]);
     offset += 2;
 
-    // Parse Azimuth Kp (1B)
-    frameInfo.azimuthKp = static_cast<quint8>(data[offset]);
-    offset += 1;
+    // Parse Azimuth Kp (2B) - UPDATED from 1B to 2B
+    frameInfo.azimuthKp = (static_cast<quint8>(data[offset]) << 8) | static_cast<quint8>(data[offset + 1]);
+    offset += 2;
 
-    // Parse Azimuth Ki (1B)
-    frameInfo.azimuthKi = static_cast<quint8>(data[offset]);
-    offset += 1;
+    // Parse Azimuth Ki (2B) - UPDATED from 1B to 2B
+    frameInfo.azimuthKi = (static_cast<quint8>(data[offset]) << 8) | static_cast<quint8>(data[offset + 1]);
+    offset += 2;
 
-    // Parse Elevation Kp (1B)
-    frameInfo.elevationKp = static_cast<quint8>(data[offset]);
-    offset += 1;
+    // Parse Elevation Kp (2B) - UPDATED from 1B to 2B
+    frameInfo.elevationKp = (static_cast<quint8>(data[offset]) << 8) | static_cast<quint8>(data[offset + 1]);
+    offset += 2;
 
-    // Parse Elevation Ki (1B)
-    frameInfo.elevationKi = static_cast<quint8>(data[offset]);
+    // Parse Elevation Ki (2B) - UPDATED from 1B to 2B
+    frameInfo.elevationKi = (static_cast<quint8>(data[offset]) << 8) | static_cast<quint8>(data[offset + 1]);
 
     return frameInfo;
 }
@@ -464,6 +472,7 @@ void SerialModel::stopJoystickCommand()
     }
 }
 
+// UPDATED: PID gains now send 2 bytes per value
 void SerialModel::sendPIDGains(const PIDGains &gains)
 {
     if (!isConnected()) {
@@ -472,10 +481,21 @@ void SerialModel::sendPIDGains(const PIDGains &gains)
     }
 
     QByteArray payload;
-    payload.append(static_cast<char>(gains.azimuthKp));
-    payload.append(static_cast<char>(gains.azimuthKi));
-    payload.append(static_cast<char>(gains.elevationKp));
-    payload.append(static_cast<char>(gains.elevationKi));
+    // Azimuth Kp (2B) - UPDATED from 1B to 2B
+    payload.append(static_cast<char>((gains.azimuthKp >> 8) & 0xFF));
+    payload.append(static_cast<char>(gains.azimuthKp & 0xFF));
+
+    // Azimuth Ki (2B) - UPDATED from 1B to 2B
+    payload.append(static_cast<char>((gains.azimuthKi >> 8) & 0xFF));
+    payload.append(static_cast<char>(gains.azimuthKi & 0xFF));
+
+    // Elevation Kp (2B) - UPDATED from 1B to 2B
+    payload.append(static_cast<char>((gains.elevationKp >> 8) & 0xFF));
+    payload.append(static_cast<char>(gains.elevationKp & 0xFF));
+
+    // Elevation Ki (2B) - UPDATED from 1B to 2B
+    payload.append(static_cast<char>((gains.elevationKi >> 8) & 0xFF));
+    payload.append(static_cast<char>(gains.elevationKi & 0xFF));
 
     QByteArray message = createMessage(PID_GAINS_MESSAGE_ID, payload);
 
@@ -497,12 +517,13 @@ void SerialModel::sendZoomCommand(quint8 zoomCmd, quint8 zoomResetFlag)
 
     QByteArray message = createMessage(ZOOM_COMMAND_MESSAGE_ID, payload);
 
-    // Send continuously until acknowledged (zoom feedback comes as ID 11, but ACK is ID 4)
+    // Send continuously until zoom feedback (ID 0x11) is received
     startContinuousSending(ZOOM_COMMAND_MESSAGE_ID, message);
     emit messageSent("Zoom Command (Continuous)");
 }
 
-void SerialModel::sendSelectTarget(quint16 targetXp, quint16 targetYp, quint16 frameNumber)
+// UPDATED: Select target with reset flag parameter
+void SerialModel::sendSelectTarget(quint16 targetXp, quint16 targetYp, quint16 frameNumber, quint8 resetFlag)
 {
     if (!isConnected()) {
         emit errorOccurred("Cannot send select target: Not connected");
@@ -516,6 +537,7 @@ void SerialModel::sendSelectTarget(quint16 targetXp, quint16 targetYp, quint16 f
     payload.append(static_cast<char>(targetYp & 0xFF));
     payload.append(static_cast<char>((frameNumber >> 8) & 0xFF));
     payload.append(static_cast<char>(frameNumber & 0xFF));
+    payload.append(static_cast<char>(resetFlag)); // NEW FIELD - Reset flag
 
     QByteArray message = createMessage(SELECT_TARGET_MESSAGE_ID, payload);
 
@@ -569,11 +591,12 @@ void SerialModel::sendRequestGains()
 
     QByteArray message = createMessage(REQUEST_GAINS_MESSAGE_ID, payload);
 
-    // Send continuously until acknowledged (response comes as ID 10)
+    // Send continuously until frame info (ID 0x10) is received
     startContinuousSending(REQUEST_GAINS_MESSAGE_ID, message);
     emit messageSent("Request Gains (Continuous)");
 }
 
+// UPDATED: Frame info and gains with 2-byte PID values
 void SerialModel::sendFrameInfoAndGains(quint16 frameW, quint16 frameH, const PIDGains &gains)
 {
     if (!isConnected()) {
@@ -586,10 +609,16 @@ void SerialModel::sendFrameInfoAndGains(quint16 frameW, quint16 frameH, const PI
     payload.append(static_cast<char>(frameW & 0xFF));
     payload.append(static_cast<char>((frameH >> 8) & 0xFF));
     payload.append(static_cast<char>(frameH & 0xFF));
-    payload.append(static_cast<char>(gains.azimuthKp));
-    payload.append(static_cast<char>(gains.azimuthKi));
-    payload.append(static_cast<char>(gains.elevationKp));
-    payload.append(static_cast<char>(gains.elevationKi));
+
+    // PID gains now 2 bytes each - UPDATED
+    payload.append(static_cast<char>((gains.azimuthKp >> 8) & 0xFF));
+    payload.append(static_cast<char>(gains.azimuthKp & 0xFF));
+    payload.append(static_cast<char>((gains.azimuthKi >> 8) & 0xFF));
+    payload.append(static_cast<char>(gains.azimuthKi & 0xFF));
+    payload.append(static_cast<char>((gains.elevationKp >> 8) & 0xFF));
+    payload.append(static_cast<char>(gains.elevationKp & 0xFF));
+    payload.append(static_cast<char>((gains.elevationKi >> 8) & 0xFF));
+    payload.append(static_cast<char>(gains.elevationKi & 0xFF));
 
     QByteArray message = createMessage(FRAME_INFO_MESSAGE_ID, payload);
 
@@ -615,19 +644,18 @@ QByteArray SerialModel::createMessage(quint8 messageId, const QByteArray &payloa
     // Add payload
     message.append(payload);
 
-    // Calculate and add checksum (big-endian)
-    quint16 checksum = calculateChecksum(message);
-    message.append(static_cast<char>((checksum >> 8) & 0xFF));
-    message.append(static_cast<char>(checksum & 0xFF));
+    // Calculate and add checksum (single byte)
+    quint8 checksum = calculateChecksum(message);  // Changed from quint16 to quint8
+    message.append(static_cast<char>(checksum));   // Only append one byte
 
     return message;
 }
 
-quint16 SerialModel::calculateChecksum(const QByteArray &data)
+quint8 SerialModel::calculateChecksum(const QByteArray &data)  // Changed return type from quint16 to quint8
 {
-    quint16 checksum = 0;
+    quint8 checksum = 0;  // Changed from quint16 to quint8
     for (int i = 0; i < data.size(); ++i) {
         checksum += static_cast<quint8>(data[i]);
     }
-    return checksum;
+    return checksum;  // This automatically gives us the least significant byte
 }

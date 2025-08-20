@@ -2,7 +2,7 @@
     "classes": [
         {
             "className": "SerialModel",
-            "lineNumber": 9,
+            "lineNumber": 12,
             "object": true,
             "qualifiedClassName": "SerialModel",
             "signals": [
@@ -255,6 +255,10 @@
                         {
                             "name": "frameNumber",
                             "type": "quint16"
+                        },
+                        {
+                            "name": "resetFlag",
+                            "type": "quint8"
                         }
                     ],
                     "index": 20,
@@ -270,6 +274,10 @@
                         },
                         {
                             "name": "targetYp",
+                            "type": "quint16"
+                        },
+                        {
+                            "name": "frameNumber",
                             "type": "quint16"
                         }
                     ],

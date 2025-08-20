@@ -6,90 +6,42 @@
                     {
                         "codegenSuccessful": true,
                         "column": 12,
-                        "durationMicroseconds": 351,
+                        "durationMicroseconds": 276,
                         "errorMessage": "",
                         "functionName": "width",
-                        "line": 13
+                        "line": 7
                     },
                     {
                         "codegenSuccessful": true,
-                        "column": 13,
-                        "durationMicroseconds": 135,
-                        "errorMessage": "",
-                        "functionName": "height",
-                        "line": 14
-                    },
-                    {
-                        "codegenSuccessful": false,
                         "column": 12,
-                        "durationMicroseconds": 171,
-                        "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: ThemeProperties::surfaceColor with type QString (stored as QVariant) -> ThemeProperties::surfaceColor with type QString (adjusted to QColor, stored as QVariant)",
+                        "durationMicroseconds": 121,
+                        "errorMessage": "",
                         "functionName": "color",
-                        "line": 15
+                        "line": 9
                     },
                     {
                         "codegenSuccessful": true,
-                        "column": 13,
+                        "column": 19,
                         "durationMicroseconds": 93,
                         "errorMessage": "",
-                        "functionName": "radius",
-                        "line": 18
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 19,
-                        "durationMicroseconds": 152,
-                        "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: ThemeProperties::borderColor with type QString (stored as QVariant) -> ThemeProperties::borderColor with type QString (adjusted to QColor, stored as QVariant)",
                         "functionName": "color",
-                        "line": 16
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 19,
-                        "durationMicroseconds": 92,
-                        "errorMessage": "",
-                        "functionName": "width",
-                        "line": 17
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 18,
-                        "durationMicroseconds": 54,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "spacing",
-                        "line": 23
+                        "line": 10
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 23,
-                        "durationMicroseconds": 82,
+                        "durationMicroseconds": 46,
                         "errorMessage": "",
                         "functionName": "fill",
-                        "line": 21
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 26,
-                        "durationMicroseconds": 30,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "margins",
-                        "line": 22
+                        "line": 26
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 20,
-                        "durationMicroseconds": 27,
-                        "errorMessage": "Cannot access value for name theme",
+                        "durationMicroseconds": 35,
+                        "errorMessage": "Cannot access value for name textColor",
                         "functionName": "color",
-                        "line": 29
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 29,
-                        "durationMicroseconds": 38,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "pixelSize",
-                        "line": 27
+                        "line": 34
                     },
                     {
                         "codegenSuccessful": false,
@@ -97,7 +49,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"text\".",
                         "functionName": "text",
-                        "line": 35
+                        "line": 40
                     },
                     {
                         "codegenSuccessful": false,
@@ -105,7 +57,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"enabled\".",
                         "functionName": "enabled",
-                        "line": 37
+                        "line": 42
                     },
                     {
                         "codegenSuccessful": false,
@@ -113,15 +65,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"color\".",
                         "functionName": "color",
-                        "line": 38
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 35,
-                        "durationMicroseconds": 0,
-                        "errorMessage": "Could not find property \"placeholderTextColor\".",
-                        "functionName": "placeholderTextColor",
-                        "line": 39
+                        "line": 43
                     },
                     {
                         "codegenSuccessful": false,
@@ -129,55 +73,31 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"textChanged\".",
                         "functionName": "onTextChanged",
-                        "line": 48
+                        "line": 53
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 24,
-                        "durationMicroseconds": 25,
-                        "errorMessage": "Cannot access value for name theme",
+                        "durationMicroseconds": 13,
+                        "errorMessage": "Cannot access value for name surfaceColor",
                         "functionName": "color",
-                        "line": 42
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 25,
-                        "durationMicroseconds": 20,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "radius",
-                        "line": 45
+                        "line": 47
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 31,
-                        "durationMicroseconds": 22,
-                        "errorMessage": "Cannot access value for name theme",
+                        "durationMicroseconds": 11,
+                        "errorMessage": "Cannot access value for name borderColor",
                         "functionName": "color",
-                        "line": 43
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 31,
-                        "durationMicroseconds": 19,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "width",
-                        "line": 44
+                        "line": 48
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 20,
-                        "durationMicroseconds": 35,
-                        "errorMessage": "Cannot access value for name theme",
+                        "durationMicroseconds": 23,
+                        "errorMessage": "Cannot access value for name textColor",
                         "functionName": "color",
-                        "line": 59
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 29,
-                        "durationMicroseconds": 26,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "pixelSize",
-                        "line": 57
+                        "line": 64
                     },
                     {
                         "codegenSuccessful": false,
@@ -185,7 +105,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"value\".",
                         "functionName": "value",
-                        "line": 67
+                        "line": 71
                     },
                     {
                         "codegenSuccessful": false,
@@ -193,7 +113,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"enabled\".",
                         "functionName": "enabled",
-                        "line": 68
+                        "line": 72
                     },
                     {
                         "codegenSuccessful": false,
@@ -201,215 +121,87 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"valueChanged\".",
                         "functionName": "onValueChanged",
-                        "line": 120
+                        "line": 98
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 24,
-                        "durationMicroseconds": 24,
-                        "errorMessage": "Cannot access value for name theme",
+                        "durationMicroseconds": 12,
+                        "errorMessage": "Cannot access value for name surfaceColor",
                         "functionName": "color",
-                        "line": 71
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 25,
-                        "durationMicroseconds": 20,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "radius",
-                        "line": 74
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 31,
-                        "durationMicroseconds": 22,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "color",
-                        "line": 72
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 31,
-                        "durationMicroseconds": 20,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "width",
-                        "line": 73
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 23,
-                        "durationMicroseconds": 97,
-                        "errorMessage": "Cannot access value for name portSpinBox",
-                        "functionName": "text",
                         "line": 78
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 24,
-                        "durationMicroseconds": 22,
-                        "errorMessage": "Cannot access value for name theme",
+                        "column": 31,
+                        "durationMicroseconds": 16,
+                        "errorMessage": "Cannot access value for name borderColor",
                         "functionName": "color",
                         "line": 79
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 38,
-                        "durationMicroseconds": 373,
-                        "errorMessage": "Cannot access value for name Qt",
-                        "functionName": "horizontalAlignment",
-                        "line": 80
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 36,
-                        "durationMicroseconds": 254,
-                        "errorMessage": "Cannot access value for name Qt",
-                        "functionName": "verticalAlignment",
-                        "line": 81
+                        "column": 23,
+                        "durationMicroseconds": 22,
+                        "errorMessage": "Cannot access value for name portSpinBox",
+                        "functionName": "text",
+                        "line": 85
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 27,
-                        "durationMicroseconds": 30,
+                        "durationMicroseconds": 23,
                         "errorMessage": "Cannot access value for name portSpinBox",
                         "functionName": "readOnly",
-                        "line": 82
+                        "line": 86
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 28,
-                        "durationMicroseconds": 21,
-                        "errorMessage": "Cannot access value for name portSpinBox",
-                        "functionName": "validator",
-                        "line": 83
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 35,
-                        "durationMicroseconds": 235,
+                        "column": 38,
+                        "durationMicroseconds": 259,
                         "errorMessage": "Cannot access value for name Qt",
-                        "functionName": "inputMethodHints",
-                        "line": 84
+                        "functionName": "horizontalAlignment",
+                        "line": 87
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 20,
-                        "durationMicroseconds": 25,
-                        "errorMessage": "Cannot access value for name parent",
-                        "functionName": "x",
+                        "column": 36,
+                        "durationMicroseconds": 158,
+                        "errorMessage": "Cannot access value for name Qt",
+                        "functionName": "verticalAlignment",
                         "line": 88
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 25,
-                        "durationMicroseconds": 18,
-                        "errorMessage": "Cannot access value for name parent",
-                        "functionName": "height",
+                        "column": 24,
+                        "durationMicroseconds": 12,
+                        "errorMessage": "Cannot access value for name textColor",
+                        "functionName": "color",
                         "line": 89
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 24,
-                        "durationMicroseconds": 255,
-                        "errorMessage": "Cannot access value for name parent",
-                        "functionName": "color",
-                        "line": 92
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 31,
-                        "durationMicroseconds": 24,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "color",
+                        "column": 29,
+                        "durationMicroseconds": 61,
+                        "errorMessage": "Cannot access value for name portSpinBox",
+                        "functionName": "onAccepted",
                         "line": 93
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 28,
-                        "durationMicroseconds": 25,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "color",
-                        "line": 98
+                        "column": 51,
+                        "durationMicroseconds": 16,
+                        "errorMessage": "Cannot access value for name portSpinBox",
+                        "functionName": "bottom",
+                        "line": 90
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 37,
-                        "durationMicroseconds": 23,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "pixelSize",
-                        "line": 97
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 39,
-                        "durationMicroseconds": 9,
-                        "errorMessage": "Cannot access value for name parent",
-                        "functionName": "centerIn",
-                        "line": 99
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 20,
-                        "durationMicroseconds": 44,
-                        "errorMessage": "Cannot access value for name parent",
-                        "functionName": "x",
-                        "line": 104
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 20,
-                        "durationMicroseconds": 18,
-                        "errorMessage": "Cannot access value for name parent",
-                        "functionName": "y",
-                        "line": 105
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 25,
-                        "durationMicroseconds": 15,
-                        "errorMessage": "Cannot access value for name parent",
-                        "functionName": "height",
-                        "line": 106
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 24,
-                        "durationMicroseconds": 268,
-                        "errorMessage": "Cannot access value for name parent",
-                        "functionName": "color",
-                        "line": 109
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 31,
-                        "durationMicroseconds": 27,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "color",
-                        "line": 110
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 28,
-                        "durationMicroseconds": 25,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "color",
-                        "line": 115
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 37,
-                        "durationMicroseconds": 34,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "pixelSize",
-                        "line": 114
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 39,
-                        "durationMicroseconds": 11,
-                        "errorMessage": "Cannot access value for name parent",
-                        "functionName": "centerIn",
-                        "line": 116
+                        "column": 74,
+                        "durationMicroseconds": 14,
+                        "errorMessage": "Cannot access value for name portSpinBox",
+                        "functionName": "top",
+                        "line": 90
                     },
                     {
                         "codegenSuccessful": false,
@@ -417,7 +209,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"text\".",
                         "functionName": "text",
-                        "line": 129
+                        "line": 102
                     },
                     {
                         "codegenSuccessful": false,
@@ -425,95 +217,79 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"clicked\".",
                         "functionName": "onClicked",
-                        "line": 147
+                        "line": 120
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 24,
-                        "durationMicroseconds": 80,
+                        "durationMicroseconds": 53,
                         "errorMessage": "Cannot access value for name cameraViewModel",
                         "functionName": "color",
-                        "line": 133
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 25,
-                        "durationMicroseconds": 24,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "radius",
-                        "line": 134
+                        "line": 106
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 31,
-                        "durationMicroseconds": 22,
-                        "errorMessage": "Cannot access value for name theme",
+                        "durationMicroseconds": 13,
+                        "errorMessage": "Cannot access value for name borderColor",
                         "functionName": "color",
-                        "line": 135
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 31,
-                        "durationMicroseconds": 22,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "width",
-                        "line": 136
+                        "line": 108
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 23,
-                        "durationMicroseconds": 27,
+                        "durationMicroseconds": 14,
                         "errorMessage": "Cannot access value for name streamButton",
                         "functionName": "text",
-                        "line": 140
+                        "line": 113
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 24,
-                        "durationMicroseconds": 25,
-                        "errorMessage": "Cannot access value for name theme",
+                        "durationMicroseconds": 11,
+                        "errorMessage": "Cannot access value for name textColor",
                         "functionName": "color",
-                        "line": 141
+                        "line": 114
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 38,
-                        "durationMicroseconds": 307,
+                        "durationMicroseconds": 170,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "horizontalAlignment",
-                        "line": 142
+                        "line": 115
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 36,
-                        "durationMicroseconds": 266,
+                        "durationMicroseconds": 154,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
-                        "line": 143
+                        "line": 116
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 30,
-                        "durationMicroseconds": 162,
+                        "durationMicroseconds": 76,
                         "errorMessage": "",
                         "functionName": "cursorShape",
-                        "line": 155
+                        "line": 128
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 34,
-                        "durationMicroseconds": 115,
+                        "durationMicroseconds": 67,
                         "errorMessage": "",
                         "functionName": "acceptedButtons",
-                        "line": 156
+                        "line": 129
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 31,
-                        "durationMicroseconds": 68,
+                        "durationMicroseconds": 37,
                         "errorMessage": "",
                         "functionName": "fill",
-                        "line": 154
+                        "line": 127
                     },
                     {
                         "codegenSuccessful": false,
@@ -521,7 +297,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"text\".",
                         "functionName": "text",
-                        "line": 163
+                        "line": 136
                     },
                     {
                         "codegenSuccessful": false,
@@ -529,7 +305,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"enabled\".",
                         "functionName": "enabled",
-                        "line": 181
+                        "line": 158
                     },
                     {
                         "codegenSuccessful": false,
@@ -537,143 +313,127 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"clicked\".",
                         "functionName": "onClicked",
-                        "line": 183
+                        "line": 164
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 24,
-                        "durationMicroseconds": 111,
-                        "errorMessage": "Cannot access value for name cameraViewModel",
+                        "durationMicroseconds": 73,
+                        "errorMessage": "Cannot access value for name parent",
                         "functionName": "color",
-                        "line": 167
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 25,
-                        "durationMicroseconds": 26,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "radius",
-                        "line": 168
+                        "line": 140
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 31,
-                        "durationMicroseconds": 24,
-                        "errorMessage": "Cannot access value for name theme",
+                        "durationMicroseconds": 11,
+                        "errorMessage": "Cannot access value for name borderColor",
                         "functionName": "color",
-                        "line": 169
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 31,
-                        "durationMicroseconds": 22,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "width",
-                        "line": 170
+                        "line": 145
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 23,
-                        "durationMicroseconds": 29,
+                        "durationMicroseconds": 16,
                         "errorMessage": "Cannot access value for name trackButton",
                         "functionName": "text",
-                        "line": 174
+                        "line": 150
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 24,
-                        "durationMicroseconds": 26,
-                        "errorMessage": "Cannot access value for name theme",
+                        "durationMicroseconds": 22,
+                        "errorMessage": "Cannot access value for name parent",
                         "functionName": "color",
-                        "line": 175
+                        "line": 151
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 38,
-                        "durationMicroseconds": 394,
+                        "durationMicroseconds": 211,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "horizontalAlignment",
-                        "line": 176
+                        "line": 152
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 36,
-                        "durationMicroseconds": 290,
+                        "durationMicroseconds": 151,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
-                        "line": 177
+                        "line": 153
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 30,
-                        "durationMicroseconds": 155,
+                        "durationMicroseconds": 68,
                         "errorMessage": "",
                         "functionName": "cursorShape",
-                        "line": 195
+                        "line": 176
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 34,
-                        "durationMicroseconds": 120,
+                        "durationMicroseconds": 68,
                         "errorMessage": "",
                         "functionName": "acceptedButtons",
-                        "line": 196
+                        "line": 177
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 31,
-                        "durationMicroseconds": 74,
+                        "durationMicroseconds": 59,
                         "errorMessage": "",
                         "functionName": "fill",
-                        "line": 194
+                        "line": 175
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 23,
-                        "durationMicroseconds": 92,
+                        "durationMicroseconds": 58,
                         "errorMessage": "Cannot access value for name cameraViewModel",
                         "functionName": "text",
-                        "line": 210
+                        "line": 191
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 24,
-                        "durationMicroseconds": 145,
+                        "durationMicroseconds": 81,
                         "errorMessage": "Cannot access value for name cameraViewModel",
                         "functionName": "color",
-                        "line": 212
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 33,
-                        "durationMicroseconds": 37,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "pixelSize",
-                        "line": 211
+                        "line": 193
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 23,
-                        "durationMicroseconds": 179,
+                        "durationMicroseconds": 141,
                         "errorMessage": "Cannot access value for name cameraViewModel",
                         "functionName": "text",
-                        "line": 216
+                        "line": 197
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 143,
+                        "errorMessage": "Cannot access value for name cameraViewModel",
+                        "functionName": "text",
+                        "line": 205
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 24,
-                        "durationMicroseconds": 33,
-                        "errorMessage": "Cannot access value for name theme",
+                        "durationMicroseconds": 153,
+                        "errorMessage": "Cannot access value for name cameraViewModel",
                         "functionName": "color",
-                        "line": 219
+                        "line": 226
                     },
                     {
-                        "codegenSuccessful": false,
-                        "column": 33,
-                        "durationMicroseconds": 36,
-                        "errorMessage": "Cannot access value for name theme",
-                        "functionName": "pixelSize",
-                        "line": 218
+                        "codegenSuccessful": true,
+                        "column": 26,
+                        "durationMicroseconds": 128,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 238
                     }
                 ],
                 "filePath": "C:/Users/mahmo/Documents/untitled/view/CameraControlBar.qml"

@@ -168,12 +168,12 @@ template <> constexpr inline auto SerialModel::qt_create_metaobjectdata<qt_meta_
             { QMetaType::UChar, 37 },
         }}),
         // Slot 'sendSelectTarget'
-        QtMocHelpers::SlotData<void(quint16, quint16, quint16)>(39, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::UShort, 40 }, { QMetaType::UShort, 41 }, { QMetaType::UShort, 42 },
+        QtMocHelpers::SlotData<void(quint16, quint16, quint16, quint8)>(39, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::UShort, 40 }, { QMetaType::UShort, 41 }, { QMetaType::UShort, 42 }, { QMetaType::UChar, 31 },
         }}),
         // Slot 'sendSelectTarget'
-        QtMocHelpers::SlotData<void(quint16, quint16)>(39, 2, QMC::AccessPublic | QMC::MethodCloned, QMetaType::Void, {{
-            { QMetaType::UShort, 40 }, { QMetaType::UShort, 41 },
+        QtMocHelpers::SlotData<void(quint16, quint16, quint16)>(39, 2, QMC::AccessPublic | QMC::MethodCloned, QMetaType::Void, {{
+            { QMetaType::UShort, 40 }, { QMetaType::UShort, 41 }, { QMetaType::UShort, 42 },
         }}),
         // Slot 'sendAbsolutePointing'
         QtMocHelpers::SlotData<void(quint16, quint16, quint8)>(43, 2, QMC::AccessPublic, QMetaType::Void, {{
@@ -246,8 +246,8 @@ void SerialModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 17: _t->sendPIDGains((*reinterpret_cast< std::add_pointer_t<PIDGains>>(_a[1]))); break;
         case 18: _t->sendZoomCommand((*reinterpret_cast< std::add_pointer_t<quint8>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<quint8>>(_a[2]))); break;
         case 19: _t->sendZoomCommand((*reinterpret_cast< std::add_pointer_t<quint8>>(_a[1]))); break;
-        case 20: _t->sendSelectTarget((*reinterpret_cast< std::add_pointer_t<quint16>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<quint16>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<quint16>>(_a[3]))); break;
-        case 21: _t->sendSelectTarget((*reinterpret_cast< std::add_pointer_t<quint16>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<quint16>>(_a[2]))); break;
+        case 20: _t->sendSelectTarget((*reinterpret_cast< std::add_pointer_t<quint16>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<quint16>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<quint16>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<quint8>>(_a[4]))); break;
+        case 21: _t->sendSelectTarget((*reinterpret_cast< std::add_pointer_t<quint16>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<quint16>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<quint16>>(_a[3]))); break;
         case 22: _t->sendAbsolutePointing((*reinterpret_cast< std::add_pointer_t<quint16>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<quint16>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<quint8>>(_a[3]))); break;
         case 23: _t->sendAbsolutePointing((*reinterpret_cast< std::add_pointer_t<quint16>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<quint16>>(_a[2]))); break;
         case 24: _t->stopAbsolutePointing(); break;

@@ -6,8 +6,8 @@ SerialViewModel::SerialViewModel(QObject *parent)
     , m_serialModel(new SerialModel(this))
     , m_connected(false)
     , m_refreshTimer(new QTimer(this))
-    , m_joystickX(127)
-    , m_joystickY(127)
+    , m_joystickX(100)
+    , m_joystickY(100)
     , m_joystickResetFlag(0)
     , m_joystickActive(false)
     , m_zoomLevel(0)
@@ -15,8 +15,8 @@ SerialViewModel::SerialViewModel(QObject *parent)
     , m_targetX(0)
     , m_targetY(0)
     , m_frameNumber(0)
-    , m_pitchAngleCmd(32767)
-    , m_yawAngleCmd(32767)
+    , m_pitchAngleCmd(0.0)
+    , m_yawAngleCmd(0.0)
     , m_stabilizationFlag(1)
     , m_absolutePointingActive(false)
 {
@@ -246,36 +246,81 @@ void SerialViewModel::sendSoftwareJoystickCommand(int x, int y)
     }
 }
 
+
+// Replace the existing pitch/yaw setter methods:
+void SerialViewModel::setPitchAngle(double angle)
+{
+    // Clamp to valid range
+    angle = qMax(-90.0, qMin(10.0, angle));
+    if (qAbs(m_pitchAngle - angle) > 0.001) {
+        m_pitchAngle = angle;
+        emit absolutePointingChanged();
+    }
+}
+
+void SerialViewModel::setYawAngle(double angle)
+{
+    // Clamp to valid range
+    angle = qMax(-180.0, qMin(180.0, angle));
+    if (qAbs(m_yawAngle - angle) > 0.001) {
+        m_yawAngle = angle;
+        emit absolutePointingChanged();
+    }
+}
+
+// Replace the startAbsolutePointing method:
+void SerialViewModel::sendPitchYaw()
+{
+    if (m_connected) {
+        // Apply mapping formulas
+        quint16 pitchCmd = static_cast<quint16>((m_pitchAngle + 180) * 100);  // -90 to 10 -> 0 to 10000
+        quint16 yawCmd = static_cast<quint16>((m_yawAngle + 180) * 100);     // -180 to 180 -> 0 to 36000
+
+        m_serialModel->sendAbsolutePointing(pitchCmd, yawCmd, static_cast<quint8>(m_stabilizationFlag));
+        if (!m_absolutePointingActive) {
+            m_absolutePointingActive = true;
+            emit absolutePointingActiveChanged();
+        }
+    } else {
+        m_statusMessage = "Cannot send pitch/yaw: Not connected";
+        emit statusMessageChanged();
+    }
+}
+
+// Remove or update the directional joystick methods (sendJoystickUp, Down, Left, Right):
+// Replace these methods to work with new ranges:
 void SerialViewModel::sendJoystickUp()
 {
-    // Decrease pitch angle (up movement)
-    int newPitch = qMax(0, m_pitchAngleCmd + 100);
-    setPitchAngleCmd(newPitch);
-    startAbsolutePointing();
+    // Increase pitch angle (up movement)
+    double newPitch = qMin(10.0, m_pitchAngle + 1.0);
+
+    setPitchAngle(newPitch);
+    // Note: Don't auto-send, wait for manual button press
 }
 
 void SerialViewModel::sendJoystickDown()
 {
-    // Increase pitch angle (down movement)
-    int newPitch = qMin(65535, m_pitchAngleCmd - 100);
-    setPitchAngleCmd(newPitch);
-    startAbsolutePointing();
+    // Decrease pitch angle (down movement)
+    double newPitch = qMax(-90.0, m_pitchAngle - 1.0);
+
+    setPitchAngle(newPitch);
+    // Note: Don't auto-send, wait for manual button press
 }
 
 void SerialViewModel::sendJoystickLeft()
 {
     // Decrease yaw angle (left movement)
-    int newYaw = qMax(0, m_yawAngleCmd - 100);
-    setYawAngleCmd(newYaw);
-    startAbsolutePointing();
+    double newYaw = qMax(-180.0, m_yawAngle - 1.0);
+    setYawAngle(newYaw);
+    // Note: Don't auto-send, wait for manual button press
 }
 
 void SerialViewModel::sendJoystickRight()
 {
     // Increase yaw angle (right movement)
-    int newYaw = qMin(65535, m_yawAngleCmd + 100);
-    setYawAngleCmd(newYaw);
-    startAbsolutePointing();
+    double newYaw = qMin(180.0, m_yawAngle + 1.0);
+    setYawAngle(newYaw);
+    // Note: Don't auto-send, wait for manual button press
 }
 
 // PID gains control
@@ -390,23 +435,18 @@ void SerialViewModel::sendSelectTarget()
     }
 }
 
-// Absolute pointing control
-void SerialViewModel::setPitchAngleCmd(int angle)
+void SerialViewModel::sendSelectTarget(int x, int y, int frameNum)
 {
-    if (m_pitchAngleCmd != angle) {
-        m_pitchAngleCmd = angle;
-        emit absolutePointingChanged();
+    if (m_connected) {
+        setTargetX(x);
+        setTargetY(y);
+        setFrameNumber(frameNum);
+        sendSelectTarget(); // Call the parameterless version
+    } else {
+        m_statusMessage = "Cannot send select target: Not connected";
+        emit statusMessageChanged();
     }
 }
-
-void SerialViewModel::setYawAngleCmd(int angle)
-{
-    if (m_yawAngleCmd != angle) {
-        m_yawAngleCmd = angle;
-        emit absolutePointingChanged();
-    }
-}
-
 void SerialViewModel::setStabilizationFlag(int flag)
 {
     if (m_stabilizationFlag != flag) {

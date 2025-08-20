@@ -89,8 +89,7 @@ void ThermalCameraViewModel::setThermalPort(int port)
 
 void ThermalCameraViewModel::toggleThermalStream()
 {
-    if (m_thermalStreaming)
-    {
+    if (m_thermalStreaming) {
         stopThermalStream();
     } else {
         startThermalStream();
@@ -149,8 +148,7 @@ void ThermalCameraViewModel::onThermalFrameReceived(const QByteArray &frameData)
     emit thermalFrameCountChanged();
     emit thermalFrameChanged();
 
-    if (m_thermalFrameCount == 1)
-    {
+    if (m_thermalFrameCount == 1) {
         m_thermalCameraStatus = "Receiving thermal frames...";
         emit thermalCameraStatusChanged();
     }

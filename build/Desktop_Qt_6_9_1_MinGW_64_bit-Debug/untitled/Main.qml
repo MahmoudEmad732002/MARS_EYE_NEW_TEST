@@ -5,11 +5,15 @@ import SerialApp 1.0
 import QtLocation 5.15
 import QtPositioning 5.15
 import "view"
+import Qt.labs.settings
+
 ApplicationWindow {
     id: root
     visible: true
     width: 1200
-    height: 900
+    height: 800
+    minimumHeight: 600
+    minimumWidth: 850
     title: "Serial MVVM Application with Camera Test"
     color: backgroundColor
 
@@ -48,17 +52,25 @@ ApplicationWindow {
         id: cameraViewModel
     }
 
+    // Settings {
+    //     id: appSettings
+    //     category: "AppState"
+    //     property bool firstLaunch: true
+    //     property int savedInterval: 1000
+    //     property var savedIndicatorConfig: ({})
+    //     property bool isDarkTheme: false
+    // }
 
     MapViewModel {
         id: mapViewModel
 
-        // Connect to serial data changes
+        // Connect to GPS data changes
         Component.onCompleted: {
-            viewModel.telemetryChanged.connect(function() {
+            viewModel.targetGPSChanged.connect(function() {
                 mapViewModel.updateGPSData(
-                    viewModel.gimbalPoseLat,
-                    viewModel.gimbalPoseLon,
-                    viewModel.gimbalPoseAlt
+                    viewModel.targetPoseLat,
+                    viewModel.targetPoseLon,
+                    viewModel.targetPoseAlt
                 );
             });
         }
@@ -68,420 +80,62 @@ ApplicationWindow {
              spacing: 15
 
             // Top bar with connection controls
-            Rectangle {
-                width: parent.width
-                height: 60
-                color: surfaceColor
-                border.color: borderColor
-                border.width: 1
-                radius: 5
+             // Top bar with connection controls
+             TopBar {
+                 id: topBar
+                 width: parent.width
 
-                RowLayout {
-                    anchors.fill: parent
-                    anchors.margins: 10
-                    spacing: 15
+                 // Pass theme properties
+                 primaryColor: root.primaryColor
+                 backgroundColor: root.backgroundColor
+                 surfaceColor: root.surfaceColor
+                 borderColor: root.borderColor
+                 textColor: root.textColor
+                 successColor: root.successColor
+                 errorColor: root.errorColor
 
-                    Text {
-                        text: "Port:"
-                        font.pixelSize: 12
-                        font.bold: true
-                        color: textColor
-                    }
+                 // Pass viewModel
+                 viewModel: viewModel
 
-                    ComboBox {
-                        id: portComboBox
-                        Layout.preferredWidth: 120
-                        model: viewModel.availablePorts
-                        enabled: !viewModel.connected
+                 // Handle panel visibility signals
+                 onVisualizationPanelToggled: root.visualizationPanelVisible = !root.visualizationPanelVisible
+                 onControlsPanelToggled: root.controlsPanelVisible = !root.controlsPanelVisible
+                 onMapPanelToggled: root.mapPanelVisible = !root.mapPanelVisible
+                 onCapturePanelToggled: root.capturePanelVisible = !root.capturePanelVisible
+             }
+              // Camera control bar
+             // Camera control bar
+             CameraControlBar {
+                 id: cameraControlBar
+                 width: parent.width
 
-                        background: Rectangle {
-                            color: surfaceColor
-                            border.color: borderColor
-                            border.width: 1
-                            radius: 3
-                        }
+                 // Pass theme properties
+                 surfaceColor: root.surfaceColor
+                 borderColor: root.borderColor
+                 textColor: root.textColor
+                 successColor: root.successColor
+                 errorColor: root.errorColor
 
-                        contentItem: Text {
-                            text: portComboBox.displayText
-                            color: textColor
-                            verticalAlignment: Text.AlignVCenter
-                            leftPadding: 8
-                        }
-                    }
+                 // Pass BOTH view models - CRITICAL for serial integration
+                 cameraViewModel: cameraViewModel
+                 serialViewModel: viewModel  // This is your SerialViewModel instance
+             }
 
-                    Text {
-                        text: "Baud Rate:"
-                        font.pixelSize: 12
-                        font.bold: true
-                        color: textColor
-                    }
+             // Also ensure your main application initialization properly connects the view models.
+             // Add this to your Component.onCompleted for the main window:
 
-                    ComboBox {
-                        id: baudRateComboBox
-                        Layout.preferredWidth: 100
-                        model: viewModel.baudRates
-                        currentIndex: 4
-                        enabled: !viewModel.connected
-
-                        background: Rectangle {
-                            color: surfaceColor
-                            border.color: borderColor
-                            border.width: 1
-                            radius: 3
-                        }
-
-                        contentItem: Text {
-                            text: baudRateComboBox.displayText
-                            color: textColor
-                            verticalAlignment: Text.AlignVCenter
-                            leftPadding: 8
-                        }
-                    }
-
-                    Button {
-                        id: connectButton
-                        text: viewModel.connectButtonText
-                        Layout.preferredWidth: 100
-                           // Add this line
-                        background: Rectangle {
-                            color: viewModel.connected ? "red" : "green"
-                            radius: 5
-                            border.color: borderColor
-                            border.width: 1
-                        }
-                        contentItem: Text {
-                            text: connectButton.text
-                            color: textColor
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            font.bold: true
-                        }
-                        onClicked: {
-                            if (portComboBox.currentText && baudRateComboBox.currentText) {
-                                viewModel.connectToSerial(
-                                    portComboBox.currentText,
-                                    parseInt(baudRateComboBox.currentText)
-                                )
-                            }
-                        }
-                        MouseArea {
-                               anchors.fill: parent
-                               cursorShape: Qt.PointingHandCursor
-                               acceptedButtons: Qt.NoButton  // Don't interfere with button clicks
-                           }
-                        hoverEnabled: false  // Change this to true to enable hover
-
-                    }
-
-                    // Visualization button
-                    Button {
-                        id: visualizationButton
-                        text: "Visualization"
-                        Layout.preferredWidth: 100
-
-                        background: Rectangle {
-                            color: primaryColor
-                            radius: 5
-                            border.color: borderColor
-                            border.width: 1
-                        }
-
-                        contentItem: Text {
-                            text: visualizationButton.text
-                            color: "white"
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            font.bold: true
-                        }
-
-                        onClicked: {
-                            root.visualizationPanelVisible = !root.visualizationPanelVisible
-                        }
-                        MouseArea {
-                            anchors.fill: parent
-                            cursorShape: Qt.PointingHandCursor
-                            acceptedButtons: Qt.NoButton
-                        }
-                        hoverEnabled: false
-                    }
+             Component.onCompleted: {
+                 // Connect camera view model with serial view model for tracking
+                 // This should be done in your C++ main, but verify it's working
+                 console.log("Application initialized")
+                 console.log("Camera streaming:", cameraViewModel.streaming)
+                 console.log("Serial connected:", viewModel.connected)
+             }
 
 
-                    Button {
-                                           id: controlsButton
-                                           text: "Controls"
-                                           Layout.preferredWidth: 80
-                                           enabled: viewModel.connected
-
-                                           background: Rectangle {
-                                               color:viewModel.connected ?  primaryColor   :"#353638"
-
-                                               radius: 5
-                                               border.color: borderColor
-                                               border.width: 1
-                                           }
-
-                                           contentItem: Text {
-                                               text: controlsButton.text
-                                               color: textColor
-                                               horizontalAlignment: Text.AlignHCenter
-                                               verticalAlignment: Text.AlignVCenter
-                                               font.bold: true
-                                           }
-
-                                           onClicked: {
-                                               root.controlsPanelVisible = !root.controlsPanelVisible
-                                           }
-                                           MouseArea {
-                                                  anchors.fill: parent
-                                                  cursorShape: Qt.PointingHandCursor
-                                                  acceptedButtons: Qt.NoButton  // Don't interfere with button clicks
-                                              }
-                                           hoverEnabled: false  // Change this to true to enable hover
-                                       }
-                    Button {
-                        id: mapButton
-                        text: "Map"
-                        Layout.preferredWidth: 60
-
-                        background: Rectangle {
-                            color: primaryColor
-                            radius: 5
-                            border.color: borderColor
-                            border.width: 1
-                        }
-
-                        contentItem: Text {
-                            text: mapButton.text
-                            color: "white"
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            font.bold: true
-                        }
-
-                        onClicked: {
-                            root.mapPanelVisible = !root.mapPanelVisible
-                        }
-                        MouseArea {
-                            anchors.fill: parent
-                            cursorShape: Qt.PointingHandCursor
-                            acceptedButtons: Qt.NoButton
-                        }
-                        hoverEnabled: false
-                    }
-
-                    Button {
-                        id: captureButton
-                        text: "Capture"
-                        Layout.preferredWidth: 80
-
-                        background: Rectangle {
-                            color: primaryColor
-                            radius: 5
-                            border.color: borderColor
-                            border.width: 1
-                        }
-
-                        contentItem: Text {
-                            text: captureButton.text
-                            color: "white"
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            font.bold: true
-                        }
-
-                        onClicked: {
-                            root.capturePanelVisible = !root.capturePanelVisible
-                        }
-                        MouseArea {
-                               anchors.fill: parent
-                               cursorShape: Qt.PointingHandCursor
-                               acceptedButtons: Qt.NoButton  // Don't interfere with button clicks
-                           }
-                        hoverEnabled: false  // Change this to true to enable hover
-                    }
-
-                    Item {
-                        Layout.fillWidth: true
-                    }
-
-                    Text {
-                        text: viewModel.statusMessage
-                        font.pixelSize: 11
-                        color: viewModel.connected ? successColor : errorColor
-                    }
-                }
-            }
-
-            // Camera control bar
-            Rectangle {
-                width: parent.width
-                height: 60
-                color: surfaceColor
-                border.color: borderColor
-                border.width: 1
-                radius: 5
-
-                RowLayout {
-                    anchors.fill: parent
-                    anchors.margins: 10
-                    spacing: 15
-
-                    Text {
-                        text: "Camera IP:"
-                        font.pixelSize: 12
-                        font.bold: true
-                        color: textColor
-                    }
-
-                    TextField {
-                        id: ipAddressField
-                        Layout.preferredWidth: 150
-                        text: cameraViewModel.ipAddress
-                        placeholderText: "192.168.1.100"
-                        enabled: !cameraViewModel.streaming
-                        color: textColor
-                        placeholderTextColor: "#888888"
-
-                        background: Rectangle {
-                            color: surfaceColor
-                            border.color: borderColor
-                            border.width: 1
-                            radius: 3
-                        }
-
-                        onTextChanged: {
-                            cameraViewModel.ipAddress = text
-                        }
-                    }
-
-                    Text {
-                        text: "Port:"
-                        font.pixelSize: 12
-                        font.bold: true
-                        color: textColor
-                    }
-
-                    SpinBox {
-                        id: portSpinBox
-                        Layout.preferredWidth: 100
-                        from: 1
-                        to: 65535
-                        value: cameraViewModel.port
-                        enabled: !cameraViewModel.streaming
-
-                        background: Rectangle {
-                            color: surfaceColor
-                            border.color: borderColor
-                            border.width: 1
-                            radius: 3
-                        }
-
-                        contentItem: TextInput {
-                            text: portSpinBox.textFromValue(portSpinBox.value, portSpinBox.locale)
-                            color: textColor
-                            horizontalAlignment: Qt.AlignHCenter
-                            verticalAlignment: Qt.AlignVCenter
-                        }
-
-                        onValueChanged: {
-                            cameraViewModel.port = value
-                        }
-                    }
-
-                    Button {
-                        id: streamButton
-                        text: cameraViewModel.streamButtonText
-                        Layout.preferredWidth: 120
-
-                        background: Rectangle {
-                            color: cameraViewModel.streaming ? errorColor : "green"
-                            radius: 5
-                            border.color: borderColor
-                            border.width: 1
-                        }
-
-                        contentItem: Text {
-                            text: streamButton.text
-                            color: textColor
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            font.bold: true
-                        }
-
-                        onClicked: {
-                            cameraViewModel.toggleStream()
-                        }
-                        MouseArea {
-                               anchors.fill: parent
-                               cursorShape: Qt.PointingHandCursor
-                               acceptedButtons: Qt.NoButton  // Don't interfere with button clicks
-                           }
-                        hoverEnabled: false  // Change this to true to enable hover
-                    }
-                    Button {
-                        id: trackButton
-                        text: cameraViewModel.trackingEnabled ? "Disable Track" : "Track"
-                        Layout.preferredWidth: 120
-
-                        background: Rectangle {
-                            color: cameraViewModel.trackingEnabled ? "#FFA500" : "#4CAF50"  // Orange when active, green when inactive
-                            radius: 5
-                            border.color: borderColor
-                            border.width: 1
-                        }
-
-                        contentItem: Text {
-                            text: trackButton.text
-                            color: textColor
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            font.bold: true
-                        }
-
-                        enabled: cameraViewModel.streaming
-
-                        onClicked: {
-                            if (cameraViewModel.trackingEnabled) {
-                                cameraViewModel.disableTracking()
-                            } else {
-                                cameraViewModel.enableTracking()
-                            }
-                        }
-
-                        MouseArea {
-                            anchors.fill: parent
-                            cursorShape: Qt.PointingHandCursor
-                            acceptedButtons: Qt.NoButton
-                        }
-                        hoverEnabled: false
-                    }
-                    Item {
-                        Layout.fillWidth: true
-                    }
-
-                    // Camera status and frame info
-                    Column {
-                        spacing: 2
-
-                        Text {
-                            text: cameraViewModel.cameraStatus
-                            font.pixelSize: 10
-                            color: cameraViewModel.streaming ? successColor : errorColor
-                        }
-
-                        Text {
-                            text: cameraViewModel.streaming ?
-                                  "Frames: " + cameraViewModel.frameCount + " | FPS: " + cameraViewModel.frameRate.toFixed(1) : ""
-                            font.pixelSize: 9
-                            color: "#aaaaaa"
-                        }
-                    }
-                }
-            }
-
-            // Main content area with camera stream - TAKES ALL REMAINING HEIGHT
-            // Main content area with camera stream - TAKES ALL REMAINING HEIGHT
+                // Main content area with camera stream - TAKES ALL REMAINING HEIGHT
                     Rectangle {
+                        id:imgRect
                         width: parent.width
                         height: root.height - 60 - 60  -30  // Full window height minus: top bar + camera bar + spacing + margins
                         color: backgroundColor
@@ -515,8 +169,6 @@ ApplicationWindow {
                             }
 
                             property real displayHeight: displayWidth / targetAspect
-
-                            // Replace the existing camera Image and MouseArea section in your QML with this:
 
                             // Replace the existing camera Image and MouseArea section in your QML with this:
 
@@ -686,7 +338,7 @@ ApplicationWindow {
                                             selectionOverlay.visible = true
                                         }
                                     }
-                                      onReleased: {
+                                    onReleased: {
                                         if (mouse.button === Qt.LeftButton && selectionOverlay.visible) {
                                             console.log("=== TARGET SELECTION DEBUG ===")
                                             console.log("UI Click at:", mouse.x, mouse.y)
@@ -724,18 +376,19 @@ ApplicationWindow {
 
                                             // Get current frame ID from camera view model
                                             var frameId = cameraViewModel.currentFrameId
-
+                                            var centerX = sourceX + sourceW / 2
+                                            var centerY = sourceY + sourceH / 2
                                             console.log("Sending target with frame ID:", frameId)
 
                                             // Send to serial model via view model
-                                            viewModel.sendSelectTarget(sourceX, sourceY, frameId)
+                                            viewModel.sendSelectTarget(Math.round(centerX), Math.round(centerY), frameId)
 
                                             // IMPORTANT: Send the coordinates directly to the camera view model
                                             // These coordinates are already in 1920x1080 space, no additional scaling needed
                                             cameraViewModel.sendTarget(sourceX, sourceY, sourceW, sourceH)
 
-                                            // Hide selection overlay after a short delay
-                                            hideSelectionTimer.start()
+                                            // Hide selection overlay immediately after target selection
+                                            selectionOverlay.visible = false
                                         }
                                     }
                                 } Timer {
@@ -780,7 +433,7 @@ ApplicationWindow {
 
         Behavior on x {
             NumberAnimation {
-                duration: 300
+                duration: 200
                 easing.type: Easing.OutCubic
             }
         }
@@ -804,7 +457,7 @@ ApplicationWindow {
 
         // Maintain sizing/position behavior relative to window
         anchors.left: parent.left
-        anchors.top: parent.top
+        anchors.top: cameraImage.top
 
         // Wire visibility to the existing app flag
         panelVisible: root.telemetryPanelVisible
@@ -1049,9 +702,7 @@ visible: root.controlsPanelVisible || root.telemetryPanelVisible || root.testPan
             }
         }
 
-        // Panel content
-        // Panel content - Updated to use ColumnLayout instead of ScrollView
-        // Panel content - Updated to use ColumnLayout instead of ScrollView
+
         // Panel content - Updated to use ColumnLayout instead of ScrollView
         ColumnLayout {
             anchors.top: visualizationHeader.bottom
@@ -1065,7 +716,7 @@ visible: root.controlsPanelVisible || root.telemetryPanelVisible || root.testPan
             Rectangle {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 100
-                color: backgroundColor
+                color: surfaceColor
                 border.color: borderColor
                 border.width: 1
                 radius: 8
@@ -1125,6 +776,7 @@ visible: root.controlsPanelVisible || root.telemetryPanelVisible || root.testPan
                             to: 65535
                             value: thermalCameraViewModel.thermalPort
                             enabled: !thermalCameraViewModel.thermalStreaming
+                            editable: true  // Make it explicitly editable
 
                             background: Rectangle {
                                 color: surfaceColor
@@ -1138,6 +790,12 @@ visible: root.controlsPanelVisible || root.telemetryPanelVisible || root.testPan
                                 color: textColor
                                 horizontalAlignment: Qt.AlignHCenter
                                 verticalAlignment: Qt.AlignVCenter
+
+                                onEditingFinished: {
+                                    // This triggers when Enter is pressed or focus is lost
+                                    parent.value = parent.valueFromText(text, parent.locale)
+                                    thermalCameraViewModel.thermalPort = parent.value
+                                }
                             }
 
                             onValueChanged: {
@@ -1147,7 +805,7 @@ visible: root.controlsPanelVisible || root.telemetryPanelVisible || root.testPan
 
                         Button {
                             text: thermalCameraViewModel.thermalStreamButtonText
-                            Layout.preferredWidth: 100
+                            Layout.preferredWidth: 70
 
                             background: Rectangle {
                                 color: thermalCameraViewModel.thermalStreaming ? errorColor : "green"
@@ -1182,8 +840,8 @@ visible: root.controlsPanelVisible || root.telemetryPanelVisible || root.testPan
             Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.preferredHeight: 300
-                color: backgroundColor
+                Layout.preferredHeight: 500
+                color: surfaceColor
                 border.color: borderColor
                 border.width: 2
                 radius: 8
@@ -1312,8 +970,9 @@ visible: root.controlsPanelVisible || root.telemetryPanelVisible || root.testPan
             // Thermal Analysis Tools
             Rectangle {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 350  // Increased height
-                color: backgroundColor
+                Layout.preferredHeight: 300  // Increased height
+                Layout.fillHeight: true
+                color: surfaceColor
                 border.color: borderColor
                 border.width: 1
                 radius: 8
@@ -1331,259 +990,9 @@ visible: root.controlsPanelVisible || root.telemetryPanelVisible || root.testPan
                         color: textColor
                     }
 
-                    // Object Detection Status
-                    Rectangle {
-                        width: parent.width
-                        height: 40
-                        color: surfaceColor
-                        border.color: borderColor
-                        radius: 5
 
-                        Row {
-                            anchors.centerIn: parent
-                            spacing: 10
-
-                            Rectangle {
-                                width: 12
-                                height: 12
-                                radius: 6
-                                color: {
-                                    if (!cameraViewModel.trackingEnabled) return "#666666"
-                                    if (objectDetectionInfo.status === "tracking") return "#00FF00"
-                                    if (objectDetectionInfo.status === "lost") return "#FF0000"
-                                    if (objectDetectionInfo.status === "waiting_for_target") return "#FFA500"
-                                    return "#666666"
-                                }
-                            }
-
-                            Text {
-                                text: {
-                                    if (!cameraViewModel.trackingEnabled) return "Tracking Disabled"
-                                    if (objectDetectionInfo.status === "tracking") return "TRACKING ACTIVE"
-                                    if (objectDetectionInfo.status === "lost") return "TARGET LOST"
-                                    if (objectDetectionInfo.status === "waiting_for_target") return "WAITING FOR TARGET"
-                                    return "READY"
-                                }
-                                font.pixelSize: 12
-                                font.bold: true
-                                color: textColor
-                            }
-                        }
-                    }
-
-                    // Object ROI Display
-                    Rectangle {
-                        width: parent.width
-                        height: 180
-                        color: surfaceColor
-                        border.color: objectDetectionInfo.status === "tracking" ? successColor : borderColor
-                        border.width: 2
-                        radius: 8
-
-                        Item {
-                            anchors.fill: parent
-                            anchors.margins: 10
-
-                            // ROI Image Display
-                            Image {
-                                id: objectRoiImage
-                                anchors.centerIn: parent
-                                width: Math.min(150, parent.width - 20)
-                                height: Math.min(150, parent.height - 40)
-                                fillMode: Image.PreserveAspectFit
-                                source: objectDetectionInfo.roiImageUrl || ""
-                                cache: false
-                                smooth: true
-                                visible: objectDetectionInfo.status === "tracking" && objectDetectionInfo.roiImageUrl
-
-                                Rectangle {
-                                    anchors.fill: parent
-                                    color: "transparent"
-                                    border.color: successColor
-                                    border.width: 2
-                                    radius: 5
-                                }
-
-                                // Crosshair overlay
-                                Rectangle {
-                                    anchors.centerIn: parent
-                                    width: 20
-                                    height: 2
-                                    color: "#FF0000"
-                                }
-                                Rectangle {
-                                    anchors.centerIn: parent
-                                    width: 2
-                                    height: 20
-                                    color: "#FF0000"
-                                }
-                            }
-
-                            // Placeholder text when no object
-                            Text {
-                                anchors.centerIn: parent
-                                text: {
-                                    if (!cameraViewModel.trackingEnabled) return "Enable tracking\nto detect objects"
-                                    if (objectDetectionInfo.status === "waiting_for_target") return "Click on video\nto select target"
-                                    if (objectDetectionInfo.status === "lost") return "Target lost\nSelect new target"
-                                    return "No object\nselected"
-                                }
-                                font.pixelSize: 12
-                                color: "#888888"
-                                horizontalAlignment: Text.AlignHCenter
-                                lineHeight: 1.3
-                                visible: !objectRoiImage.visible
-                            }
-                        }
-                    }
-
-                    // Object Information Grid
-                    Rectangle {
-                        width: parent.width
-                        height: 80
-                        color: backgroundColor
-                        border.color: borderColor
-                        radius: 5
-                        visible: objectDetectionInfo.status === "tracking"
-
-                        GridLayout {
-                            anchors.fill: parent
-                            anchors.margins: 10
-                            columns: 2
-                            rowSpacing: 5
-                            columnSpacing: 15
-
-                            // Position
-                            Text {
-                                text: "Position:"
-                                font.pixelSize: 10
-                                font.bold: true
-                                color: textColor
-                            }
-                            Text {
-                                text: objectDetectionInfo.centerX ?
-                                      "(" + objectDetectionInfo.centerX + ", " + objectDetectionInfo.centerY + ")" :
-                                      "N/A"
-                                font.pixelSize: 10
-                                color: successColor
-                            }
-
-                            // Size
-                            Text {
-                                text: "Size:"
-                                font.pixelSize: 10
-                                font.bold: true
-                                color: textColor
-                            }
-                            Text {
-                                text: objectDetectionInfo.currentBboxWidth ?
-                                      objectDetectionInfo.currentBboxWidth + " × " + objectDetectionInfo.currentBboxHeight :
-                                      "N/A"
-                                font.pixelSize: 10
-                                color: successColor
-                            }
-
-                            // Area
-                            Text {
-                                text: "Area:"
-                                font.pixelSize: 10
-                                font.bold: true
-                                color: textColor
-                            }
-                            Text {
-                                text: objectDetectionInfo.area ? objectDetectionInfo.area + " px²" : "N/A"
-                                font.pixelSize: 10
-                                color: successColor
-                            }
-
-                            // Confidence
-                            Text {
-                                text: "Confidence:"
-                                font.pixelSize: 10
-                                font.bold: true
-                                color: textColor
-                            }
-                            Text {
-                                text: objectDetectionInfo.confidence ?
-                                      (objectDetectionInfo.confidence * 100).toFixed(1) + "%" :
-                                      "N/A"
-                                font.pixelSize: 10
-                                color: objectDetectionInfo.confidence > 0.7 ? successColor : warningColor
-                            }
-                        }
-                    }
                 }
             }
          }
-        QtObject {
-            id: objectDetectionInfo
-
-            property string status: "waiting_for_target"
-            property int centerX: 0
-            property int centerY: 0
-            property int currentBboxX: 0
-            property int currentBboxY: 0
-            property int currentBboxWidth: 0
-            property int currentBboxHeight: 0
-            property int area: 0
-            property real confidence: 0.0
-            property string roiImageUrl: ""
-
-            // UDP Socket for receiving object detection info
-            property var detectionSocket: null
-
-            Component.onCompleted: {
-                // Create UDP socket for object detection info
-                try {
-                    detectionSocket = Qt.createQmlObject('
-                        import QtNetwork 1.0
-                        UdpSocket {
-                            onMessageReceived: {
-                                try {
-                                    var data = JSON.parse(message);
-                                    objectDetectionInfo.status = data.status || "unknown";
-
-                                    if (data.center_x !== undefined) {
-                                        objectDetectionInfo.centerX = data.center_x;
-                                        objectDetectionInfo.centerY = data.center_y;
-                                    }
-
-                                    if (data.current_bbox !== undefined && data.current_bbox.length === 4) {
-                                        objectDetectionInfo.currentBboxX = data.current_bbox[0];
-                                        objectDetectionInfo.currentBboxY = data.current_bbox[1];
-                                        objectDetectionInfo.currentBboxWidth = data.current_bbox[2];
-                                        objectDetectionInfo.currentBboxHeight = data.current_bbox[3];
-                                    }
-
-                                    if (data.area !== undefined) {
-                                        objectDetectionInfo.area = data.area;
-                                    }
-
-                                    if (data.confidence !== undefined) {
-                                        objectDetectionInfo.confidence = data.confidence;
-                                    }
-
-                                    // Handle ROI image
-                                    if (data.roi_image) {
-                                        // Convert base64 to temporary image URL
-                                        var imageData = "data:image/jpeg;base64," + data.roi_image;
-                                        objectDetectionInfo.roiImageUrl = imageData;
-                                    } else {
-                                        objectDetectionInfo.roiImageUrl = "";
-                                    }
-
-                                } catch (e) {
-                                    console.log("Error parsing object detection data:", e);
-                                }
-                            }
-                        }', objectDetectionInfo, "detectionSocket");
-
-                    detectionSocket.bind("127.0.0.1", 5201); // OBJECT_INFO_PORT
-                    console.log("Object detection socket bound to port 5201");
-
-                } catch (e) {
-                    console.log("Failed to create detection socket:", e);
-                }
-            }
-        }}
+   }
 }

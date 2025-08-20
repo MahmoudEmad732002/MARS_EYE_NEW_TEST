@@ -111,7 +111,7 @@ Item {
                 Rectangle {
                     Layout.fillWidth: true; height: 30
                     color: backgroundColor; border.color: primaryColor; radius: 5
-                    Text { anchors.centerIn: parent; text: viewModel.gimbalPitch + "°"; font.pixelSize: 13; color: successColor; font.bold: true }
+                    Text { anchors.centerIn: parent; text: viewModel.gimbalPitch  + "°"; font.pixelSize: 13; color: successColor; font.bold: true }
                 }
 
                 // Gimbal Yaw
@@ -119,7 +119,7 @@ Item {
                 Rectangle {
                     Layout.fillWidth: true; height: 30
                     color: backgroundColor; border.color: primaryColor; radius: 5
-                    Text { anchors.centerIn: parent; text: viewModel.gimbalYaw + "°"; font.pixelSize: 13; color: successColor; font.bold: true }
+                    Text { anchors.centerIn: parent; text: viewModel.gimbalYaw   + "°"; font.pixelSize: 13; color: successColor; font.bold: true }
                 }
 
                 // Yaw Motor Pose
@@ -143,43 +143,79 @@ Item {
                 Rectangle {
                     Layout.fillWidth: true; height: 30
                     color: backgroundColor; border.color: primaryColor; radius: 5
-                    Text { anchors.centerIn: parent; text: viewModel.gimbalPoseLat.toFixed(7) + "°"; font.pixelSize: 11; color: successColor; font.bold: true }
+                    Text {
+                        anchors.centerIn: parent
+                        text: ((viewModel.gimbalPoseLat / Math.pow(10, 7)) - 180).toFixed(5) + "°"
+                        font.pixelSize: 11
+                        color: successColor
+                        font.bold: true
+                    }
                 }
-
                 // Gimbal Pose Lon
                 Text { text: "Gimbal Lon:"; font.pixelSize: 13; font.bold: true; color: textColor }
                 Rectangle {
                     Layout.fillWidth: true; height: 30
                     color: backgroundColor; border.color: primaryColor; radius: 5
-                    Text { anchors.centerIn: parent; text: viewModel.gimbalPoseLon.toFixed(7) + "°"; font.pixelSize: 11; color: successColor; font.bold: true }
+                    Text {
+                        anchors.centerIn: parent
+                        text: ((viewModel.gimbalPoseLon / Math.pow(10, 7)) - 180).toFixed(5) + "°"
+                        font.pixelSize: 11
+                        color: successColor
+                        font.bold: true
+                    }
                 }
 
-                // Gimbal Pose Alt
+                // Gimbal Pose Alt - UPDATED formula
                 Text { text: "Gimbal Alt:"; font.pixelSize: 13; font.bold: true; color: textColor }
                 Rectangle {
                     Layout.fillWidth: true; height: 30
                     color: backgroundColor; border.color: primaryColor; radius: 5
-                    Text { anchors.centerIn: parent; text: viewModel.gimbalPoseAlt.toFixed(2) + " m"; font.pixelSize: 13; color: successColor; font.bold: true }
+                    Text {
+                        anchors.centerIn: parent
+                        text: (viewModel.gimbalPoseAlt / 10).toFixed(2) + " m"
+                        font.pixelSize: 13
+                        color: successColor
+                        font.bold: true
+                    }
                 }
-
-                // Target Lat/Lon/Alt
                 Text { text: "Target Lat: "; font.pixelSize: 13; color: textColor }
                 Rectangle {
                     Layout.fillWidth: true; height: 30
                     color: backgroundColor; border.color: primaryColor; radius: 5
-                    Text { anchors.centerIn: parent; text: viewModel.targetPoseLat.toFixed(7) + "°"; font.pixelSize: 13; color: successColor; font.bold: true }
+                    Text {
+                        anchors.centerIn: parent
+                        text: ((viewModel.targetPoseLat / Math.pow(10, 7)) - 180).toFixed(5) + "°"
+                        font.pixelSize: 11
+                        color: successColor
+                        font.bold: true
+                    }
                 }
+
                 Text { text: "Target Lon: "; font.pixelSize: 13; color: textColor }
                 Rectangle {
                     Layout.fillWidth: true; height: 30
                     color: backgroundColor; border.color: primaryColor; radius: 5
-                    Text { anchors.centerIn: parent; text: viewModel.targetPoseLon.toFixed(7) + "°"; font.pixelSize: 13; color: successColor; font.bold: true }
+                    Text {
+                        anchors.centerIn: parent
+                        text: ((viewModel.targetPoseLon / Math.pow(10, 7)) - 180).toFixed(5) + "°"
+                        font.pixelSize: 11
+                        color: successColor
+                        font.bold: true
+                    }
                 }
+
+                // Target Alt - UPDATED formula
                 Text { text: "Target Alt: "; font.pixelSize: 13; color: textColor }
                 Rectangle {
                     Layout.fillWidth: true; height: 30
                     color: backgroundColor; border.color: primaryColor; radius: 5
-                    Text { anchors.centerIn: parent; text: viewModel.targetPoseAlt.toFixed(2) + " m"; font.pixelSize: 13; color: successColor; font.bold: true }
+                    Text {
+                        anchors.centerIn: parent
+                        text: (viewModel.targetPoseAlt / 10).toFixed(2) + " m"
+                        font.pixelSize: 13
+                        color: successColor
+                        font.bold: true
+                    }
                 }
 
                 // Battery

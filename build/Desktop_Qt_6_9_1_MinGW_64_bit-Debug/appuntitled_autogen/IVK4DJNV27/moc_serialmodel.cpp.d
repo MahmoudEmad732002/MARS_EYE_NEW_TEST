@@ -2,6 +2,7 @@ C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appu
   C:/Users/mahmo/Documents/untitled/build/Desktop_Qt_6_9_1_MinGW_64_bit-Debug/appuntitled_autogen/moc_predefs.h \
   C:/Qt/6.9.1/mingw_64/include/QtCore/QDebug \
   C:/Qt/6.9.1/mingw_64/include/QtCore/QMap \
+  C:/Qt/6.9.1/mingw_64/include/QtCore/QObject \
   C:/Qt/6.9.1/mingw_64/include/QtCore/QSet \
   C:/Qt/6.9.1/mingw_64/include/QtCore/QTimer \
   C:/Qt/6.9.1/mingw_64/include/QtCore/q17memory.h \
