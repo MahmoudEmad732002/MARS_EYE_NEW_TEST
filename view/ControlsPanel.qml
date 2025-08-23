@@ -440,69 +440,66 @@ Rectangle {
                         }
 
                         // Left and Right buttons (same as before but call updated methods)
-                        // Replace the Left and Right buttons section (around line 277-342) with this:
-
-                        // Left and Right buttons - FIXED to match up/down button sizes
                         Row {
-                            anchors.centerIn: parent
-                            spacing: 60
+                                                  anchors.centerIn: parent
+                                                  spacing: 60
 
-                            Button {
-                                id: leftButton
-                                text: "←"
-                                width: 50  // Same as up/down buttons
-                                height: 40 // Same as up/down buttons
-                                enabled: viewModel.connected
-                                background: Rectangle {
-                                    color: leftButton.pressed ? Qt.darker(primaryColor, 1.2) : primaryColor
-                                    border.color: borderColor
-                                    border.width: 2
-                                    radius: 8
-                                }
-                                contentItem: Text {
-                                    text: leftButton.text
-                                    color: textColor
-                                    horizontalAlignment: Text.AlignHCenter
-                                    verticalAlignment: Text.AlignVCenter
-                                    font.bold: true
-                                }
-                                onClicked: viewModel.sendJoystickLeft()
-                                MouseArea {
-                                    anchors.fill: parent
-                                    cursorShape: Qt.PointingHandCursor
-                                    acceptedButtons: Qt.NoButton
-                                }
-                                hoverEnabled: false
-                            }
+                                                  Button {
+                                                      id: leftButton
+                                                      text: "←"
+                                                      width: 50  // Same as up/down buttons
+                                                      height: 40 // Same as up/down buttons
+                                                      enabled: viewModel.connected
+                                                      background: Rectangle {
+                                                          color: leftButton.pressed ? Qt.darker(primaryColor, 1.2) : primaryColor
+                                                          border.color: borderColor
+                                                          border.width: 2
+                                                          radius: 8
+                                                      }
+                                                      contentItem: Text {
+                                                          text: leftButton.text
+                                                          color: textColor
+                                                          horizontalAlignment: Text.AlignHCenter
+                                                          verticalAlignment: Text.AlignVCenter
+                                                          font.bold: true
+                                                      }
+                                                      onClicked: viewModel.sendJoystickLeft()
+                                                      MouseArea {
+                                                          anchors.fill: parent
+                                                          cursorShape: Qt.PointingHandCursor
+                                                          acceptedButtons: Qt.NoButton
+                                                      }
+                                                      hoverEnabled: false
+                                                  }
 
-                            Button {
-                                id: rightButton
-                                text: "→"
-                                width: 50  // Same as up/down buttons
-                                height: 40 // Same as up/down buttons
-                                enabled: viewModel.connected
-                                background: Rectangle {
-                                    color: rightButton.pressed ? Qt.darker(primaryColor, 1.2) : primaryColor
-                                    border.color: borderColor
-                                    border.width: 2
-                                    radius: 8
-                                }
-                                contentItem: Text {
-                                    text: rightButton.text
-                                    color: textColor
-                                    horizontalAlignment: Text.AlignHCenter
-                                    verticalAlignment: Text.AlignVCenter
-                                    font.bold: true
-                                }
-                                onClicked: viewModel.sendJoystickRight()
-                                MouseArea {
-                                    anchors.fill: parent
-                                    cursorShape: Qt.PointingHandCursor
-                                    acceptedButtons: Qt.NoButton
-                                }
-                                hoverEnabled: false
-                            }
-                        } // Down button
+                                                  Button {
+                                                      id: rightButton
+                                                      text: "→"
+                                                      width: 50  // Same as up/down buttons
+                                                      height: 40 // Same as up/down buttons
+                                                      enabled: viewModel.connected
+                                                      background: Rectangle {
+                                                          color: rightButton.pressed ? Qt.darker(primaryColor, 1.2) : primaryColor
+                                                          border.color: borderColor
+                                                          border.width: 2
+                                                          radius: 8
+                                                      }
+                                                      contentItem: Text {
+                                                          text: rightButton.text
+                                                          color: textColor
+                                                          horizontalAlignment: Text.AlignHCenter
+                                                          verticalAlignment: Text.AlignVCenter
+                                                          font.bold: true
+                                                      }
+                                                      onClicked: viewModel.sendJoystickRight()
+                                                      MouseArea {
+                                                          anchors.fill: parent
+                                                          cursorShape: Qt.PointingHandCursor
+                                                          acceptedButtons: Qt.NoButton
+                                                      }
+                                                      hoverEnabled: false
+                                                  }
+                                              } // Down button // Down button
                         Button {
                             id: downButton
                             text: "↓"
@@ -548,36 +545,37 @@ Rectangle {
                                 color: textColor
                             }
                             SpinBox {
-                                id: pitchSpin
-                                width: 120
-                                height: 30
-                                from: -90
-                                to: 10
-                                stepSize: 1
-                                value: Math.round(viewModel.pitchAngle)
-                                enabled: viewModel.connected
-                                editable: false          // keep it non-editable
-                                leftPadding: 6
-                                rightPadding: 28         // <-- reserve space for the up/down buttons
+                                                           id: pitchSpin
+                                                           width: 120
+                                                           height: 30
+                                                           from: -90
+                                                           to: 10
+                                                           stepSize: 1
+                                                           value: Math.round(viewModel.pitchAngle)
+                                                           enabled: viewModel.connected
+                                                           editable: false          // keep it non-editable
+                                                           leftPadding: 6
+                                                           rightPadding: 28         // <-- reserve space for the up/down buttons
 
-                                background: Rectangle {
-                                    color: surfaceColor
-                                    border.color: borderColor
-                                    border.width: 1
-                                    radius: 3
-                                }
+                                                           background: Rectangle {
+                                                               color: surfaceColor
+                                                               border.color: borderColor
+                                                               border.width: 1
+                                                               radius: 3
+                                                           }
 
-                                // Use Text for read-only display so no input steals clicks
-                                contentItem: TextInput {
-                                    text: pitchSpin.displayText
-                                    readOnly: true           // important
-                                    horizontalAlignment: Qt.AlignHCenter
-                                    verticalAlignment: Qt.AlignVCenter
-                                    color: textColor
-                                }
+                                                           // Use Text for read-only display so no input steals clicks
+                                                           contentItem: TextInput {
+                                                               text: pitchSpin.displayText
+                                                               readOnly: true           // important
+                                                               horizontalAlignment: Qt.AlignHCenter
+                                                               verticalAlignment: Qt.AlignVCenter
+                                                               color: textColor
+                                                           }
 
-                                onValueChanged: viewModel.pitchAngle = value
-                            }
+                                                           onValueChanged: viewModel.pitchAngle = value
+                                                       }
+
 
                         }
 
@@ -589,37 +587,37 @@ Rectangle {
                                 color: textColor
                             }
                             SpinBox {
-                                id: yawSpin
-                                width: 120
-                                height: 30
-                                from: -180
-                                to: 180
-                                stepSize: 1
-                                value: Math.round(viewModel.yawAngle)
-                                enabled: viewModel.connected
-                                editable: false      // keep it read-only
-                                leftPadding: 6
-                                rightPadding: 28     // <-- important: leave room for the arrows
+                                                           id: yawSpin
+                                                           width: 120
+                                                           height: 30
+                                                           from: -180
+                                                           to: 180
+                                                           stepSize: 1
+                                                           value: Math.round(viewModel.yawAngle)
+                                                           enabled: viewModel.connected
+                                                           editable: false      // keep it read-only
+                                                           leftPadding: 6
+                                                           rightPadding: 28     // <-- important: leave room for the arrows
 
-                                background: Rectangle {
-                                    color: surfaceColor
-                                    border.color: borderColor
-                                    border.width: 1
-                                    radius: 3
-                                }
+                                                           background: Rectangle {
+                                                               color: surfaceColor
+                                                               border.color: borderColor
+                                                               border.width: 1
+                                                               radius: 3
+                                                           }
 
-                                // Use Text for read-only display (simpler, no input issues)
-                                contentItem: TextInput {
-                                    text: yawSpin.displayText
-                                    readOnly: true
-                                    color: textColor
-                                    horizontalAlignment: Qt.AlignHCenter
-                                    verticalAlignment: Qt.AlignVCenter
-                                }
+                                                           // Use Text for read-only display (simpler, no input issues)
+                                                           contentItem: TextInput {
+                                                               text: yawSpin.displayText
+                                                               readOnly: true
+                                                               color: textColor
+                                                               horizontalAlignment: Qt.AlignHCenter
+                                                               verticalAlignment: Qt.AlignVCenter
+                                                           }
 
 
-                                onValueChanged: viewModel.yawAngle = value
-                            }
+                                                           onValueChanged: viewModel.yawAngle = value
+                                                       }
 
                         }
 
@@ -991,10 +989,11 @@ Rectangle {
                             color: textColor
                         }
 
+
                         SpinBox {
                             id: zoomSpinBox
                             from: 0
-                            to: 255
+                            to: 50
                             stepSize: 1
                             value: viewModel.zoomLevel
                             enabled: viewModel.connected

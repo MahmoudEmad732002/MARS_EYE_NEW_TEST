@@ -59,27 +59,29 @@ template <> constexpr inline auto SerialViewModel::qt_create_metaobjectdata<qt_m
         "onConnectionStatusChanged",
         "connected",
         "onTelemetryDataReceived",
-        "SerialModel::TelemetryData",
+        "SerialWorker::TelemetryData",
         "data",
         "onTargetGPSReceived",
-        "SerialModel::TargetGPSData",
+        "SerialWorker::TargetGPSData",
         "onTrackedPoseReceived",
-        "SerialModel::TrackedPoseData",
+        "SerialWorker::TrackedPoseData",
         "onZoomFeedbackReceived",
-        "SerialModel::ZoomFeedbackData",
+        "SerialWorker::ZoomFeedbackData",
         "onFrameInfoReceived",
-        "SerialModel::FrameInfoData",
+        "SerialWorker::FrameInfoData",
         "onAcknowledgmentReceived",
-        "SerialModel::AckData",
+        "SerialWorker::AckData",
         "onErrorOccurred",
         "error",
         "onMessageSent",
         "messageType",
-        "sendPitchYaw",
+        "onAvailablePortsReady",
+        "ports",
         "connectToSerial",
         "portName",
         "baudRate",
         "refreshPorts",
+        "sendPitchYaw",
         "startJoystickCommand",
         "stopJoystickCommand",
         "sendSoftwareJoystickCommand",
@@ -99,6 +101,7 @@ template <> constexpr inline auto SerialViewModel::qt_create_metaobjectdata<qt_m
         "frameW",
         "frameH",
         "frameNum",
+        "updateSoftwareJoystick",
         "availablePorts",
         "baudRates",
         "connectButtonText",
@@ -184,27 +187,27 @@ template <> constexpr inline auto SerialViewModel::qt_create_metaobjectdata<qt_m
             { QMetaType::Bool, 19 },
         }}),
         // Slot 'onTelemetryDataReceived'
-        QtMocHelpers::SlotData<void(const SerialModel::TelemetryData &)>(20, 2, QMC::AccessPrivate, QMetaType::Void, {{
+        QtMocHelpers::SlotData<void(const SerialWorker::TelemetryData &)>(20, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { 0x80000000 | 21, 22 },
         }}),
         // Slot 'onTargetGPSReceived'
-        QtMocHelpers::SlotData<void(const SerialModel::TargetGPSData &)>(23, 2, QMC::AccessPrivate, QMetaType::Void, {{
+        QtMocHelpers::SlotData<void(const SerialWorker::TargetGPSData &)>(23, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { 0x80000000 | 24, 22 },
         }}),
         // Slot 'onTrackedPoseReceived'
-        QtMocHelpers::SlotData<void(const SerialModel::TrackedPoseData &)>(25, 2, QMC::AccessPrivate, QMetaType::Void, {{
+        QtMocHelpers::SlotData<void(const SerialWorker::TrackedPoseData &)>(25, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { 0x80000000 | 26, 22 },
         }}),
         // Slot 'onZoomFeedbackReceived'
-        QtMocHelpers::SlotData<void(const SerialModel::ZoomFeedbackData &)>(27, 2, QMC::AccessPrivate, QMetaType::Void, {{
+        QtMocHelpers::SlotData<void(const SerialWorker::ZoomFeedbackData &)>(27, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { 0x80000000 | 28, 22 },
         }}),
         // Slot 'onFrameInfoReceived'
-        QtMocHelpers::SlotData<void(const SerialModel::FrameInfoData &)>(29, 2, QMC::AccessPrivate, QMetaType::Void, {{
+        QtMocHelpers::SlotData<void(const SerialWorker::FrameInfoData &)>(29, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { 0x80000000 | 30, 22 },
         }}),
         // Slot 'onAcknowledgmentReceived'
-        QtMocHelpers::SlotData<void(const SerialModel::AckData &)>(31, 2, QMC::AccessPrivate, QMetaType::Void, {{
+        QtMocHelpers::SlotData<void(const SerialWorker::AckData &)>(31, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { 0x80000000 | 32, 22 },
         }}),
         // Slot 'onErrorOccurred'
@@ -215,144 +218,152 @@ template <> constexpr inline auto SerialViewModel::qt_create_metaobjectdata<qt_m
         QtMocHelpers::SlotData<void(const QString &)>(35, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { QMetaType::QString, 36 },
         }}),
-        // Method 'sendPitchYaw'
-        QtMocHelpers::MethodData<void()>(37, 2, QMC::AccessPublic, QMetaType::Void),
+        // Slot 'onAvailablePortsReady'
+        QtMocHelpers::SlotData<void(const QStringList &)>(37, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::QStringList, 38 },
+        }}),
         // Method 'connectToSerial'
-        QtMocHelpers::MethodData<void(const QString &, int)>(38, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::QString, 39 }, { QMetaType::Int, 40 },
+        QtMocHelpers::MethodData<void(const QString &, int)>(39, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 40 }, { QMetaType::Int, 41 },
         }}),
         // Method 'refreshPorts'
-        QtMocHelpers::MethodData<void()>(41, 2, QMC::AccessPublic, QMetaType::Void),
-        // Method 'startJoystickCommand'
         QtMocHelpers::MethodData<void()>(42, 2, QMC::AccessPublic, QMetaType::Void),
-        // Method 'stopJoystickCommand'
+        // Method 'sendPitchYaw'
         QtMocHelpers::MethodData<void()>(43, 2, QMC::AccessPublic, QMetaType::Void),
+        // Method 'startJoystickCommand'
+        QtMocHelpers::MethodData<void()>(44, 2, QMC::AccessPublic, QMetaType::Void),
+        // Method 'stopJoystickCommand'
+        QtMocHelpers::MethodData<void()>(45, 2, QMC::AccessPublic, QMetaType::Void),
         // Method 'sendSoftwareJoystickCommand'
-        QtMocHelpers::MethodData<void(int, int)>(44, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::Int, 45 }, { QMetaType::Int, 46 },
+        QtMocHelpers::MethodData<void(int, int)>(46, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Int, 47 }, { QMetaType::Int, 48 },
         }}),
         // Method 'sendJoystickUp'
-        QtMocHelpers::MethodData<void()>(47, 2, QMC::AccessPublic, QMetaType::Void),
-        // Method 'sendJoystickDown'
-        QtMocHelpers::MethodData<void()>(48, 2, QMC::AccessPublic, QMetaType::Void),
-        // Method 'sendJoystickLeft'
         QtMocHelpers::MethodData<void()>(49, 2, QMC::AccessPublic, QMetaType::Void),
-        // Method 'sendJoystickRight'
+        // Method 'sendJoystickDown'
         QtMocHelpers::MethodData<void()>(50, 2, QMC::AccessPublic, QMetaType::Void),
-        // Method 'sendPIDGains'
+        // Method 'sendJoystickLeft'
         QtMocHelpers::MethodData<void()>(51, 2, QMC::AccessPublic, QMetaType::Void),
-        // Method 'sendZoomCommand'
+        // Method 'sendJoystickRight'
         QtMocHelpers::MethodData<void()>(52, 2, QMC::AccessPublic, QMetaType::Void),
-        // Method 'sendSelectTarget'
+        // Method 'sendPIDGains'
         QtMocHelpers::MethodData<void()>(53, 2, QMC::AccessPublic, QMetaType::Void),
-        // Method 'startAbsolutePointing'
+        // Method 'sendZoomCommand'
         QtMocHelpers::MethodData<void()>(54, 2, QMC::AccessPublic, QMetaType::Void),
-        // Method 'stopAbsolutePointing'
+        // Method 'sendSelectTarget'
         QtMocHelpers::MethodData<void()>(55, 2, QMC::AccessPublic, QMetaType::Void),
-        // Method 'sendRequestGains'
+        // Method 'startAbsolutePointing'
         QtMocHelpers::MethodData<void()>(56, 2, QMC::AccessPublic, QMetaType::Void),
+        // Method 'stopAbsolutePointing'
+        QtMocHelpers::MethodData<void()>(57, 2, QMC::AccessPublic, QMetaType::Void),
+        // Method 'sendRequestGains'
+        QtMocHelpers::MethodData<void()>(58, 2, QMC::AccessPublic, QMetaType::Void),
         // Method 'sendFrameInfoAndGains'
-        QtMocHelpers::MethodData<void(int, int)>(57, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::Int, 58 }, { QMetaType::Int, 59 },
+        QtMocHelpers::MethodData<void(int, int)>(59, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Int, 60 }, { QMetaType::Int, 61 },
         }}),
         // Method 'sendSelectTarget'
-        QtMocHelpers::MethodData<void(int, int, int)>(53, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::Int, 45 }, { QMetaType::Int, 46 }, { QMetaType::Int, 60 },
+        QtMocHelpers::MethodData<void(int, int, int)>(55, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Int, 47 }, { QMetaType::Int, 48 }, { QMetaType::Int, 62 },
+        }}),
+        // Method 'updateSoftwareJoystick'
+        QtMocHelpers::MethodData<void(int, int)>(63, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Int, 47 }, { QMetaType::Int, 48 },
         }}),
     };
     QtMocHelpers::UintData qt_properties {
         // property 'availablePorts'
-        QtMocHelpers::PropertyData<QStringList>(61, QMetaType::QStringList, QMC::DefaultPropertyFlags, 0),
+        QtMocHelpers::PropertyData<QStringList>(64, QMetaType::QStringList, QMC::DefaultPropertyFlags, 0),
         // property 'baudRates'
-        QtMocHelpers::PropertyData<QStringList>(62, QMetaType::QStringList, QMC::DefaultPropertyFlags | QMC::Constant),
+        QtMocHelpers::PropertyData<QStringList>(65, QMetaType::QStringList, QMC::DefaultPropertyFlags | QMC::Constant),
         // property 'connected'
         QtMocHelpers::PropertyData<bool>(19, QMetaType::Bool, QMC::DefaultPropertyFlags, 1),
         // property 'connectButtonText'
-        QtMocHelpers::PropertyData<QString>(63, QMetaType::QString, QMC::DefaultPropertyFlags, 1),
+        QtMocHelpers::PropertyData<QString>(66, QMetaType::QString, QMC::DefaultPropertyFlags, 1),
         // property 'connectButtonColor'
-        QtMocHelpers::PropertyData<QString>(64, QMetaType::QString, QMC::DefaultPropertyFlags, 1),
+        QtMocHelpers::PropertyData<QString>(67, QMetaType::QString, QMC::DefaultPropertyFlags, 1),
         // property 'statusMessage'
-        QtMocHelpers::PropertyData<QString>(65, QMetaType::QString, QMC::DefaultPropertyFlags, 8),
+        QtMocHelpers::PropertyData<QString>(68, QMetaType::QString, QMC::DefaultPropertyFlags, 8),
         // property 'gimbalRoll'
-        QtMocHelpers::PropertyData<int>(66, QMetaType::Int, QMC::DefaultPropertyFlags, 2),
-        // property 'gimbalPitch'
-        QtMocHelpers::PropertyData<int>(67, QMetaType::Int, QMC::DefaultPropertyFlags, 2),
-        // property 'gimbalYaw'
-        QtMocHelpers::PropertyData<int>(68, QMetaType::Int, QMC::DefaultPropertyFlags, 2),
-        // property 'yawMotorPose'
         QtMocHelpers::PropertyData<int>(69, QMetaType::Int, QMC::DefaultPropertyFlags, 2),
-        // property 'pitchMotorPose'
+        // property 'gimbalPitch'
         QtMocHelpers::PropertyData<int>(70, QMetaType::Int, QMC::DefaultPropertyFlags, 2),
+        // property 'gimbalYaw'
+        QtMocHelpers::PropertyData<int>(71, QMetaType::Int, QMC::DefaultPropertyFlags, 2),
+        // property 'yawMotorPose'
+        QtMocHelpers::PropertyData<int>(72, QMetaType::Int, QMC::DefaultPropertyFlags, 2),
+        // property 'pitchMotorPose'
+        QtMocHelpers::PropertyData<int>(73, QMetaType::Int, QMC::DefaultPropertyFlags, 2),
         // property 'gimbalPoseLat'
-        QtMocHelpers::PropertyData<double>(71, QMetaType::Double, QMC::DefaultPropertyFlags, 2),
+        QtMocHelpers::PropertyData<double>(74, QMetaType::Double, QMC::DefaultPropertyFlags, 2),
         // property 'gimbalPoseLon'
-        QtMocHelpers::PropertyData<double>(72, QMetaType::Double, QMC::DefaultPropertyFlags, 2),
+        QtMocHelpers::PropertyData<double>(75, QMetaType::Double, QMC::DefaultPropertyFlags, 2),
         // property 'gimbalPoseAlt'
-        QtMocHelpers::PropertyData<double>(73, QMetaType::Double, QMC::DefaultPropertyFlags, 2),
+        QtMocHelpers::PropertyData<double>(76, QMetaType::Double, QMC::DefaultPropertyFlags, 2),
         // property 'battery'
-        QtMocHelpers::PropertyData<int>(74, QMetaType::Int, QMC::DefaultPropertyFlags, 2),
+        QtMocHelpers::PropertyData<int>(77, QMetaType::Int, QMC::DefaultPropertyFlags, 2),
         // property 'signalStrength'
-        QtMocHelpers::PropertyData<int>(75, QMetaType::Int, QMC::DefaultPropertyFlags, 2),
+        QtMocHelpers::PropertyData<int>(78, QMetaType::Int, QMC::DefaultPropertyFlags, 2),
         // property 'targetPoseLat'
-        QtMocHelpers::PropertyData<double>(76, QMetaType::Double, QMC::DefaultPropertyFlags, 3),
+        QtMocHelpers::PropertyData<double>(79, QMetaType::Double, QMC::DefaultPropertyFlags, 3),
         // property 'targetPoseLon'
-        QtMocHelpers::PropertyData<double>(77, QMetaType::Double, QMC::DefaultPropertyFlags, 3),
+        QtMocHelpers::PropertyData<double>(80, QMetaType::Double, QMC::DefaultPropertyFlags, 3),
         // property 'targetPoseAlt'
-        QtMocHelpers::PropertyData<double>(78, QMetaType::Double, QMC::DefaultPropertyFlags, 3),
+        QtMocHelpers::PropertyData<double>(81, QMetaType::Double, QMC::DefaultPropertyFlags, 3),
         // property 'targetTrackedPoseXp'
-        QtMocHelpers::PropertyData<int>(79, QMetaType::Int, QMC::DefaultPropertyFlags, 4),
+        QtMocHelpers::PropertyData<int>(82, QMetaType::Int, QMC::DefaultPropertyFlags, 4),
         // property 'targetTrackedPoseYp'
-        QtMocHelpers::PropertyData<int>(80, QMetaType::Int, QMC::DefaultPropertyFlags, 4),
+        QtMocHelpers::PropertyData<int>(83, QMetaType::Int, QMC::DefaultPropertyFlags, 4),
         // property 'zoomFeedback'
-        QtMocHelpers::PropertyData<int>(81, QMetaType::Int, QMC::DefaultPropertyFlags, 5),
+        QtMocHelpers::PropertyData<int>(84, QMetaType::Int, QMC::DefaultPropertyFlags, 5),
         // property 'frameWidth'
-        QtMocHelpers::PropertyData<int>(82, QMetaType::Int, QMC::DefaultPropertyFlags, 6),
-        // property 'frameHeight'
-        QtMocHelpers::PropertyData<int>(83, QMetaType::Int, QMC::DefaultPropertyFlags, 6),
-        // property 'receivedAzKp'
-        QtMocHelpers::PropertyData<int>(84, QMetaType::Int, QMC::DefaultPropertyFlags, 6),
-        // property 'receivedAzKi'
         QtMocHelpers::PropertyData<int>(85, QMetaType::Int, QMC::DefaultPropertyFlags, 6),
-        // property 'receivedElKp'
+        // property 'frameHeight'
         QtMocHelpers::PropertyData<int>(86, QMetaType::Int, QMC::DefaultPropertyFlags, 6),
-        // property 'receivedElKi'
+        // property 'receivedAzKp'
         QtMocHelpers::PropertyData<int>(87, QMetaType::Int, QMC::DefaultPropertyFlags, 6),
+        // property 'receivedAzKi'
+        QtMocHelpers::PropertyData<int>(88, QMetaType::Int, QMC::DefaultPropertyFlags, 6),
+        // property 'receivedElKp'
+        QtMocHelpers::PropertyData<int>(89, QMetaType::Int, QMC::DefaultPropertyFlags, 6),
+        // property 'receivedElKi'
+        QtMocHelpers::PropertyData<int>(90, QMetaType::Int, QMC::DefaultPropertyFlags, 6),
         // property 'lastAcknowledgedMessageId'
-        QtMocHelpers::PropertyData<int>(88, QMetaType::Int, QMC::DefaultPropertyFlags, 7),
+        QtMocHelpers::PropertyData<int>(91, QMetaType::Int, QMC::DefaultPropertyFlags, 7),
         // property 'joystickX'
-        QtMocHelpers::PropertyData<int>(89, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 9),
+        QtMocHelpers::PropertyData<int>(92, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 9),
         // property 'joystickY'
-        QtMocHelpers::PropertyData<int>(90, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 9),
+        QtMocHelpers::PropertyData<int>(93, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 9),
         // property 'joystickResetFlag'
-        QtMocHelpers::PropertyData<int>(91, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 9),
+        QtMocHelpers::PropertyData<int>(94, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 9),
         // property 'joystickActive'
-        QtMocHelpers::PropertyData<bool>(92, QMetaType::Bool, QMC::DefaultPropertyFlags, 10),
+        QtMocHelpers::PropertyData<bool>(95, QMetaType::Bool, QMC::DefaultPropertyFlags, 10),
         // property 'azimuthKp'
-        QtMocHelpers::PropertyData<int>(93, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 11),
-        // property 'azimuthKi'
-        QtMocHelpers::PropertyData<int>(94, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 11),
-        // property 'elevationKp'
-        QtMocHelpers::PropertyData<int>(95, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 11),
-        // property 'elevationKi'
         QtMocHelpers::PropertyData<int>(96, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 11),
+        // property 'azimuthKi'
+        QtMocHelpers::PropertyData<int>(97, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 11),
+        // property 'elevationKp'
+        QtMocHelpers::PropertyData<int>(98, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 11),
+        // property 'elevationKi'
+        QtMocHelpers::PropertyData<int>(99, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 11),
         // property 'zoomLevel'
-        QtMocHelpers::PropertyData<int>(97, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 12),
+        QtMocHelpers::PropertyData<int>(100, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 12),
         // property 'zoomResetFlag'
-        QtMocHelpers::PropertyData<int>(98, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 12),
+        QtMocHelpers::PropertyData<int>(101, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 12),
         // property 'targetX'
-        QtMocHelpers::PropertyData<int>(99, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 13),
+        QtMocHelpers::PropertyData<int>(102, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 13),
         // property 'targetY'
-        QtMocHelpers::PropertyData<int>(100, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 13),
+        QtMocHelpers::PropertyData<int>(103, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 13),
         // property 'frameNumber'
-        QtMocHelpers::PropertyData<int>(101, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 13),
+        QtMocHelpers::PropertyData<int>(104, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 13),
         // property 'pitchAngle'
-        QtMocHelpers::PropertyData<double>(102, QMetaType::Double, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 14),
+        QtMocHelpers::PropertyData<double>(105, QMetaType::Double, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 14),
         // property 'yawAngle'
-        QtMocHelpers::PropertyData<double>(103, QMetaType::Double, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 14),
+        QtMocHelpers::PropertyData<double>(106, QMetaType::Double, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 14),
         // property 'stabilizationFlag'
-        QtMocHelpers::PropertyData<int>(104, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 14),
+        QtMocHelpers::PropertyData<int>(107, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet, 14),
         // property 'absolutePointingActive'
-        QtMocHelpers::PropertyData<bool>(105, QMetaType::Bool, QMC::DefaultPropertyFlags, 15),
+        QtMocHelpers::PropertyData<bool>(108, QMetaType::Bool, QMC::DefaultPropertyFlags, 15),
     };
     QtMocHelpers::UintData qt_enums {
     };
@@ -391,32 +402,34 @@ void SerialViewModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         case 14: _t->absolutePointingChanged(); break;
         case 15: _t->absolutePointingActiveChanged(); break;
         case 16: _t->onConnectionStatusChanged((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
-        case 17: _t->onTelemetryDataReceived((*reinterpret_cast< std::add_pointer_t<SerialModel::TelemetryData>>(_a[1]))); break;
-        case 18: _t->onTargetGPSReceived((*reinterpret_cast< std::add_pointer_t<SerialModel::TargetGPSData>>(_a[1]))); break;
-        case 19: _t->onTrackedPoseReceived((*reinterpret_cast< std::add_pointer_t<SerialModel::TrackedPoseData>>(_a[1]))); break;
-        case 20: _t->onZoomFeedbackReceived((*reinterpret_cast< std::add_pointer_t<SerialModel::ZoomFeedbackData>>(_a[1]))); break;
-        case 21: _t->onFrameInfoReceived((*reinterpret_cast< std::add_pointer_t<SerialModel::FrameInfoData>>(_a[1]))); break;
-        case 22: _t->onAcknowledgmentReceived((*reinterpret_cast< std::add_pointer_t<SerialModel::AckData>>(_a[1]))); break;
+        case 17: _t->onTelemetryDataReceived((*reinterpret_cast< std::add_pointer_t<SerialWorker::TelemetryData>>(_a[1]))); break;
+        case 18: _t->onTargetGPSReceived((*reinterpret_cast< std::add_pointer_t<SerialWorker::TargetGPSData>>(_a[1]))); break;
+        case 19: _t->onTrackedPoseReceived((*reinterpret_cast< std::add_pointer_t<SerialWorker::TrackedPoseData>>(_a[1]))); break;
+        case 20: _t->onZoomFeedbackReceived((*reinterpret_cast< std::add_pointer_t<SerialWorker::ZoomFeedbackData>>(_a[1]))); break;
+        case 21: _t->onFrameInfoReceived((*reinterpret_cast< std::add_pointer_t<SerialWorker::FrameInfoData>>(_a[1]))); break;
+        case 22: _t->onAcknowledgmentReceived((*reinterpret_cast< std::add_pointer_t<SerialWorker::AckData>>(_a[1]))); break;
         case 23: _t->onErrorOccurred((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         case 24: _t->onMessageSent((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 25: _t->sendPitchYaw(); break;
+        case 25: _t->onAvailablePortsReady((*reinterpret_cast< std::add_pointer_t<QStringList>>(_a[1]))); break;
         case 26: _t->connectToSerial((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
         case 27: _t->refreshPorts(); break;
-        case 28: _t->startJoystickCommand(); break;
-        case 29: _t->stopJoystickCommand(); break;
-        case 30: _t->sendSoftwareJoystickCommand((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
-        case 31: _t->sendJoystickUp(); break;
-        case 32: _t->sendJoystickDown(); break;
-        case 33: _t->sendJoystickLeft(); break;
-        case 34: _t->sendJoystickRight(); break;
-        case 35: _t->sendPIDGains(); break;
-        case 36: _t->sendZoomCommand(); break;
-        case 37: _t->sendSelectTarget(); break;
-        case 38: _t->startAbsolutePointing(); break;
-        case 39: _t->stopAbsolutePointing(); break;
-        case 40: _t->sendRequestGains(); break;
-        case 41: _t->sendFrameInfoAndGains((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
-        case 42: _t->sendSelectTarget((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3]))); break;
+        case 28: _t->sendPitchYaw(); break;
+        case 29: _t->startJoystickCommand(); break;
+        case 30: _t->stopJoystickCommand(); break;
+        case 31: _t->sendSoftwareJoystickCommand((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
+        case 32: _t->sendJoystickUp(); break;
+        case 33: _t->sendJoystickDown(); break;
+        case 34: _t->sendJoystickLeft(); break;
+        case 35: _t->sendJoystickRight(); break;
+        case 36: _t->sendPIDGains(); break;
+        case 37: _t->sendZoomCommand(); break;
+        case 38: _t->sendSelectTarget(); break;
+        case 39: _t->startAbsolutePointing(); break;
+        case 40: _t->stopAbsolutePointing(); break;
+        case 41: _t->sendRequestGains(); break;
+        case 42: _t->sendFrameInfoAndGains((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
+        case 43: _t->sendSelectTarget((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3]))); break;
+        case 44: _t->updateSoftwareJoystick((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
         default: ;
         }
     }
@@ -548,14 +561,14 @@ int SerialViewModel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 43)
+        if (_id < 45)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 43;
+        _id -= 45;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 43)
+        if (_id < 45)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 43;
+        _id -= 45;
     }
     if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::BindableProperty

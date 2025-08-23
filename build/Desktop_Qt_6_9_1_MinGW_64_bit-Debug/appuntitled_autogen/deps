@@ -1341,6 +1341,8 @@ appuntitled_autogen/timestamp: \
 	C:/Users/mahmo/Documents/untitled/models/mediamanager.h \
 	C:/Users/mahmo/Documents/untitled/models/serialmodel.cpp \
 	C:/Users/mahmo/Documents/untitled/models/serialmodel.h \
+	C:/Users/mahmo/Documents/untitled/models/serialworker.cpp \
+	C:/Users/mahmo/Documents/untitled/models/serialworker.h \
 	C:/Users/mahmo/Documents/untitled/models/thermalcameramodel.cpp \
 	C:/Users/mahmo/Documents/untitled/models/thermalcameramodel.h \
 	C:/Users/mahmo/Documents/untitled/viewmodels/cameraviewmodel.cpp \

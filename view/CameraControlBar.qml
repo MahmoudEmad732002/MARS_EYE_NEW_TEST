@@ -63,41 +63,43 @@ Rectangle {
             font.bold: true
             color: textColor
         }
+
         SpinBox {
-            id: portSpinBox
-            Layout.preferredWidth: 100
-            from: 1
-            to: 65535
-            value: cameraViewModel ? cameraViewModel.port : 8080
-            enabled: cameraViewModel ? !cameraViewModel.streaming : true
-            editable: true
-            leftPadding: 6
-            rightPadding: 28   // room for up/down buttons
+                  id: portSpinBox
+                  Layout.preferredWidth: 100
+                  from: 1
+                  to: 65535
+                  value: cameraViewModel ? cameraViewModel.port : 8080
+                  enabled: cameraViewModel ? !cameraViewModel.streaming : true
+                  editable: true
+                  leftPadding: 6
+                  rightPadding: 28   // room for up/down buttons
 
-            background: Rectangle {
-                color: surfaceColor
-                border.color: borderColor
-                border.width: 1
-                radius: 3
-            }
+                  background: Rectangle {
+                      color: surfaceColor
+                      border.color: borderColor
+                      border.width: 1
+                      radius: 3
+                  }
 
-            contentItem: TextInput {
-                text: portSpinBox.displayText
-                readOnly: !portSpinBox.editable
-                horizontalAlignment: Qt.AlignHCenter
-                verticalAlignment: Qt.AlignVCenter
-                color: textColor
-                validator: IntValidator { bottom: portSpinBox.from; top: portSpinBox.to }
+                  contentItem: TextInput {
+                      text: portSpinBox.displayText
+                      readOnly: !portSpinBox.editable
+                      horizontalAlignment: Qt.AlignHCenter
+                      verticalAlignment: Qt.AlignVCenter
+                      color: textColor
+                      validator: IntValidator { bottom: portSpinBox.from; top: portSpinBox.to }
 
-                // Only when user presses Enter
-                onAccepted: {
-                    portSpinBox.value = portSpinBox.valueFromText(text, portSpinBox.locale)
-                }
-            }
+                      // Only when user presses Enter
+                      onAccepted: {
+                          portSpinBox.value = portSpinBox.valueFromText(text, portSpinBox.locale)
+                      }
+                  }
 
-            onValueChanged: if (cameraViewModel) cameraViewModel.port = value
-        }
-  Button {
+                  onValueChanged: if (cameraViewModel) cameraViewModel.port = value
+              }
+
+        Button {
             id: streamButton
             text: cameraViewModel ? cameraViewModel.streamButtonText : "Start Stream"
             Layout.preferredWidth: 120

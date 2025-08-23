@@ -38,7 +38,14 @@ Rectangle {
     RowLayout {
         anchors.fill: parent
         anchors.margins: 10
-        spacing: 15
+        spacing: 10
+        Image {
+            id: logo
+            source: "qrc:/images/Variant3.png"   // <-- remove the stray space after qrc:/
+            Layout.preferredWidth: 100
+            Layout.preferredHeight: 40
+            fillMode: Image.PreserveAspectFit
+        }
 
         Text {
             text: "Port:"

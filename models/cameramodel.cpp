@@ -11,7 +11,8 @@ CameraModel::CameraModel(QObject *parent)
     , m_udpSocket(nullptr)
     , m_processTimer(new QTimer(this))
     , m_streaming(false)
-    , m_fragmentTimeout(5000) // 5 second timeout for incomplete frames
+    , m_fragmentTimeout(5000)
+// 5 second timeout for incomplete frames
 {
     // Timer to process buffer periodically
     m_processTimer->setInterval(16);
@@ -46,14 +47,17 @@ void CameraModel::startStreaming(const QString &ipAddress, int port)
             this, &CameraModel::onSocketError);
 
     // Bind to the specified port
-    if (m_udpSocket->bind(QHostAddress::AnyIPv4, port)) {
-        m_streaming = true;
+    if (m_udpSocket->bind(QHostAddress::AnyIPv4, port))
+
+    {   m_streaming = true;
         m_processTimer->start();
         m_cleanupTimer->start();
         emit streamingStatusChanged(true);
         emit connectionEstablished();
         qDebug() << "Started UDP streaming on port:" << port;
-    } else {
+    }
+
+    else {
         emit errorOccurred("Failed to bind to port " + QString::number(port) + ": " + m_udpSocket->errorString());
         delete m_udpSocket;
         m_udpSocket = nullptr;
@@ -119,7 +123,7 @@ void CameraModel::processFragmentedPacket(const QByteArray &packet)
     if (fragmentIndex >= totalFragments || fragmentSize != (packet.size() - 14)) {
         qDebug() << "Invalid fragment " << fragmentIndex
                  << "Total:" << totalFragments << "Size:" << fragmentSize
-                 << "Actual:" << (packet.size() - 14);
+                 << "Actual:" << (packet.size() - 16);
         return;
     }
 

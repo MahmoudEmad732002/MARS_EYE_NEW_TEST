@@ -3,6 +3,7 @@
 #include "IVK4DJNV27/moc_joystickreceiver.cpp"
 #include "IVK4DJNV27/moc_mediamanager.cpp"
 #include "IVK4DJNV27/moc_serialmodel.cpp"
+#include "IVK4DJNV27/moc_serialworker.cpp"
 #include "IVK4DJNV27/moc_thermalcameramodel.cpp"
 #include "RVZ4ISEY7V/moc_cameraviewmodel.cpp"
 #include "RVZ4ISEY7V/moc_mapviewmodel.cpp"

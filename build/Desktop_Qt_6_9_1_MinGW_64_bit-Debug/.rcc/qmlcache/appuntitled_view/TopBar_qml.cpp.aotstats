@@ -6,7 +6,7 @@
                     {
                         "codegenSuccessful": true,
                         "column": 12,
-                        "durationMicroseconds": 319,
+                        "durationMicroseconds": 420,
                         "errorMessage": "",
                         "functionName": "width",
                         "line": 7
@@ -14,7 +14,7 @@
                     {
                         "codegenSuccessful": true,
                         "column": 12,
-                        "durationMicroseconds": 188,
+                        "durationMicroseconds": 253,
                         "errorMessage": "",
                         "functionName": "color",
                         "line": 9
@@ -22,7 +22,7 @@
                     {
                         "codegenSuccessful": true,
                         "column": 19,
-                        "durationMicroseconds": 155,
+                        "durationMicroseconds": 203,
                         "errorMessage": "",
                         "functionName": "color",
                         "line": 10
@@ -30,26 +30,34 @@
                     {
                         "codegenSuccessful": true,
                         "column": 23,
-                        "durationMicroseconds": 79,
+                        "durationMicroseconds": 96,
                         "errorMessage": "",
                         "functionName": "fill",
                         "line": 39
                     },
                     {
-                        "codegenSuccessful": false,
-                        "column": 20,
-                        "durationMicroseconds": 52,
-                        "errorMessage": "Cannot access value for name textColor",
-                        "functionName": "color",
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 125,
+                        "errorMessage": "",
+                        "functionName": "fillMode",
                         "line": 47
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 20,
+                        "durationMicroseconds": 64,
+                        "errorMessage": "Cannot access value for name textColor",
+                        "functionName": "color",
+                        "line": 54
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"model\".",
                         "functionName": "model",
-                        "line": 53
+                        "line": 60
                     },
                     {
                         "codegenSuccessful": false,
@@ -57,55 +65,55 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"enabled\".",
                         "functionName": "enabled",
-                        "line": 54
+                        "line": 61
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 24,
-                        "durationMicroseconds": 27,
+                        "durationMicroseconds": 57,
                         "errorMessage": "Cannot access value for name surfaceColor",
                         "functionName": "color",
-                        "line": 57
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 31,
-                        "durationMicroseconds": 23,
-                        "errorMessage": "Cannot access value for name borderColor",
-                        "functionName": "color",
-                        "line": 58
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 23,
-                        "durationMicroseconds": 50,
-                        "errorMessage": "Cannot access value for name portComboBox",
-                        "functionName": "text",
                         "line": 64
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 24,
-                        "durationMicroseconds": 22,
-                        "errorMessage": "Cannot access value for name textColor",
+                        "column": 31,
+                        "durationMicroseconds": 33,
+                        "errorMessage": "Cannot access value for name borderColor",
                         "functionName": "color",
                         "line": 65
                     },
                     {
                         "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 53,
+                        "errorMessage": "Cannot access value for name portComboBox",
+                        "functionName": "text",
+                        "line": 71
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 29,
+                        "errorMessage": "Cannot access value for name textColor",
+                        "functionName": "color",
+                        "line": 72
+                    },
+                    {
+                        "codegenSuccessful": false,
                         "column": 36,
-                        "durationMicroseconds": 326,
+                        "durationMicroseconds": 465,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
-                        "line": 66
+                        "line": 73
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 20,
-                        "durationMicroseconds": 30,
+                        "durationMicroseconds": 46,
                         "errorMessage": "Cannot access value for name textColor",
                         "functionName": "color",
-                        "line": 75
+                        "line": 82
                     },
                     {
                         "codegenSuccessful": false,
@@ -113,7 +121,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"model\".",
                         "functionName": "model",
-                        "line": 81
+                        "line": 88
                     },
                     {
                         "codegenSuccessful": false,
@@ -121,47 +129,47 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"enabled\".",
                         "functionName": "enabled",
-                        "line": 83
+                        "line": 90
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 24,
-                        "durationMicroseconds": 22,
+                        "durationMicroseconds": 31,
                         "errorMessage": "Cannot access value for name surfaceColor",
                         "functionName": "color",
-                        "line": 86
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 31,
-                        "durationMicroseconds": 20,
-                        "errorMessage": "Cannot access value for name borderColor",
-                        "functionName": "color",
-                        "line": 87
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 23,
-                        "durationMicroseconds": 29,
-                        "errorMessage": "Cannot access value for name baudRateComboBox",
-                        "functionName": "text",
                         "line": 93
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 24,
-                        "durationMicroseconds": 20,
-                        "errorMessage": "Cannot access value for name textColor",
+                        "column": 31,
+                        "durationMicroseconds": 28,
+                        "errorMessage": "Cannot access value for name borderColor",
                         "functionName": "color",
                         "line": 94
                     },
                     {
                         "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 35,
+                        "errorMessage": "Cannot access value for name baudRateComboBox",
+                        "functionName": "text",
+                        "line": 100
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 23,
+                        "errorMessage": "Cannot access value for name textColor",
+                        "functionName": "color",
+                        "line": 101
+                    },
+                    {
+                        "codegenSuccessful": false,
                         "column": 36,
-                        "durationMicroseconds": 269,
+                        "durationMicroseconds": 393,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
-                        "line": 95
+                        "line": 102
                     },
                     {
                         "codegenSuccessful": false,
@@ -169,7 +177,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"text\".",
                         "functionName": "text",
-                        "line": 102
+                        "line": 109
                     },
                     {
                         "codegenSuccessful": false,
@@ -177,79 +185,79 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"clicked\".",
                         "functionName": "onClicked",
+                        "line": 127
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 147,
+                        "errorMessage": "Cannot access value for name viewModel",
+                        "functionName": "color",
+                        "line": 113
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 31,
+                        "durationMicroseconds": 30,
+                        "errorMessage": "Cannot access value for name borderColor",
+                        "functionName": "color",
+                        "line": 115
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 37,
+                        "errorMessage": "Cannot access value for name connectButton",
+                        "functionName": "text",
                         "line": 120
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 24,
-                        "durationMicroseconds": 97,
-                        "errorMessage": "Cannot access value for name viewModel",
-                        "functionName": "color",
-                        "line": 106
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 31,
-                        "durationMicroseconds": 23,
-                        "errorMessage": "Cannot access value for name borderColor",
-                        "functionName": "color",
-                        "line": 108
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 23,
                         "durationMicroseconds": 28,
-                        "errorMessage": "Cannot access value for name connectButton",
-                        "functionName": "text",
-                        "line": 113
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 24,
-                        "durationMicroseconds": 20,
                         "errorMessage": "Cannot access value for name textColor",
                         "functionName": "color",
-                        "line": 114
+                        "line": 121
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 38,
-                        "durationMicroseconds": 293,
+                        "durationMicroseconds": 387,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "horizontalAlignment",
-                        "line": 115
+                        "line": 122
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 36,
-                        "durationMicroseconds": 246,
+                        "durationMicroseconds": 619,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
-                        "line": 116
+                        "line": 123
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 30,
-                        "durationMicroseconds": 125,
+                        "durationMicroseconds": 204,
                         "errorMessage": "",
                         "functionName": "cursorShape",
-                        "line": 131
+                        "line": 138
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 34,
-                        "durationMicroseconds": 119,
+                        "durationMicroseconds": 167,
                         "errorMessage": "",
                         "functionName": "acceptedButtons",
-                        "line": 132
+                        "line": 139
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 31,
-                        "durationMicroseconds": 71,
+                        "durationMicroseconds": 114,
                         "errorMessage": "",
                         "functionName": "fill",
-                        "line": 130
+                        "line": 137
                     },
                     {
                         "codegenSuccessful": false,
@@ -257,71 +265,71 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"clicked\".",
                         "functionName": "onClicked",
-                        "line": 158
+                        "line": 165
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 24,
-                        "durationMicroseconds": 26,
+                        "durationMicroseconds": 35,
                         "errorMessage": "Cannot access value for name primaryColor",
                         "functionName": "color",
-                        "line": 144
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 31,
-                        "durationMicroseconds": 24,
-                        "errorMessage": "Cannot access value for name borderColor",
-                        "functionName": "color",
-                        "line": 146
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 23,
-                        "durationMicroseconds": 33,
-                        "errorMessage": "Cannot access value for name visualizationButton",
-                        "functionName": "text",
                         "line": 151
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 38,
-                        "durationMicroseconds": 316,
-                        "errorMessage": "Cannot access value for name Text",
-                        "functionName": "horizontalAlignment",
+                        "column": 31,
+                        "durationMicroseconds": 48,
+                        "errorMessage": "Cannot access value for name borderColor",
+                        "functionName": "color",
                         "line": 153
                     },
                     {
                         "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 38,
+                        "errorMessage": "Cannot access value for name visualizationButton",
+                        "functionName": "text",
+                        "line": 158
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 38,
+                        "durationMicroseconds": 390,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "horizontalAlignment",
+                        "line": 160
+                    },
+                    {
+                        "codegenSuccessful": false,
                         "column": 36,
-                        "durationMicroseconds": 263,
+                        "durationMicroseconds": 302,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
-                        "line": 154
+                        "line": 161
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 30,
-                        "durationMicroseconds": 110,
+                        "durationMicroseconds": 167,
                         "errorMessage": "",
                         "functionName": "cursorShape",
-                        "line": 164
+                        "line": 171
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 34,
-                        "durationMicroseconds": 203,
+                        "durationMicroseconds": 156,
                         "errorMessage": "",
                         "functionName": "acceptedButtons",
-                        "line": 165
+                        "line": 172
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 31,
-                        "durationMicroseconds": 77,
+                        "durationMicroseconds": 88,
                         "errorMessage": "",
                         "functionName": "fill",
-                        "line": 163
+                        "line": 170
                     },
                     {
                         "codegenSuccessful": false,
@@ -329,7 +337,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"enabled\".",
                         "functionName": "enabled",
-                        "line": 174
+                        "line": 181
                     },
                     {
                         "codegenSuccessful": false,
@@ -337,79 +345,79 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"clicked\".",
                         "functionName": "onClicked",
+                        "line": 198
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 130,
+                        "errorMessage": "Cannot access value for name viewModel",
+                        "functionName": "color",
+                        "line": 184
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 31,
+                        "durationMicroseconds": 28,
+                        "errorMessage": "Cannot access value for name borderColor",
+                        "functionName": "color",
+                        "line": 186
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 4466,
+                        "errorMessage": "Cannot access value for name controlsButton",
+                        "functionName": "text",
                         "line": 191
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 24,
-                        "durationMicroseconds": 92,
-                        "errorMessage": "Cannot access value for name viewModel",
-                        "functionName": "color",
-                        "line": 177
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 31,
-                        "durationMicroseconds": 23,
-                        "errorMessage": "Cannot access value for name borderColor",
-                        "functionName": "color",
-                        "line": 179
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 23,
-                        "durationMicroseconds": 44,
-                        "errorMessage": "Cannot access value for name controlsButton",
-                        "functionName": "text",
-                        "line": 184
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 24,
-                        "durationMicroseconds": 24,
+                        "durationMicroseconds": 32,
                         "errorMessage": "Cannot access value for name textColor",
                         "functionName": "color",
-                        "line": 185
+                        "line": 192
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 38,
-                        "durationMicroseconds": 314,
+                        "durationMicroseconds": 787,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "horizontalAlignment",
-                        "line": 186
+                        "line": 193
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 36,
-                        "durationMicroseconds": 248,
+                        "durationMicroseconds": 396,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
-                        "line": 187
+                        "line": 194
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 30,
-                        "durationMicroseconds": 118,
+                        "durationMicroseconds": 186,
                         "errorMessage": "",
                         "functionName": "cursorShape",
-                        "line": 197
+                        "line": 204
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 34,
-                        "durationMicroseconds": 113,
+                        "durationMicroseconds": 195,
                         "errorMessage": "",
                         "functionName": "acceptedButtons",
-                        "line": 198
+                        "line": 205
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 31,
-                        "durationMicroseconds": 67,
+                        "durationMicroseconds": 120,
                         "errorMessage": "",
                         "functionName": "fill",
-                        "line": 196
+                        "line": 203
                     },
                     {
                         "codegenSuccessful": false,
@@ -417,71 +425,71 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"clicked\".",
                         "functionName": "onClicked",
-                        "line": 223
+                        "line": 230
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 24,
-                        "durationMicroseconds": 26,
+                        "durationMicroseconds": 45,
                         "errorMessage": "Cannot access value for name primaryColor",
                         "functionName": "color",
-                        "line": 209
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 31,
-                        "durationMicroseconds": 22,
-                        "errorMessage": "Cannot access value for name borderColor",
-                        "functionName": "color",
-                        "line": 211
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 23,
-                        "durationMicroseconds": 40,
-                        "errorMessage": "Cannot access value for name mapButton",
-                        "functionName": "text",
                         "line": 216
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 38,
-                        "durationMicroseconds": 303,
-                        "errorMessage": "Cannot access value for name Text",
-                        "functionName": "horizontalAlignment",
+                        "column": 31,
+                        "durationMicroseconds": 39,
+                        "errorMessage": "Cannot access value for name borderColor",
+                        "functionName": "color",
                         "line": 218
                     },
                     {
                         "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 71,
+                        "errorMessage": "Cannot access value for name mapButton",
+                        "functionName": "text",
+                        "line": 223
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 38,
+                        "durationMicroseconds": 473,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "horizontalAlignment",
+                        "line": 225
+                    },
+                    {
+                        "codegenSuccessful": false,
                         "column": 36,
-                        "durationMicroseconds": 234,
+                        "durationMicroseconds": 408,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
-                        "line": 219
+                        "line": 226
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 30,
-                        "durationMicroseconds": 106,
+                        "durationMicroseconds": 178,
                         "errorMessage": "",
                         "functionName": "cursorShape",
-                        "line": 229
+                        "line": 236
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 34,
-                        "durationMicroseconds": 105,
+                        "durationMicroseconds": 174,
                         "errorMessage": "",
                         "functionName": "acceptedButtons",
-                        "line": 230
+                        "line": 237
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 31,
-                        "durationMicroseconds": 64,
+                        "durationMicroseconds": 110,
                         "errorMessage": "",
                         "functionName": "fill",
-                        "line": 228
+                        "line": 235
                     },
                     {
                         "codegenSuccessful": false,
@@ -489,87 +497,87 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"clicked\".",
                         "functionName": "onClicked",
-                        "line": 255
+                        "line": 262
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 24,
-                        "durationMicroseconds": 27,
+                        "durationMicroseconds": 45,
                         "errorMessage": "Cannot access value for name primaryColor",
                         "functionName": "color",
-                        "line": 241
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 31,
-                        "durationMicroseconds": 22,
-                        "errorMessage": "Cannot access value for name borderColor",
-                        "functionName": "color",
-                        "line": 243
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 23,
-                        "durationMicroseconds": 31,
-                        "errorMessage": "Cannot access value for name captureButton",
-                        "functionName": "text",
                         "line": 248
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 38,
-                        "durationMicroseconds": 308,
-                        "errorMessage": "Cannot access value for name Text",
-                        "functionName": "horizontalAlignment",
+                        "column": 31,
+                        "durationMicroseconds": 35,
+                        "errorMessage": "Cannot access value for name borderColor",
+                        "functionName": "color",
                         "line": 250
                     },
                     {
                         "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 46,
+                        "errorMessage": "Cannot access value for name captureButton",
+                        "functionName": "text",
+                        "line": 255
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 38,
+                        "durationMicroseconds": 484,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "horizontalAlignment",
+                        "line": 257
+                    },
+                    {
+                        "codegenSuccessful": false,
                         "column": 36,
-                        "durationMicroseconds": 244,
+                        "durationMicroseconds": 453,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
-                        "line": 251
+                        "line": 258
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 30,
-                        "durationMicroseconds": 100,
+                        "durationMicroseconds": 178,
                         "errorMessage": "",
                         "functionName": "cursorShape",
-                        "line": 261
+                        "line": 268
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 34,
-                        "durationMicroseconds": 103,
+                        "durationMicroseconds": 174,
                         "errorMessage": "",
                         "functionName": "acceptedButtons",
-                        "line": 262
+                        "line": 269
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 31,
-                        "durationMicroseconds": 65,
+                        "durationMicroseconds": 108,
                         "errorMessage": "",
                         "functionName": "fill",
-                        "line": 260
+                        "line": 267
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 19,
-                        "durationMicroseconds": 80,
+                        "durationMicroseconds": 141,
                         "errorMessage": "Cannot access value for name viewModel",
                         "functionName": "text",
-                        "line": 272
+                        "line": 279
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 20,
-                        "durationMicroseconds": 112,
+                        "durationMicroseconds": 184,
                         "errorMessage": "Cannot access value for name viewModel",
                         "functionName": "color",
-                        "line": 274
+                        "line": 281
                     }
                 ],
                 "filePath": "C:/Users/mahmo/Documents/untitled/view/TopBar.qml"

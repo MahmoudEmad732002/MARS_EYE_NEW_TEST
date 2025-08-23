@@ -2,14 +2,8 @@
     "classes": [
         {
             "className": "SerialViewModel",
-            "lineNumber": 8,
+            "lineNumber": 9,
             "methods": [
-                {
-                    "access": "public",
-                    "index": 25,
-                    "name": "sendPitchYaw",
-                    "returnType": "void"
-                },
                 {
                     "access": "public",
                     "arguments": [
@@ -35,12 +29,18 @@
                 {
                     "access": "public",
                     "index": 28,
-                    "name": "startJoystickCommand",
+                    "name": "sendPitchYaw",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
                     "index": 29,
+                    "name": "startJoystickCommand",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 30,
                     "name": "stopJoystickCommand",
                     "returnType": "void"
                 },
@@ -56,67 +56,67 @@
                             "type": "int"
                         }
                     ],
-                    "index": 30,
+                    "index": 31,
                     "name": "sendSoftwareJoystickCommand",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 31,
+                    "index": 32,
                     "name": "sendJoystickUp",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 32,
+                    "index": 33,
                     "name": "sendJoystickDown",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 33,
+                    "index": 34,
                     "name": "sendJoystickLeft",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 34,
+                    "index": 35,
                     "name": "sendJoystickRight",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 35,
+                    "index": 36,
                     "name": "sendPIDGains",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 36,
+                    "index": 37,
                     "name": "sendZoomCommand",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 37,
+                    "index": 38,
                     "name": "sendSelectTarget",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 38,
+                    "index": 39,
                     "name": "startAbsolutePointing",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 39,
+                    "index": 40,
                     "name": "stopAbsolutePointing",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 40,
+                    "index": 41,
                     "name": "sendRequestGains",
                     "returnType": "void"
                 },
@@ -132,7 +132,7 @@
                             "type": "int"
                         }
                     ],
-                    "index": 41,
+                    "index": 42,
                     "name": "sendFrameInfoAndGains",
                     "returnType": "void"
                 },
@@ -152,8 +152,24 @@
                             "type": "int"
                         }
                     ],
-                    "index": 42,
+                    "index": 43,
                     "name": "sendSelectTarget",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "x",
+                            "type": "int"
+                        },
+                        {
+                            "name": "y",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 44,
+                    "name": "updateSoftwareJoystick",
                     "returnType": "void"
                 }
             ],
@@ -935,7 +951,7 @@
                     "arguments": [
                         {
                             "name": "data",
-                            "type": "SerialModel::TelemetryData"
+                            "type": "SerialWorker::TelemetryData"
                         }
                     ],
                     "index": 17,
@@ -947,7 +963,7 @@
                     "arguments": [
                         {
                             "name": "data",
-                            "type": "SerialModel::TargetGPSData"
+                            "type": "SerialWorker::TargetGPSData"
                         }
                     ],
                     "index": 18,
@@ -959,7 +975,7 @@
                     "arguments": [
                         {
                             "name": "data",
-                            "type": "SerialModel::TrackedPoseData"
+                            "type": "SerialWorker::TrackedPoseData"
                         }
                     ],
                     "index": 19,
@@ -971,7 +987,7 @@
                     "arguments": [
                         {
                             "name": "data",
-                            "type": "SerialModel::ZoomFeedbackData"
+                            "type": "SerialWorker::ZoomFeedbackData"
                         }
                     ],
                     "index": 20,
@@ -983,7 +999,7 @@
                     "arguments": [
                         {
                             "name": "data",
-                            "type": "SerialModel::FrameInfoData"
+                            "type": "SerialWorker::FrameInfoData"
                         }
                     ],
                     "index": 21,
@@ -995,7 +1011,7 @@
                     "arguments": [
                         {
                             "name": "data",
-                            "type": "SerialModel::AckData"
+                            "type": "SerialWorker::AckData"
                         }
                     ],
                     "index": 22,
@@ -1024,6 +1040,18 @@
                     ],
                     "index": 24,
                     "name": "onMessageSent",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "arguments": [
+                        {
+                            "name": "ports",
+                            "type": "QStringList"
+                        }
+                    ],
+                    "index": 25,
+                    "name": "onAvailablePortsReady",
                     "returnType": "void"
                 }
             ],

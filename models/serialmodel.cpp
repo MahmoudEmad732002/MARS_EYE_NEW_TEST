@@ -55,6 +55,7 @@ bool SerialModel::connectToPort(const QString &portName, int baudRate)
     if (m_serialPort->open(QIODevice::ReadWrite)) {
         m_connected = true;
         emit connectionStatusChanged(true);
+        sendRequestGains();
         return true;
     } else {
         emit errorOccurred("Failed to connect: " + m_serialPort->errorString());
@@ -165,6 +166,7 @@ void SerialModel::processBuffer()
                 emit trackedPoseReceived(data);
                 break;
             }
+
             case ZOOM_FEEDBACK_MESSAGE_ID: { // UPDATED: 0x11
                 ZoomFeedbackData data = parseZoomFeedbackMessage(message);
                 emit zoomFeedbackReceived(data);
@@ -423,7 +425,7 @@ void SerialModel::sendContinuousMessage()
         return;
     }
 
-    // Send all active continuous messages
+    // Send all active continuous messages (PID, zoom, etc.)
     for (auto it = m_continuousMessages.constBegin(); it != m_continuousMessages.constEnd(); ++it) {
         quint8 messageId = it.key();
         const QByteArray& message = it.value();
@@ -433,7 +435,7 @@ void SerialModel::sendContinuousMessage()
         }
     }
 
-    // Handle joystick continuous sending separately
+    // Handle joystick continuous sending separately (special case - no ACK needed)
     if (m_isJoystickActive) {
         QByteArray payload;
         payload.append(static_cast<char>(m_lastJoyX));
@@ -442,6 +444,9 @@ void SerialModel::sendContinuousMessage()
 
         QByteArray message = createMessage(JOYSTICK_MESSAGE_ID, payload);
         m_serialPort->write(message);
+
+        // Debug output to verify continuous sending
+        qDebug() << "Sending continuous joystick command: X=" << m_lastJoyX << "Y=" << m_lastJoyY;
     }
 }
 
@@ -453,17 +458,32 @@ void SerialModel::sendJoystickCommand(quint8 joyX, quint8 joyY, quint8 resetFlag
         return;
     }
 
+    // Update the stored joystick values for continuous sending
     m_lastJoyX = joyX;
     m_lastJoyY = joyY;
     m_lastJoyResetFlag = resetFlag;
 
-    // Joystick sends continuously while active (no acknowledgment needed)
+    // Start continuous sending if not already active
     if (!m_isJoystickActive) {
         m_isJoystickActive = true;
+
+        // Start the continuous timer if not already running for joystick
+        if (!m_continuousTimer->isActive()) {
+            m_continuousTimer->start();
+        }
+
         emit messageSent("Joystick Command Started");
     }
-}
 
+    // Send immediately (first time or update)
+    QByteArray payload;
+    payload.append(static_cast<char>(joyX));
+    payload.append(static_cast<char>(joyY));
+    payload.append(static_cast<char>(resetFlag));
+
+    QByteArray message = createMessage(JOYSTICK_MESSAGE_ID, payload);
+    m_serialPort->write(message);
+}
 void SerialModel::stopJoystickCommand()
 {
     if (m_isJoystickActive) {  // Only emit if it was actually active

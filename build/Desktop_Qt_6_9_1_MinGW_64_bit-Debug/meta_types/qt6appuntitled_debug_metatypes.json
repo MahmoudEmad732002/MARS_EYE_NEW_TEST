@@ -913,6 +913,336 @@
     {
         "classes": [
             {
+                "className": "SerialWorker",
+                "lineNumber": 12,
+                "object": true,
+                "qualifiedClassName": "SerialWorker",
+                "signals": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "connected",
+                                "type": "bool"
+                            }
+                        ],
+                        "index": 0,
+                        "name": "connectionStatusChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "data",
+                                "type": "TelemetryData"
+                            }
+                        ],
+                        "index": 1,
+                        "name": "telemetryDataReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "data",
+                                "type": "TargetGPSData"
+                            }
+                        ],
+                        "index": 2,
+                        "name": "targetGPSReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "data",
+                                "type": "TrackedPoseData"
+                            }
+                        ],
+                        "index": 3,
+                        "name": "trackedPoseReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "data",
+                                "type": "ZoomFeedbackData"
+                            }
+                        ],
+                        "index": 4,
+                        "name": "zoomFeedbackReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "data",
+                                "type": "FrameInfoData"
+                            }
+                        ],
+                        "index": 5,
+                        "name": "frameInfoReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "data",
+                                "type": "AckData"
+                            }
+                        ],
+                        "index": 6,
+                        "name": "acknowledgmentReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "error",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 7,
+                        "name": "errorOccurred",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "messageType",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 8,
+                        "name": "messageSent",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "ports",
+                                "type": "QStringList"
+                            }
+                        ],
+                        "index": 9,
+                        "name": "availablePortsReady",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "public",
+                        "index": 10,
+                        "name": "initializeSerial",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 11,
+                        "name": "getAvailablePorts",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "portName",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "baudRate",
+                                "type": "int"
+                            }
+                        ],
+                        "index": 12,
+                        "name": "connectToPort",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 13,
+                        "name": "disconnectFromPort",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "joyX",
+                                "type": "quint8"
+                            },
+                            {
+                                "name": "joyY",
+                                "type": "quint8"
+                            },
+                            {
+                                "name": "resetFlag",
+                                "type": "quint8"
+                            }
+                        ],
+                        "index": 14,
+                        "name": "sendJoystickCommand",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 15,
+                        "name": "stopJoystickCommand",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "gains",
+                                "type": "PIDGains"
+                            }
+                        ],
+                        "index": 16,
+                        "name": "sendPIDGains",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "zoomCmd",
+                                "type": "quint8"
+                            },
+                            {
+                                "name": "zoomResetFlag",
+                                "type": "quint8"
+                            }
+                        ],
+                        "index": 17,
+                        "name": "sendZoomCommand",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "targetXp",
+                                "type": "quint16"
+                            },
+                            {
+                                "name": "targetYp",
+                                "type": "quint16"
+                            },
+                            {
+                                "name": "frameNumber",
+                                "type": "quint16"
+                            },
+                            {
+                                "name": "resetFlag",
+                                "type": "quint8"
+                            }
+                        ],
+                        "index": 18,
+                        "name": "sendSelectTarget",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "pitchAngleCmd",
+                                "type": "quint16"
+                            },
+                            {
+                                "name": "yawAngleCmd",
+                                "type": "quint16"
+                            },
+                            {
+                                "name": "stabilizationFlag",
+                                "type": "quint8"
+                            }
+                        ],
+                        "index": 19,
+                        "name": "sendAbsolutePointing",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 20,
+                        "name": "stopAbsolutePointing",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 21,
+                        "name": "sendRequestGains",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "frameW",
+                                "type": "quint16"
+                            },
+                            {
+                                "name": "frameH",
+                                "type": "quint16"
+                            },
+                            {
+                                "name": "gains",
+                                "type": "PIDGains"
+                            }
+                        ],
+                        "index": 22,
+                        "name": "sendFrameInfoAndGains",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 23,
+                        "name": "readData",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "error",
+                                "type": "QSerialPort::SerialPortError"
+                            }
+                        ],
+                        "index": 24,
+                        "name": "handleError",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 25,
+                        "name": "sendContinuousMessage",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "serialworker.h",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
                 "className": "ThermalCameraModel",
                 "lineNumber": 11,
                 "object": true,
@@ -1845,14 +2175,8 @@
         "classes": [
             {
                 "className": "SerialViewModel",
-                "lineNumber": 8,
+                "lineNumber": 9,
                 "methods": [
-                    {
-                        "access": "public",
-                        "index": 25,
-                        "name": "sendPitchYaw",
-                        "returnType": "void"
-                    },
                     {
                         "access": "public",
                         "arguments": [
@@ -1878,12 +2202,18 @@
                     {
                         "access": "public",
                         "index": 28,
-                        "name": "startJoystickCommand",
+                        "name": "sendPitchYaw",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
                         "index": 29,
+                        "name": "startJoystickCommand",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 30,
                         "name": "stopJoystickCommand",
                         "returnType": "void"
                     },
@@ -1899,67 +2229,67 @@
                                 "type": "int"
                             }
                         ],
-                        "index": 30,
+                        "index": 31,
                         "name": "sendSoftwareJoystickCommand",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 31,
+                        "index": 32,
                         "name": "sendJoystickUp",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 32,
+                        "index": 33,
                         "name": "sendJoystickDown",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 33,
+                        "index": 34,
                         "name": "sendJoystickLeft",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 34,
+                        "index": 35,
                         "name": "sendJoystickRight",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 35,
+                        "index": 36,
                         "name": "sendPIDGains",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 36,
+                        "index": 37,
                         "name": "sendZoomCommand",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 37,
+                        "index": 38,
                         "name": "sendSelectTarget",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 38,
+                        "index": 39,
                         "name": "startAbsolutePointing",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 39,
+                        "index": 40,
                         "name": "stopAbsolutePointing",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 40,
+                        "index": 41,
                         "name": "sendRequestGains",
                         "returnType": "void"
                     },
@@ -1975,7 +2305,7 @@
                                 "type": "int"
                             }
                         ],
-                        "index": 41,
+                        "index": 42,
                         "name": "sendFrameInfoAndGains",
                         "returnType": "void"
                     },
@@ -1995,8 +2325,24 @@
                                 "type": "int"
                             }
                         ],
-                        "index": 42,
+                        "index": 43,
                         "name": "sendSelectTarget",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "x",
+                                "type": "int"
+                            },
+                            {
+                                "name": "y",
+                                "type": "int"
+                            }
+                        ],
+                        "index": 44,
+                        "name": "updateSoftwareJoystick",
                         "returnType": "void"
                     }
                 ],
@@ -2778,7 +3124,7 @@
                         "arguments": [
                             {
                                 "name": "data",
-                                "type": "SerialModel::TelemetryData"
+                                "type": "SerialWorker::TelemetryData"
                             }
                         ],
                         "index": 17,
@@ -2790,7 +3136,7 @@
                         "arguments": [
                             {
                                 "name": "data",
-                                "type": "SerialModel::TargetGPSData"
+                                "type": "SerialWorker::TargetGPSData"
                             }
                         ],
                         "index": 18,
@@ -2802,7 +3148,7 @@
                         "arguments": [
                             {
                                 "name": "data",
-                                "type": "SerialModel::TrackedPoseData"
+                                "type": "SerialWorker::TrackedPoseData"
                             }
                         ],
                         "index": 19,
@@ -2814,7 +3160,7 @@
                         "arguments": [
                             {
                                 "name": "data",
-                                "type": "SerialModel::ZoomFeedbackData"
+                                "type": "SerialWorker::ZoomFeedbackData"
                             }
                         ],
                         "index": 20,
@@ -2826,7 +3172,7 @@
                         "arguments": [
                             {
                                 "name": "data",
-                                "type": "SerialModel::FrameInfoData"
+                                "type": "SerialWorker::FrameInfoData"
                             }
                         ],
                         "index": 21,
@@ -2838,7 +3184,7 @@
                         "arguments": [
                             {
                                 "name": "data",
-                                "type": "SerialModel::AckData"
+                                "type": "SerialWorker::AckData"
                             }
                         ],
                         "index": 22,
@@ -2867,6 +3213,18 @@
                         ],
                         "index": 24,
                         "name": "onMessageSent",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "ports",
+                                "type": "QStringList"
+                            }
+                        ],
+                        "index": 25,
+                        "name": "onAvailablePortsReady",
                         "returnType": "void"
                     }
                 ],

@@ -14,362 +14,378 @@
                     {
                         "codegenSuccessful": false,
                         "column": 32,
-                        "durationMicroseconds": 114,
+                        "durationMicroseconds": 220,
                         "errorMessage": "Cannot retrieve a non-object type by ID: mediaViewModel",
                         "functionName": "onCompleted",
-                        "line": 44
+                        "line": 43
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 32,
-                        "durationMicroseconds": 35,
+                        "durationMicroseconds": 79,
                         "errorMessage": "Cannot retrieve a non-object type by ID: viewModel",
                         "functionName": "onCompleted",
-                        "line": 68
+                        "line": 67
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 27,
-                        "durationMicroseconds": 162,
+                        "durationMicroseconds": 276,
                         "errorMessage": "",
                         "functionName": "fill",
-                        "line": 79
+                        "line": 78
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 25,
-                        "durationMicroseconds": 77,
+                        "durationMicroseconds": 135,
                         "errorMessage": "",
                         "functionName": "width",
-                        "line": 86
+                        "line": 85
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 32,
-                        "durationMicroseconds": 13,
+                        "durationMicroseconds": 25,
                         "errorMessage": "Cannot retrieve a non-object type by ID: root",
                         "functionName": "primaryColor",
+                        "line": 88
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 14,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "backgroundColor",
                         "line": 89
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 35,
-                        "durationMicroseconds": 10,
+                        "column": 32,
+                        "durationMicroseconds": 15,
                         "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "backgroundColor",
+                        "functionName": "surfaceColor",
                         "line": 90
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 32,
-                        "durationMicroseconds": 10,
+                        "column": 31,
+                        "durationMicroseconds": 31,
                         "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "surfaceColor",
+                        "functionName": "borderColor",
                         "line": 91
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 31,
-                        "durationMicroseconds": 9,
+                        "column": 29,
+                        "durationMicroseconds": 13,
                         "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "borderColor",
+                        "functionName": "textColor",
                         "line": 92
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 29,
-                        "durationMicroseconds": 9,
+                        "column": 32,
+                        "durationMicroseconds": 14,
                         "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "textColor",
+                        "functionName": "successColor",
                         "line": 93
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 32,
-                        "durationMicroseconds": 10,
+                        "column": 30,
+                        "durationMicroseconds": 13,
                         "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "successColor",
+                        "functionName": "errorColor",
                         "line": 94
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 30,
-                        "durationMicroseconds": 9,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "errorColor",
-                        "line": 95
-                    },
-                    {
-                        "codegenSuccessful": false,
                         "column": 29,
-                        "durationMicroseconds": 8,
+                        "durationMicroseconds": 12,
                         "errorMessage": "Cannot retrieve a non-object type by ID: viewModel",
                         "functionName": "viewModel",
-                        "line": 98
+                        "line": 97
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 47,
-                        "durationMicroseconds": 23,
+                        "durationMicroseconds": 33,
                         "errorMessage": "Cannot retrieve a non-object type by ID: root",
                         "functionName": "onVisualizationPanelToggled",
-                        "line": 101
+                        "line": 100
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 42,
-                        "durationMicroseconds": 18,
+                        "durationMicroseconds": 36,
                         "errorMessage": "Cannot retrieve a non-object type by ID: root",
                         "functionName": "onControlsPanelToggled",
+                        "line": 101
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 37,
+                        "durationMicroseconds": 24,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "onMapPanelToggled",
                         "line": 102
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 37,
-                        "durationMicroseconds": 17,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "onMapPanelToggled",
-                        "line": 103
-                    },
-                    {
-                        "codegenSuccessful": false,
                         "column": 41,
-                        "durationMicroseconds": 19,
+                        "durationMicroseconds": 39,
                         "errorMessage": "Cannot retrieve a non-object type by ID: root",
                         "functionName": "onCapturePanelToggled",
-                        "line": 104
+                        "line": 103
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 25,
-                        "durationMicroseconds": 55,
+                        "durationMicroseconds": 87,
                         "errorMessage": "",
                         "functionName": "width",
-                        "line": 110
+                        "line": 109
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 32,
-                        "durationMicroseconds": 10,
+                        "durationMicroseconds": 14,
                         "errorMessage": "Cannot retrieve a non-object type by ID: root",
                         "functionName": "surfaceColor",
-                        "line": 113
+                        "line": 112
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 31,
-                        "durationMicroseconds": 9,
+                        "durationMicroseconds": 12,
                         "errorMessage": "Cannot retrieve a non-object type by ID: root",
                         "functionName": "borderColor",
-                        "line": 114
+                        "line": 113
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 29,
-                        "durationMicroseconds": 9,
+                        "durationMicroseconds": 12,
                         "errorMessage": "Cannot retrieve a non-object type by ID: root",
                         "functionName": "textColor",
+                        "line": 114
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 12,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "successColor",
                         "line": 115
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 32,
-                        "durationMicroseconds": 9,
+                        "column": 30,
+                        "durationMicroseconds": 14,
                         "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "successColor",
+                        "functionName": "errorColor",
                         "line": 116
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 30,
-                        "durationMicroseconds": 28,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "errorColor",
-                        "line": 117
+                        "column": 35,
+                        "durationMicroseconds": 12,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: cameraViewModel",
+                        "functionName": "cameraViewModel",
+                        "line": 119
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 35,
-                        "durationMicroseconds": 8,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: cameraViewModel",
-                        "functionName": "cameraViewModel",
+                        "durationMicroseconds": 12,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: viewModel",
+                        "functionName": "serialViewModel",
                         "line": 120
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 35,
-                        "durationMicroseconds": 9,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: viewModel",
-                        "functionName": "serialViewModel",
-                        "line": 121
-                    },
-                    {
-                        "codegenSuccessful": false,
                         "column": 37,
-                        "durationMicroseconds": 72,
+                        "durationMicroseconds": 107,
                         "errorMessage": "Cannot retrieve a non-object type by ID: cameraViewModel",
                         "functionName": "onCompleted",
-                        "line": 127
+                        "line": 126
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 32,
-                        "durationMicroseconds": 65,
+                        "durationMicroseconds": 99,
                         "errorMessage": "",
                         "functionName": "width",
-                        "line": 139
+                        "line": 138
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 33,
-                        "durationMicroseconds": 53,
+                        "durationMicroseconds": 75,
                         "errorMessage": "Cannot retrieve a non-object type by ID: root",
                         "functionName": "height",
-                        "line": 140
+                        "line": 139
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 32,
-                        "durationMicroseconds": 39,
+                        "durationMicroseconds": 33,
                         "errorMessage": "Cannot access value for name backgroundColor",
                         "functionName": "color",
-                        "line": 141
+                        "line": 140
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 39,
-                        "durationMicroseconds": 16,
+                        "durationMicroseconds": 21,
                         "errorMessage": "Cannot access value for name borderColor",
                         "functionName": "color",
-                        "line": 142
+                        "line": 141
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 57,
-                        "durationMicroseconds": 98,
+                        "durationMicroseconds": 151,
                         "errorMessage": "",
                         "functionName": "targetAspect",
-                        "line": 153
+                        "line": 152
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 59,
-                        "durationMicroseconds": 46,
+                        "durationMicroseconds": 68,
                         "errorMessage": "",
                         "functionName": "availableWidth",
-                        "line": 154
+                        "line": 153
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 60,
-                        "durationMicroseconds": 31,
+                        "durationMicroseconds": 46,
                         "errorMessage": "",
                         "functionName": "availableHeight",
-                        "line": 155
+                        "line": 154
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 57,
-                        "durationMicroseconds": 242,
+                        "durationMicroseconds": 405,
                         "errorMessage": "",
                         "functionName": "displayWidth",
-                        "line": 158
+                        "line": 157
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 58,
-                        "durationMicroseconds": 75,
+                        "durationMicroseconds": 143,
                         "errorMessage": "",
                         "functionName": "displayHeight",
-                        "line": 171
+                        "line": 170
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 43,
-                        "durationMicroseconds": 44,
+                        "durationMicroseconds": 74,
                         "errorMessage": "",
                         "functionName": "fill",
-                        "line": 149
+                        "line": 148
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 40,
-                        "durationMicroseconds": 60,
+                        "durationMicroseconds": 140,
                         "errorMessage": "",
                         "functionName": "width",
+                        "line": 177
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 41,
+                        "durationMicroseconds": 69,
+                        "errorMessage": "",
+                        "functionName": "height",
                         "line": 178
                     },
                     {
                         "codegenSuccessful": true,
-                        "column": 41,
-                        "durationMicroseconds": 45,
-                        "errorMessage": "",
-                        "functionName": "height",
-                        "line": 179
-                    },
-                    {
-                        "codegenSuccessful": true,
                         "column": 43,
-                        "durationMicroseconds": 55,
+                        "durationMicroseconds": 115,
                         "errorMessage": "",
                         "functionName": "fillMode",
-                        "line": 180
+                        "line": 179
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 41,
-                        "durationMicroseconds": 58,
+                        "durationMicroseconds": 103,
                         "errorMessage": "Cannot retrieve a non-object type by ID: root",
                         "functionName": "source",
-                        "line": 181
+                        "line": 180
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 74,
+                        "durationMicroseconds": 78,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: viewModel",
+                        "functionName": "sourceFrameWidth",
+                        "line": 185
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 74,
+                        "durationMicroseconds": 64,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: viewModel",
+                        "functionName": "sourceFrameHeight",
+                        "line": 186
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 74,
-                        "durationMicroseconds": 78,
+                        "durationMicroseconds": 120,
                         "errorMessage": "",
                         "functionName": "imageAspectRatio",
-                        "line": 190
+                        "line": 188
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 78,
-                        "durationMicroseconds": 74,
+                        "durationMicroseconds": 136,
                         "errorMessage": "",
                         "functionName": "componentAspectRatio",
-                        "line": 191
+                        "line": 189
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 76,
-                        "durationMicroseconds": 147,
+                        "durationMicroseconds": 344,
                         "errorMessage": "",
                         "functionName": "renderedImageWidth",
-                        "line": 194
+                        "line": 192
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 77,
-                        "durationMicroseconds": 166,
+                        "durationMicroseconds": 266,
                         "errorMessage": "",
                         "functionName": "renderedImageHeight",
-                        "line": 204
+                        "line": 202
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 72,
-                        "durationMicroseconds": 111,
+                        "durationMicroseconds": 217,
                         "errorMessage": "",
                         "functionName": "renderedImageX",
-                        "line": 215
+                        "line": 213
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 72,
-                        "durationMicroseconds": 110,
+                        "durationMicroseconds": 241,
                         "errorMessage": "",
                         "functionName": "renderedImageY",
-                        "line": 216
+                        "line": 214
                     },
                     {
                         "codegenSuccessful": false,
@@ -377,119 +393,127 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Functions without type annotations won't be compiled",
                         "functionName": "uiToSourceCoordinates",
-                        "line": 219
+                        "line": 217
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 33,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "sourceToUiCoordinates",
+                        "line": 243
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 51,
-                        "durationMicroseconds": 48,
+                        "durationMicroseconds": 86,
                         "errorMessage": "",
                         "functionName": "centerIn",
-                        "line": 177
+                        "line": 176
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 55,
-                        "durationMicroseconds": 87,
+                        "durationMicroseconds": 141,
                         "errorMessage": "",
                         "functionName": "onVisibleChanged",
-                        "line": 255
+                        "line": 263
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 37,
-                        "durationMicroseconds": 1766,
+                        "durationMicroseconds": 2783,
                         "errorMessage": "",
                         "functionName": "adjustSize",
-                        "line": 256
+                        "line": 264
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 49,
-                        "durationMicroseconds": 65,
+                        "durationMicroseconds": 102,
                         "errorMessage": "",
                         "functionName": "target",
-                        "line": 275
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 41,
-                        "durationMicroseconds": 131,
-                        "errorMessage": "",
-                        "functionName": "onRenderedImageWidthChanged",
-                        "line": 276
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 41,
-                        "durationMicroseconds": 111,
-                        "errorMessage": "",
-                        "functionName": "onRenderedImageHeightChanged",
-                        "line": 277
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 46,
-                        "durationMicroseconds": 27,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: cameraViewModel",
-                        "functionName": "visible",
-                        "line": 288
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 51,
-                        "durationMicroseconds": 38,
-                        "errorMessage": "",
-                        "functionName": "fill",
                         "line": 283
                     },
                     {
-                        "codegenSuccessful": false,
-                        "column": 51,
-                        "durationMicroseconds": 68,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: cameraViewModel",
-                        "functionName": "color",
+                        "codegenSuccessful": true,
+                        "column": 41,
+                        "durationMicroseconds": 208,
+                        "errorMessage": "",
+                        "functionName": "onRenderedImageWidthChanged",
+                        "line": 284
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 41,
+                        "durationMicroseconds": 176,
+                        "errorMessage": "",
+                        "functionName": "onRenderedImageHeightChanged",
                         "line": 285
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 46,
-                        "durationMicroseconds": 54,
+                        "durationMicroseconds": 56,
                         "errorMessage": "Cannot retrieve a non-object type by ID: cameraViewModel",
-                        "functionName": "enabled",
-                        "line": 297
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 48,
-                        "durationMicroseconds": 616,
-                        "errorMessage": "Cannot access value for name mouse",
-                        "functionName": "onPressed",
-                        "line": 303
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 49,
-                        "durationMicroseconds": 943,
-                        "errorMessage": "Cannot access value for name mouse",
-                        "functionName": "onReleased",
-                        "line": 341
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 51,
-                        "durationMicroseconds": 55,
-                        "errorMessage": "",
-                        "functionName": "fill",
+                        "functionName": "visible",
                         "line": 296
                     },
                     {
                         "codegenSuccessful": true,
+                        "column": 51,
+                        "durationMicroseconds": 59,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 291
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 51,
+                        "durationMicroseconds": 196,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: cameraViewModel",
+                        "functionName": "color",
+                        "line": 293
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 46,
+                        "durationMicroseconds": 94,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: cameraViewModel",
+                        "functionName": "enabled",
+                        "line": 305
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 48,
+                        "durationMicroseconds": 1184,
+                        "errorMessage": "Cannot access value for name mouse",
+                        "functionName": "onPressed",
+                        "line": 311
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 49,
+                        "durationMicroseconds": 2038,
+                        "errorMessage": "Cannot access value for name mouse",
+                        "functionName": "onReleased",
+                        "line": 349
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 51,
+                        "durationMicroseconds": 151,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 304
+                    },
+                    {
+                        "codegenSuccessful": true,
                         "column": 50,
-                        "durationMicroseconds": 83,
+                        "durationMicroseconds": 206,
                         "errorMessage": "",
                         "functionName": "onTriggered",
-                        "line": 398
+                        "line": 406
                     },
                     {
                         "codegenSuccessful": false,
@@ -497,7 +521,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"running\".",
                         "functionName": "running",
-                        "line": 404
+                        "line": 412
                     },
                     {
                         "codegenSuccessful": false,
@@ -505,7 +529,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"visible\".",
                         "functionName": "visible",
-                        "line": 405
+                        "line": 413
                     },
                     {
                         "codegenSuccessful": false,
@@ -513,7 +537,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"centerIn\".",
                         "functionName": "centerIn",
-                        "line": 403
+                        "line": 411
                     },
                     {
                         "codegenSuccessful": false,
@@ -521,7 +545,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"x\".",
                         "functionName": "x",
-                        "line": 414
+                        "line": 422
                     },
                     {
                         "codegenSuccessful": false,
@@ -529,7 +553,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"text\".",
                         "functionName": "text",
-                        "line": 417
+                        "line": 425
                     },
                     {
                         "codegenSuccessful": false,
@@ -537,671 +561,671 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"clicked\".",
                         "functionName": "onClicked",
-                        "line": 441
+                        "line": 449
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 20,
-                        "durationMicroseconds": 14,
+                        "durationMicroseconds": 49,
                         "errorMessage": "Cannot access value for name primaryColor",
                         "functionName": "color",
-                        "line": 420
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 27,
-                        "durationMicroseconds": 10,
-                        "errorMessage": "Cannot access value for name borderColor",
-                        "functionName": "color",
-                        "line": 422
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 19,
-                        "durationMicroseconds": 15,
-                        "errorMessage": "Cannot access value for name telemetryArrowButton",
-                        "functionName": "text",
-                        "line": 427
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 34,
-                        "durationMicroseconds": 201,
-                        "errorMessage": "Cannot access value for name Text",
-                        "functionName": "horizontalAlignment",
-                        "line": 429
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 32,
-                        "durationMicroseconds": 142,
-                        "errorMessage": "Cannot access value for name Text",
-                        "functionName": "verticalAlignment",
-                        "line": 430
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 30,
-                        "durationMicroseconds": 57,
-                        "errorMessage": "Cannot access value for name Easing",
-                        "functionName": "type",
-                        "line": 437
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 29,
-                        "durationMicroseconds": 64,
-                        "errorMessage": "",
-                        "functionName": "cursorShape",
-                        "line": 446
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 33,
-                        "durationMicroseconds": 59,
-                        "errorMessage": "",
-                        "functionName": "acceptedButtons",
-                        "line": 447
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 30,
-                        "durationMicroseconds": 35,
-                        "errorMessage": "",
-                        "functionName": "fill",
-                        "line": 445
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 23,
-                        "durationMicroseconds": 12,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "panelVisible",
-                        "line": 463
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 26,
-                        "durationMicroseconds": 54,
-                        "errorMessage": "",
-                        "functionName": "primaryColor",
-                        "line": 466
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 26,
-                        "durationMicroseconds": 48,
-                        "errorMessage": "",
-                        "functionName": "backgroundColor",
-                        "line": 467
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 26,
-                        "durationMicroseconds": 58,
-                        "errorMessage": "",
-                        "functionName": "surfaceColor",
-                        "line": 468
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 26,
-                        "durationMicroseconds": 54,
-                        "errorMessage": "",
-                        "functionName": "borderColor",
-                        "line": 469
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 26,
-                        "durationMicroseconds": 60,
-                        "errorMessage": "",
-                        "functionName": "textColor",
-                        "line": 470
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 26,
-                        "durationMicroseconds": 59,
-                        "errorMessage": "",
-                        "functionName": "successColor",
-                        "line": 471
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 26,
-                        "durationMicroseconds": 58,
-                        "errorMessage": "",
-                        "functionName": "warningColor",
-                        "line": 472
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 26,
-                        "durationMicroseconds": 120,
-                        "errorMessage": "",
-                        "functionName": "errorColor",
-                        "line": 473
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 20,
-                        "durationMicroseconds": 16,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: viewModel",
-                        "functionName": "viewModel",
-                        "line": 476
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 27,
-                        "durationMicroseconds": 20,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "onCloseRequested",
-                        "line": 479
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 23,
-                        "durationMicroseconds": 76,
-                        "errorMessage": "",
-                        "functionName": "left",
-                        "line": 459
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 22,
-                        "durationMicroseconds": 82,
-                        "errorMessage": "",
-                        "functionName": "top",
-                        "line": 460
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 17,
-                        "durationMicroseconds": 66,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "height",
-                        "line": 484
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 12,
-                        "durationMicroseconds": 118,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "x",
-                        "line": 485
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 18,
-                        "durationMicroseconds": 11,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "visible",
-                        "line": 488
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 23,
-                        "durationMicroseconds": 9,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "primaryColor",
-                        "line": 491
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 26,
-                        "durationMicroseconds": 8,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "backgroundColor",
-                        "line": 492
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 23,
-                        "durationMicroseconds": 8,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "surfaceColor",
-                        "line": 493
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 22,
-                        "durationMicroseconds": 8,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "borderColor",
-                        "line": 494
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 20,
-                        "durationMicroseconds": 8,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "textColor",
-                        "line": 495
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 22,
-                        "durationMicroseconds": 8,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "accentColor",
-                        "line": 496
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 23,
-                        "durationMicroseconds": 8,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "successColor",
-                        "line": 497
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 23,
-                        "durationMicroseconds": 8,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "warningColor",
-                        "line": 498
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 21,
-                        "durationMicroseconds": 8,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "errorColor",
-                        "line": 499
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 20,
-                        "durationMicroseconds": 8,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: viewModel",
-                        "functionName": "viewModel",
-                        "line": 502
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 27,
-                        "durationMicroseconds": 29,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "onVisibleChanged",
-                        "line": 511
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 30,
-                        "durationMicroseconds": 72,
-                        "errorMessage": "",
-                        "functionName": "type",
-                        "line": 507
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 18,
-                        "durationMicroseconds": 73,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "opacity",
-                        "line": 520
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 10,
-                        "durationMicroseconds": 72,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "visible",
-                        "line": 522
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 23,
-                        "durationMicroseconds": 44,
-                        "errorMessage": "",
-                        "functionName": "fill",
-                        "line": 518
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 24,
-                        "durationMicroseconds": 54,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "onClicked",
-                        "line": 531
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 27,
-                        "durationMicroseconds": 35,
-                        "errorMessage": "",
-                        "functionName": "fill",
-                        "line": 530
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 23,
-                        "durationMicroseconds": 11,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "panelVisible",
-                        "line": 546
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 26,
-                        "durationMicroseconds": 21,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "primaryColor",
-                        "line": 549
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 26,
-                        "durationMicroseconds": 18,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "backgroundColor",
-                        "line": 550
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 26,
-                        "durationMicroseconds": 22,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "surfaceColor",
-                        "line": 551
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 26,
-                        "durationMicroseconds": 18,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "borderColor",
-                        "line": 552
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 26,
-                        "durationMicroseconds": 18,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "textColor",
-                        "line": 553
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 26,
-                        "durationMicroseconds": 18,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "successColor",
-                        "line": 554
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 26,
-                        "durationMicroseconds": 18,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "warningColor",
-                        "line": 555
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 26,
-                        "durationMicroseconds": 18,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "errorColor",
-                        "line": 556
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 25,
-                        "durationMicroseconds": 7,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: mediaViewModel",
-                        "functionName": "mediaViewModel",
-                        "line": 559
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 27,
-                        "durationMicroseconds": 11,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "onCloseRequested",
-                        "line": 562
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 25,
-                        "durationMicroseconds": 84,
-                        "errorMessage": "",
-                        "functionName": "onRequestFlash",
-                        "line": 565
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 23,
-                        "durationMicroseconds": 38,
-                        "errorMessage": "",
-                        "functionName": "fill",
-                        "line": 570
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 21,
-                        "durationMicroseconds": 43,
-                        "errorMessage": "",
-                        "functionName": "target",
-                        "line": 578
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 24,
-                        "durationMicroseconds": 150,
-                        "errorMessage": "",
-                        "functionName": "onStarted",
-                        "line": 584
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 25,
-                        "durationMicroseconds": 177,
-                        "errorMessage": "",
-                        "functionName": "onFinished",
-                        "line": 588
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 17,
-                        "durationMicroseconds": 48,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "height",
-                        "line": 601
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 12,
-                        "durationMicroseconds": 81,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "x",
-                        "line": 602
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 18,
-                        "durationMicroseconds": 9,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "visible",
-                        "line": 605
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 23,
-                        "durationMicroseconds": 8,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "surfaceColor",
-                        "line": 608
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 22,
-                        "durationMicroseconds": 8,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "borderColor",
-                        "line": 609
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 23,
-                        "durationMicroseconds": 8,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "primaryColor",
-                        "line": 610
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 20,
-                        "durationMicroseconds": 8,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "textColor",
-                        "line": 611
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 23,
-                        "durationMicroseconds": 8,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "successColor",
-                        "line": 612
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 23,
-                        "durationMicroseconds": 8,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "warningColor",
-                        "line": 613
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 21,
-                        "durationMicroseconds": 8,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "errorColor",
-                        "line": 614
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 23,
-                        "durationMicroseconds": 8,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: mapViewModel",
-                        "functionName": "mapViewModel",
-                        "line": 617
+                        "line": 428
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 27,
                         "durationMicroseconds": 26,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "onVisibleChanged",
-                        "line": 626
+                        "errorMessage": "Cannot access value for name borderColor",
+                        "functionName": "color",
+                        "line": 430
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 19,
+                        "durationMicroseconds": 44,
+                        "errorMessage": "Cannot access value for name telemetryArrowButton",
+                        "functionName": "text",
+                        "line": 435
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 34,
+                        "durationMicroseconds": 386,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "horizontalAlignment",
+                        "line": 437
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 329,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "verticalAlignment",
+                        "line": 438
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 30,
+                        "durationMicroseconds": 134,
+                        "errorMessage": "Cannot access value for name Easing",
+                        "functionName": "type",
+                        "line": 445
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 29,
+                        "durationMicroseconds": 174,
+                        "errorMessage": "",
+                        "functionName": "cursorShape",
+                        "line": 454
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 33,
+                        "durationMicroseconds": 178,
+                        "errorMessage": "",
+                        "functionName": "acceptedButtons",
+                        "line": 455
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 30,
-                        "durationMicroseconds": 56,
+                        "durationMicroseconds": 92,
                         "errorMessage": "",
-                        "functionName": "type",
-                        "line": 622
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 17,
-                        "durationMicroseconds": 41,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "height",
-                        "line": 635
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 12,
-                        "durationMicroseconds": 72,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "x",
-                        "line": 636
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 16,
-                        "durationMicroseconds": 18,
-                        "errorMessage": "Cannot access value for name surfaceColor",
-                        "functionName": "color",
-                        "line": 639
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 18,
-                        "durationMicroseconds": 9,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "visible",
-                        "line": 644
+                        "functionName": "fill",
+                        "line": 453
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 23,
-                        "durationMicroseconds": 13,
-                        "errorMessage": "Cannot access value for name borderColor",
-                        "functionName": "color",
-                        "line": 640
+                        "durationMicroseconds": 166,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "panelVisible",
+                        "line": 471
                     },
                     {
                         "codegenSuccessful": true,
-                        "column": 30,
-                        "durationMicroseconds": 53,
+                        "column": 26,
+                        "durationMicroseconds": 145,
                         "errorMessage": "",
-                        "functionName": "type",
-                        "line": 649
+                        "functionName": "primaryColor",
+                        "line": 474
                     },
                     {
                         "codegenSuccessful": true,
-                        "column": 20,
-                        "durationMicroseconds": 51,
+                        "column": 26,
+                        "durationMicroseconds": 113,
                         "errorMessage": "",
-                        "functionName": "width",
-                        "line": 656
+                        "functionName": "backgroundColor",
+                        "line": 475
                     },
                     {
-                        "codegenSuccessful": false,
-                        "column": 20,
-                        "durationMicroseconds": 15,
-                        "errorMessage": "Cannot access value for name primaryColor",
-                        "functionName": "color",
-                        "line": 658
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 27,
-                        "durationMicroseconds": 14,
-                        "errorMessage": "Cannot access value for name borderColor",
-                        "functionName": "color",
-                        "line": 659
+                        "codegenSuccessful": true,
+                        "column": 26,
+                        "durationMicroseconds": 104,
+                        "errorMessage": "",
+                        "functionName": "surfaceColor",
+                        "line": 476
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 26,
                         "durationMicroseconds": 99,
                         "errorMessage": "",
-                        "functionName": "top",
-                        "line": 661
+                        "functionName": "borderColor",
+                        "line": 477
                     },
                     {
                         "codegenSuccessful": true,
-                        "column": 31,
+                        "column": 26,
+                        "durationMicroseconds": 96,
+                        "errorMessage": "",
+                        "functionName": "textColor",
+                        "line": 478
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 26,
+                        "durationMicroseconds": 98,
+                        "errorMessage": "",
+                        "functionName": "successColor",
+                        "line": 479
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 26,
+                        "durationMicroseconds": 97,
+                        "errorMessage": "",
+                        "functionName": "warningColor",
+                        "line": 480
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 26,
+                        "durationMicroseconds": 277,
+                        "errorMessage": "",
+                        "functionName": "errorColor",
+                        "line": 481
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 33,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: viewModel",
+                        "functionName": "viewModel",
+                        "line": 484
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
                         "durationMicroseconds": 34,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "onCloseRequested",
+                        "line": 487
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 182,
+                        "errorMessage": "",
+                        "functionName": "left",
+                        "line": 467
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 22,
+                        "durationMicroseconds": 158,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 468
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 17,
+                        "durationMicroseconds": 117,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "height",
+                        "line": 492
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 12,
+                        "durationMicroseconds": 168,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "x",
+                        "line": 493
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 18,
+                        "durationMicroseconds": 25,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "visible",
+                        "line": 496
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 18,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "primaryColor",
+                        "line": 499
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 21,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "backgroundColor",
+                        "line": 500
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 17,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "surfaceColor",
+                        "line": 501
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 18,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "borderColor",
+                        "line": 502
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 18,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "textColor",
+                        "line": 503
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 17,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "accentColor",
+                        "line": 504
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 17,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "successColor",
+                        "line": 505
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 19,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "warningColor",
+                        "line": 506
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 21,
+                        "durationMicroseconds": 17,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "errorColor",
+                        "line": 507
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 21,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: viewModel",
+                        "functionName": "viewModel",
+                        "line": 510
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 70,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "onVisibleChanged",
+                        "line": 519
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 187,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 515
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 18,
+                        "durationMicroseconds": 186,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "opacity",
+                        "line": 528
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 10,
+                        "durationMicroseconds": 165,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "visible",
+                        "line": 530
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 117,
                         "errorMessage": "",
                         "functionName": "fill",
+                        "line": 526
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 121,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "onClicked",
+                        "line": 539
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 27,
+                        "durationMicroseconds": 125,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 538
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 74,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "panelVisible",
+                        "line": 554
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 49,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "primaryColor",
+                        "line": 557
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 39,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "backgroundColor",
+                        "line": 558
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 35,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "surfaceColor",
+                        "line": 559
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 33,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "borderColor",
+                        "line": 560
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 33,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "textColor",
+                        "line": 561
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 34,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "successColor",
+                        "line": 562
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 34,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "warningColor",
+                        "line": 563
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 26,
+                        "durationMicroseconds": 36,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "errorColor",
+                        "line": 564
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 25,
+                        "durationMicroseconds": 17,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: mediaViewModel",
+                        "functionName": "mediaViewModel",
+                        "line": 567
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 29,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "onCloseRequested",
+                        "line": 570
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 191,
+                        "errorMessage": "",
+                        "functionName": "onRequestFlash",
+                        "line": 573
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 23,
+                        "durationMicroseconds": 102,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 578
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 21,
+                        "durationMicroseconds": 108,
+                        "errorMessage": "",
+                        "functionName": "target",
+                        "line": 586
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 24,
+                        "durationMicroseconds": 175,
+                        "errorMessage": "",
+                        "functionName": "onStarted",
+                        "line": 592
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 25,
+                        "durationMicroseconds": 304,
+                        "errorMessage": "",
+                        "functionName": "onFinished",
+                        "line": 596
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 17,
+                        "durationMicroseconds": 138,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "height",
+                        "line": 609
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 12,
+                        "durationMicroseconds": 180,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "x",
+                        "line": 610
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 18,
+                        "durationMicroseconds": 26,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "visible",
+                        "line": 613
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 18,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "surfaceColor",
+                        "line": 616
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 22,
+                        "durationMicroseconds": 18,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "borderColor",
+                        "line": 617
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 17,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "primaryColor",
+                        "line": 618
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 15,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "textColor",
+                        "line": 619
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 16,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "successColor",
+                        "line": 620
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 77,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "warningColor",
+                        "line": 621
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 21,
+                        "durationMicroseconds": 18,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "errorColor",
+                        "line": 622
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 18,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: mapViewModel",
+                        "functionName": "mapViewModel",
+                        "line": 625
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 66,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "onVisibleChanged",
+                        "line": 634
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 192,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 630
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 17,
+                        "durationMicroseconds": 113,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "height",
+                        "line": 643
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 12,
+                        "durationMicroseconds": 186,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "x",
+                        "line": 644
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 16,
+                        "durationMicroseconds": 104,
+                        "errorMessage": "Cannot access value for name surfaceColor",
+                        "functionName": "color",
+                        "line": 647
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 18,
+                        "durationMicroseconds": 44,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "visible",
+                        "line": 652
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 23,
+                        "durationMicroseconds": 59,
+                        "errorMessage": "Cannot access value for name borderColor",
+                        "functionName": "color",
+                        "line": 648
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 30,
+                        "durationMicroseconds": 173,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 657
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 20,
+                        "durationMicroseconds": 131,
+                        "errorMessage": "",
+                        "functionName": "width",
                         "line": 664
                     },
                     {
                         "codegenSuccessful": false,
+                        "column": 20,
+                        "durationMicroseconds": 39,
+                        "errorMessage": "Cannot access value for name primaryColor",
+                        "functionName": "color",
+                        "line": 666
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 27,
+                        "durationMicroseconds": 25,
+                        "errorMessage": "Cannot access value for name borderColor",
+                        "functionName": "color",
+                        "line": 667
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 26,
+                        "durationMicroseconds": 119,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 669
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 31,
+                        "durationMicroseconds": 64,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 672
+                    },
+                    {
+                        "codegenSuccessful": false,
                         "column": 28,
-                        "durationMicroseconds": 20,
+                        "durationMicroseconds": 267,
                         "errorMessage": "Cannot access value for name textColor",
                         "functionName": "color",
-                        "line": 672
+                        "line": 680
                     },
                     {
                         "codegenSuccessful": false,
@@ -1209,167 +1233,167 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"clicked\".",
                         "functionName": "onClicked",
-                        "line": 694
+                        "line": 702
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 32,
-                        "durationMicroseconds": 166,
+                        "durationMicroseconds": 1226,
                         "errorMessage": "Cannot access value for name parent",
                         "functionName": "color",
-                        "line": 681
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 39,
-                        "durationMicroseconds": 14,
-                        "errorMessage": "Cannot access value for name borderColor",
-                        "functionName": "color",
-                        "line": 683
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 31,
-                        "durationMicroseconds": 10,
-                        "errorMessage": "Cannot access value for name parent",
-                        "functionName": "text",
-                        "line": 687
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 32,
-                        "durationMicroseconds": 14,
-                        "errorMessage": "Cannot access value for name textColor",
-                        "functionName": "color",
-                        "line": 688
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 46,
-                        "durationMicroseconds": 174,
-                        "errorMessage": "Cannot access value for name Text",
-                        "functionName": "horizontalAlignment",
                         "line": 689
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 44,
-                        "durationMicroseconds": 139,
-                        "errorMessage": "Cannot access value for name Text",
-                        "functionName": "verticalAlignment",
-                        "line": 690
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 38,
-                        "durationMicroseconds": 84,
-                        "errorMessage": "",
-                        "functionName": "cursorShape",
-                        "line": 697
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 42,
-                        "durationMicroseconds": 93,
-                        "errorMessage": "",
-                        "functionName": "acceptedButtons",
-                        "line": 698
-                    },
-                    {
-                        "codegenSuccessful": true,
                         "column": 39,
-                        "durationMicroseconds": 44,
-                        "errorMessage": "",
-                        "functionName": "fill",
-                        "line": 696
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 26,
-                        "durationMicroseconds": 73,
-                        "errorMessage": "",
-                        "functionName": "top",
-                        "line": 708
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 29,
-                        "durationMicroseconds": 62,
-                        "errorMessage": "",
-                        "functionName": "bottom",
-                        "line": 709
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 27,
-                        "durationMicroseconds": 60,
-                        "errorMessage": "",
-                        "functionName": "left",
-                        "line": 710
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 28,
-                        "durationMicroseconds": 59,
-                        "errorMessage": "",
-                        "functionName": "right",
-                        "line": 711
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 24,
-                        "durationMicroseconds": 23,
-                        "errorMessage": "Cannot access value for name surfaceColor",
+                        "durationMicroseconds": 54,
+                        "errorMessage": "Cannot access value for name borderColor",
                         "functionName": "color",
-                        "line": 719
+                        "line": 691
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 31,
-                        "durationMicroseconds": 17,
+                        "durationMicroseconds": 99,
+                        "errorMessage": "Cannot access value for name parent",
+                        "functionName": "text",
+                        "line": 695
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 32,
+                        "durationMicroseconds": 63,
+                        "errorMessage": "Cannot access value for name textColor",
+                        "functionName": "color",
+                        "line": 696
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 46,
+                        "durationMicroseconds": 507,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "horizontalAlignment",
+                        "line": 697
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 266,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "verticalAlignment",
+                        "line": 698
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 38,
+                        "durationMicroseconds": 182,
+                        "errorMessage": "",
+                        "functionName": "cursorShape",
+                        "line": 705
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 42,
+                        "durationMicroseconds": 161,
+                        "errorMessage": "",
+                        "functionName": "acceptedButtons",
+                        "line": 706
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 102,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 704
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 26,
+                        "durationMicroseconds": 195,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 716
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 29,
+                        "durationMicroseconds": 151,
+                        "errorMessage": "",
+                        "functionName": "bottom",
+                        "line": 717
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 27,
+                        "durationMicroseconds": 136,
+                        "errorMessage": "",
+                        "functionName": "left",
+                        "line": 718
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 28,
+                        "durationMicroseconds": 171,
+                        "errorMessage": "",
+                        "functionName": "right",
+                        "line": 719
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 24,
+                        "durationMicroseconds": 65,
+                        "errorMessage": "Cannot access value for name surfaceColor",
+                        "functionName": "color",
+                        "line": 727
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 31,
+                        "durationMicroseconds": 42,
                         "errorMessage": "Cannot access value for name borderColor",
                         "functionName": "color",
-                        "line": 720
+                        "line": 728
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 35,
-                        "durationMicroseconds": 32,
+                        "durationMicroseconds": 97,
                         "errorMessage": "",
                         "functionName": "fill",
-                        "line": 725
+                        "line": 733
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 32,
-                        "durationMicroseconds": 20,
+                        "durationMicroseconds": 60,
                         "errorMessage": "Cannot access value for name textColor",
                         "functionName": "color",
-                        "line": 734
+                        "line": 742
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 51,
-                        "durationMicroseconds": 61,
+                        "durationMicroseconds": 196,
                         "errorMessage": "",
                         "functionName": "horizontalCenter",
-                        "line": 733
+                        "line": 741
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 32,
-                        "durationMicroseconds": 45,
+                        "durationMicroseconds": 143,
                         "errorMessage": "",
                         "functionName": "width",
-                        "line": 738
+                        "line": 746
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 36,
-                        "durationMicroseconds": 23,
+                        "durationMicroseconds": 54,
                         "errorMessage": "Cannot access value for name textColor",
                         "functionName": "color",
-                        "line": 745
+                        "line": 753
                     },
                     {
                         "codegenSuccessful": false,
@@ -1377,7 +1401,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"text\".",
                         "functionName": "text",
-                        "line": 750
+                        "line": 758
                     },
                     {
                         "codegenSuccessful": false,
@@ -1385,7 +1409,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"enabled\".",
                         "functionName": "enabled",
-                        "line": 751
+                        "line": 759
                     },
                     {
                         "codegenSuccessful": false,
@@ -1393,7 +1417,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"color\".",
                         "functionName": "color",
-                        "line": 752
+                        "line": 760
                     },
                     {
                         "codegenSuccessful": false,
@@ -1401,135 +1425,135 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"textChanged\".",
                         "functionName": "onTextChanged",
-                        "line": 761
+                        "line": 769
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 40,
-                        "durationMicroseconds": 16,
+                        "durationMicroseconds": 37,
                         "errorMessage": "Cannot access value for name surfaceColor",
                         "functionName": "color",
-                        "line": 755
+                        "line": 763
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 47,
-                        "durationMicroseconds": 15,
+                        "durationMicroseconds": 23,
                         "errorMessage": "Cannot access value for name borderColor",
                         "functionName": "color",
-                        "line": 756
+                        "line": 764
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 36,
-                        "durationMicroseconds": 22,
+                        "durationMicroseconds": 32,
                         "errorMessage": "Cannot access value for name textColor",
                         "functionName": "color",
-                        "line": 770
+                        "line": 778
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 36,
+                        "column": 59,
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"value\".",
                         "functionName": "value",
-                        "line": 779
+                        "line": 787
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 38,
+                        "column": 61,
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"enabled\".",
                         "functionName": "enabled",
-                        "line": 780
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 45,
-                        "durationMicroseconds": 0,
-                        "errorMessage": "Could not find signal \"valueChanged\".",
-                        "functionName": "onValueChanged",
-                        "line": 810
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 40,
-                        "durationMicroseconds": 16,
-                        "errorMessage": "Cannot access value for name surfaceColor",
-                        "functionName": "color",
                         "line": 788
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 47,
-                        "durationMicroseconds": 14,
-                        "errorMessage": "Cannot access value for name borderColor",
-                        "functionName": "color",
-                        "line": 789
+                        "column": 68,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"valueChanged\".",
+                        "functionName": "onValueChanged",
+                        "line": 818
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 39,
-                        "durationMicroseconds": 22,
-                        "errorMessage": "Cannot access value for name thermalPortSpin",
-                        "functionName": "text",
+                        "column": 63,
+                        "durationMicroseconds": 34,
+                        "errorMessage": "Cannot access value for name surfaceColor",
+                        "functionName": "color",
                         "line": 796
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 40,
-                        "durationMicroseconds": 16,
-                        "errorMessage": "Cannot access value for name textColor",
+                        "column": 70,
+                        "durationMicroseconds": 354,
+                        "errorMessage": "Cannot access value for name borderColor",
                         "functionName": "color",
                         "line": 797
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 54,
-                        "durationMicroseconds": 227,
-                        "errorMessage": "Cannot access value for name Qt",
-                        "functionName": "horizontalAlignment",
-                        "line": 798
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 52,
-                        "durationMicroseconds": 159,
-                        "errorMessage": "Cannot access value for name Qt",
-                        "functionName": "verticalAlignment",
-                        "line": 799
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 51,
-                        "durationMicroseconds": 149,
-                        "errorMessage": "Cannot access value for name Qt",
-                        "functionName": "inputMethodHints",
-                        "line": 801
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 45,
-                        "durationMicroseconds": 70,
+                        "column": 62,
+                        "durationMicroseconds": 86,
                         "errorMessage": "Cannot access value for name thermalPortSpin",
-                        "functionName": "onAccepted",
+                        "functionName": "text",
                         "line": 804
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 67,
-                        "durationMicroseconds": 20,
-                        "errorMessage": "Cannot access value for name thermalPortSpin",
-                        "functionName": "bottom",
-                        "line": 800
+                        "column": 63,
+                        "durationMicroseconds": 55,
+                        "errorMessage": "Cannot access value for name textColor",
+                        "functionName": "color",
+                        "line": 805
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 94,
-                        "durationMicroseconds": 17,
+                        "column": 77,
+                        "durationMicroseconds": 607,
+                        "errorMessage": "Cannot access value for name Qt",
+                        "functionName": "horizontalAlignment",
+                        "line": 806
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 75,
+                        "durationMicroseconds": 427,
+                        "errorMessage": "Cannot access value for name Qt",
+                        "functionName": "verticalAlignment",
+                        "line": 807
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 74,
+                        "durationMicroseconds": 420,
+                        "errorMessage": "Cannot access value for name Qt",
+                        "functionName": "inputMethodHints",
+                        "line": 809
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 68,
+                        "durationMicroseconds": 192,
+                        "errorMessage": "Cannot access value for name thermalPortSpin",
+                        "functionName": "onAccepted",
+                        "line": 812
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 90,
+                        "durationMicroseconds": 72,
+                        "errorMessage": "Cannot access value for name thermalPortSpin",
+                        "functionName": "bottom",
+                        "line": 808
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 117,
+                        "durationMicroseconds": 235,
                         "errorMessage": "Cannot access value for name thermalPortSpin",
                         "functionName": "top",
-                        "line": 800
+                        "line": 808
                     },
                     {
                         "codegenSuccessful": false,
@@ -1537,7 +1561,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"text\".",
                         "functionName": "text",
-                        "line": 815
+                        "line": 822
                     },
                     {
                         "codegenSuccessful": false,
@@ -1545,295 +1569,55 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"clicked\".",
                         "functionName": "onClicked",
+                        "line": 840
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 40,
+                        "durationMicroseconds": 206,
+                        "errorMessage": "Cannot access value for name thermalCameraViewModel",
+                        "functionName": "color",
+                        "line": 826
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 47,
+                        "durationMicroseconds": 65,
+                        "errorMessage": "Cannot access value for name borderColor",
+                        "functionName": "color",
+                        "line": 828
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 38,
+                        "errorMessage": "Cannot access value for name parent",
+                        "functionName": "text",
                         "line": 833
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 40,
-                        "durationMicroseconds": 43,
-                        "errorMessage": "Cannot access value for name thermalCameraViewModel",
-                        "functionName": "color",
-                        "line": 819
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 47,
-                        "durationMicroseconds": 20,
-                        "errorMessage": "Cannot access value for name borderColor",
-                        "functionName": "color",
-                        "line": 821
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 39,
-                        "durationMicroseconds": 10,
-                        "errorMessage": "Cannot access value for name parent",
-                        "functionName": "text",
-                        "line": 826
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 40,
-                        "durationMicroseconds": 17,
+                        "durationMicroseconds": 54,
                         "errorMessage": "Cannot access value for name textColor",
                         "functionName": "color",
-                        "line": 827
+                        "line": 834
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 54,
-                        "durationMicroseconds": 168,
+                        "durationMicroseconds": 513,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "horizontalAlignment",
-                        "line": 828
+                        "line": 835
                     },
                     {
                         "codegenSuccessful": false,
                         "column": 52,
-                        "durationMicroseconds": 146,
+                        "durationMicroseconds": 367,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
-                        "line": 829
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 46,
-                        "durationMicroseconds": 68,
-                        "errorMessage": "",
-                        "functionName": "cursorShape",
-                        "line": 838
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 50,
-                        "durationMicroseconds": 65,
-                        "errorMessage": "",
-                        "functionName": "acceptedButtons",
-                        "line": 839
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 47,
-                        "durationMicroseconds": 40,
-                        "errorMessage": "",
-                        "functionName": "fill",
-                        "line": 837
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 24,
-                        "durationMicroseconds": 21,
-                        "errorMessage": "Cannot access value for name surfaceColor",
-                        "functionName": "color",
-                        "line": 852
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 31,
-                        "durationMicroseconds": 29,
-                        "errorMessage": "Cannot access value for name borderColor",
-                        "functionName": "color",
-                        "line": 853
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 35,
-                        "durationMicroseconds": 55,
-                        "errorMessage": "",
-                        "functionName": "fill",
-                        "line": 858
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 32,
-                        "durationMicroseconds": 55,
-                        "errorMessage": "",
-                        "functionName": "width",
-                        "line": 864
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 35,
-                        "durationMicroseconds": 25,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: thermalCameraViewModel",
-                        "functionName": "text",
-                        "line": 868
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 36,
-                        "durationMicroseconds": 69,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: thermalCameraViewModel",
-                        "functionName": "color",
-                        "line": 870
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 35,
-                        "durationMicroseconds": 99,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: thermalCameraViewModel",
-                        "functionName": "text",
-                        "line": 874
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 32,
-                        "durationMicroseconds": 56,
-                        "errorMessage": "",
-                        "functionName": "width",
-                        "line": 884
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 33,
-                        "durationMicroseconds": 87,
-                        "errorMessage": "",
-                        "functionName": "height",
-                        "line": 885
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 53,
-                        "durationMicroseconds": 116,
-                        "errorMessage": "",
-                        "functionName": "targetAspect",
-                        "line": 888
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 55,
-                        "durationMicroseconds": 69,
-                        "errorMessage": "",
-                        "functionName": "availableWidth",
-                        "line": 889
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 56,
-                        "durationMicroseconds": 67,
-                        "errorMessage": "",
-                        "functionName": "availableHeight",
-                        "line": 890
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 53,
-                        "durationMicroseconds": 200,
-                        "errorMessage": "",
-                        "functionName": "displayWidth",
-                        "line": 893
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 54,
-                        "durationMicroseconds": 67,
-                        "errorMessage": "",
-                        "functionName": "displayHeight",
-                        "line": 906
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 36,
-                        "durationMicroseconds": 53,
-                        "errorMessage": "",
-                        "functionName": "width",
-                        "line": 911
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 37,
-                        "durationMicroseconds": 46,
-                        "errorMessage": "",
-                        "functionName": "height",
-                        "line": 912
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 39,
-                        "durationMicroseconds": 49,
-                        "errorMessage": "",
-                        "functionName": "fillMode",
-                        "line": 913
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 37,
-                        "durationMicroseconds": 62,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "source",
-                        "line": 914
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 47,
-                        "durationMicroseconds": 34,
-                        "errorMessage": "",
-                        "functionName": "centerIn",
-                        "line": 910
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 42,
-                        "durationMicroseconds": 20,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: thermalCameraViewModel",
-                        "functionName": "visible",
-                        "line": 924
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 47,
-                        "durationMicroseconds": 32,
-                        "errorMessage": "",
-                        "functionName": "fill",
-                        "line": 919
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 47,
-                        "durationMicroseconds": 50,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: thermalCameraViewModel",
-                        "functionName": "color",
-                        "line": 921
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 39,
-                        "durationMicroseconds": 26,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: thermalCameraViewModel",
-                        "functionName": "text",
-                        "line": 929
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 54,
-                        "durationMicroseconds": 54,
-                        "errorMessage": "",
-                        "functionName": "horizontalAlignment",
-                        "line": 932
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 42,
-                        "durationMicroseconds": 30,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: thermalCameraViewModel",
-                        "functionName": "visible",
-                        "line": 934
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 51,
-                        "durationMicroseconds": 40,
-                        "errorMessage": "",
-                        "functionName": "centerIn",
-                        "line": 928
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 42,
-                        "durationMicroseconds": 39,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: thermalCameraViewModel",
-                        "functionName": "enabled",
-                        "line": 940
+                        "line": 836
                     },
                     {
                         "codegenSuccessful": true,
@@ -1841,79 +1625,319 @@
                         "durationMicroseconds": 185,
                         "errorMessage": "",
                         "functionName": "cursorShape",
-                        "line": 941
+                        "line": 845
                     },
                     {
-                        "codegenSuccessful": false,
-                        "column": 44,
-                        "durationMicroseconds": 30,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
-                        "functionName": "onClicked",
-                        "line": 943
+                        "codegenSuccessful": true,
+                        "column": 50,
+                        "durationMicroseconds": 118,
+                        "errorMessage": "",
+                        "functionName": "acceptedButtons",
+                        "line": 846
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 47,
-                        "durationMicroseconds": 34,
+                        "durationMicroseconds": 79,
                         "errorMessage": "",
                         "functionName": "fill",
-                        "line": 939
+                        "line": 844
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 40,
-                        "durationMicroseconds": 175,
-                        "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method rgba, returning QVariant -> QColor stored as QVariant",
+                        "column": 24,
+                        "durationMicroseconds": 50,
+                        "errorMessage": "Cannot access value for name surfaceColor",
                         "functionName": "color",
-                        "line": 955
+                        "line": 859
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 42,
-                        "durationMicroseconds": 46,
+                        "column": 31,
+                        "durationMicroseconds": 39,
+                        "errorMessage": "Cannot access value for name borderColor",
+                        "functionName": "color",
+                        "line": 860
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 35,
+                        "durationMicroseconds": 68,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 865
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 32,
+                        "durationMicroseconds": 103,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 871
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 54,
                         "errorMessage": "Cannot retrieve a non-object type by ID: thermalCameraViewModel",
-                        "functionName": "visible",
-                        "line": 957
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 46,
-                        "durationMicroseconds": 71,
-                        "errorMessage": "",
-                        "functionName": "top",
-                        "line": 950
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 48,
-                        "durationMicroseconds": 60,
-                        "errorMessage": "",
-                        "functionName": "right",
-                        "line": 951
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 43,
-                        "durationMicroseconds": 21,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
                         "functionName": "text",
-                        "line": 961
+                        "line": 875
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 44,
-                        "durationMicroseconds": 29,
-                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "column": 36,
+                        "durationMicroseconds": 117,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: thermalCameraViewModel",
                         "functionName": "color",
-                        "line": 964
+                        "line": 877
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 35,
+                        "durationMicroseconds": 148,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: thermalCameraViewModel",
+                        "functionName": "text",
+                        "line": 881
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 32,
+                        "durationMicroseconds": 226,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 891
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 33,
+                        "durationMicroseconds": 209,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 892
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 53,
+                        "durationMicroseconds": 385,
+                        "errorMessage": "",
+                        "functionName": "targetAspect",
+                        "line": 895
                     },
                     {
                         "codegenSuccessful": true,
                         "column": 55,
-                        "durationMicroseconds": 41,
+                        "durationMicroseconds": 161,
+                        "errorMessage": "",
+                        "functionName": "availableWidth",
+                        "line": 896
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 56,
+                        "durationMicroseconds": 149,
+                        "errorMessage": "",
+                        "functionName": "availableHeight",
+                        "line": 897
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 53,
+                        "durationMicroseconds": 453,
+                        "errorMessage": "",
+                        "functionName": "displayWidth",
+                        "line": 900
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 54,
+                        "durationMicroseconds": 138,
+                        "errorMessage": "",
+                        "functionName": "displayHeight",
+                        "line": 913
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 36,
+                        "durationMicroseconds": 217,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 918
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 37,
+                        "durationMicroseconds": 146,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 919
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 122,
+                        "errorMessage": "",
+                        "functionName": "fillMode",
+                        "line": 920
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 37,
+                        "durationMicroseconds": 153,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "source",
+                        "line": 921
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 106,
                         "errorMessage": "",
                         "functionName": "centerIn",
-                        "line": 960
+                        "line": 917
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 42,
+                        "durationMicroseconds": 56,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: thermalCameraViewModel",
+                        "functionName": "visible",
+                        "line": 931
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 89,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 926
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 47,
+                        "durationMicroseconds": 128,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: thermalCameraViewModel",
+                        "functionName": "color",
+                        "line": 928
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 39,
+                        "durationMicroseconds": 77,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: thermalCameraViewModel",
+                        "functionName": "text",
+                        "line": 936
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 54,
+                        "durationMicroseconds": 139,
+                        "errorMessage": "",
+                        "functionName": "horizontalAlignment",
+                        "line": 939
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 42,
+                        "durationMicroseconds": 50,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: thermalCameraViewModel",
+                        "functionName": "visible",
+                        "line": 941
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 51,
+                        "durationMicroseconds": 97,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 935
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 42,
+                        "durationMicroseconds": 103,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: thermalCameraViewModel",
+                        "functionName": "enabled",
+                        "line": 947
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 46,
+                        "durationMicroseconds": 415,
+                        "errorMessage": "",
+                        "functionName": "cursorShape",
+                        "line": 948
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 73,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "onClicked",
+                        "line": 950
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 96,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 946
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 40,
+                        "durationMicroseconds": 381,
+                        "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method rgba, returning QVariant -> QColor stored as QVariant",
+                        "functionName": "color",
+                        "line": 962
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 42,
+                        "durationMicroseconds": 102,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: thermalCameraViewModel",
+                        "functionName": "visible",
+                        "line": 964
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 46,
+                        "durationMicroseconds": 176,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 957
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 48,
+                        "durationMicroseconds": 135,
+                        "errorMessage": "",
+                        "functionName": "right",
+                        "line": 958
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 43,
+                        "durationMicroseconds": 63,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "text",
+                        "line": 968
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 44,
+                        "durationMicroseconds": 60,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "color",
+                        "line": 971
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 55,
+                        "durationMicroseconds": 93,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 967
                     },
                     {
                         "codegenSuccessful": false,
@@ -1921,7 +1945,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"running\".",
                         "functionName": "running",
-                        "line": 971
+                        "line": 978
                     },
                     {
                         "codegenSuccessful": false,
@@ -1929,7 +1953,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"visible\".",
                         "functionName": "visible",
-                        "line": 972
+                        "line": 979
                     },
                     {
                         "codegenSuccessful": false,
@@ -1937,47 +1961,223 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"centerIn\".",
                         "functionName": "centerIn",
-                        "line": 970
+                        "line": 977
                     },
                     {
                         "codegenSuccessful": false,
-                        "column": 24,
-                        "durationMicroseconds": 56,
-                        "errorMessage": "Cannot access value for name surfaceColor",
-                        "functionName": "color",
-                        "line": 983
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 31,
-                        "durationMicroseconds": 35,
-                        "errorMessage": "Cannot access value for name borderColor",
-                        "functionName": "color",
-                        "line": 984
-                    },
-                    {
-                        "codegenSuccessful": true,
-                        "column": 35,
-                        "durationMicroseconds": 88,
-                        "errorMessage": "",
-                        "functionName": "fill",
-                        "line": 989
-                    },
-                    {
-                        "codegenSuccessful": false,
-                        "column": 32,
-                        "durationMicroseconds": 59,
-                        "errorMessage": "Cannot access value for name textColor",
-                        "functionName": "color",
+                        "column": 53,
+                        "durationMicroseconds": 168,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: viewModel",
+                        "functionName": "srcW",
                         "line": 998
                     },
                     {
-                        "codegenSuccessful": true,
+                        "codegenSuccessful": false,
+                        "column": 53,
+                        "durationMicroseconds": 81,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: viewModel",
+                        "functionName": "srcH",
+                        "line": 999
+                    },
+                    {
+                        "codegenSuccessful": false,
                         "column": 51,
-                        "durationMicroseconds": 123,
+                        "durationMicroseconds": 36,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: viewModel",
+                        "functionName": "cx",
+                        "line": 1002
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 51,
+                        "durationMicroseconds": 34,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: viewModel",
+                        "functionName": "cy",
+                        "line": 1003
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 59,
+                        "durationMicroseconds": 454,
                         "errorMessage": "",
-                        "functionName": "horizontalCenter",
-                        "line": 997
+                        "functionName": "cropLeft",
+                        "line": 1006
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 59,
+                        "durationMicroseconds": 325,
+                        "errorMessage": "",
+                        "functionName": "cropTop",
+                        "line": 1007
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 59,
+                        "durationMicroseconds": 473,
+                        "errorMessage": "",
+                        "functionName": "cropRight",
+                        "line": 1008
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 59,
+                        "durationMicroseconds": 326,
+                        "errorMessage": "",
+                        "functionName": "cropBottom",
+                        "line": 1009
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 59,
+                        "durationMicroseconds": 283,
+                        "errorMessage": "",
+                        "functionName": "cropW",
+                        "line": 1010
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 59,
+                        "durationMicroseconds": 283,
+                        "errorMessage": "",
+                        "functionName": "cropH",
+                        "line": 1011
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 55,
+                        "durationMicroseconds": 389,
+                        "errorMessage": "",
+                        "functionName": "scale",
+                        "line": 1014
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 59,
+                        "durationMicroseconds": 175,
+                        "errorMessage": "",
+                        "functionName": "cropDrawW",
+                        "line": 1017
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 59,
+                        "durationMicroseconds": 162,
+                        "errorMessage": "",
+                        "functionName": "cropDrawH",
+                        "line": 1018
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 63,
+                        "durationMicroseconds": 353,
+                        "errorMessage": "",
+                        "functionName": "centerOffsetX",
+                        "line": 1019
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 63,
+                        "durationMicroseconds": 223,
+                        "errorMessage": "",
+                        "functionName": "centerOffsetY",
+                        "line": 1020
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 37,
+                        "durationMicroseconds": 91,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: cameraViewModel",
+                        "functionName": "source",
+                        "line": 1025
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 38,
+                        "durationMicroseconds": 358,
+                        "errorMessage": "Cannot access value for name cx",
+                        "functionName": "visible",
+                        "line": 1028
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 37,
+                        "durationMicroseconds": 265,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 1031
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 37,
+                        "durationMicroseconds": 236,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 1032
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 32,
+                        "durationMicroseconds": 364,
+                        "errorMessage": "",
+                        "functionName": "x",
+                        "line": 1035
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 32,
+                        "durationMicroseconds": 329,
+                        "errorMessage": "",
+                        "functionName": "y",
+                        "line": 1036
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 39,
+                        "durationMicroseconds": 129,
+                        "errorMessage": "",
+                        "functionName": "fillMode",
+                        "line": 1038
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 117,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 1042
+                    },
+                    {
+                        "codegenSuccessful": false,
+                        "column": 47,
+                        "durationMicroseconds": 76,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: root",
+                        "functionName": "color",
+                        "line": 1044
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 38,
+                        "durationMicroseconds": 202,
+                        "errorMessage": "",
+                        "functionName": "visible",
+                        "line": 1053
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 50,
+                        "durationMicroseconds": 152,
+                        "errorMessage": "",
+                        "functionName": "horizontalAlignment",
+                        "line": 1056
+                    },
+                    {
+                        "codegenSuccessful": true,
+                        "column": 47,
+                        "durationMicroseconds": 140,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 1052
                     }
                 ],
                 "filePath": "C:/Users/mahmo/Documents/untitled/Main.qml"

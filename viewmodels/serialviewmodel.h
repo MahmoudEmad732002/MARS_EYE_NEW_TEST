@@ -3,7 +3,8 @@
 
 #include <QObject>
 #include <QTimer>
-#include "models/SerialModel.h"
+#include <QThread>
+#include "models/serialworker.h"
 
 class SerialViewModel : public QObject
 {
@@ -17,7 +18,7 @@ class SerialViewModel : public QObject
     Q_PROPERTY(QString connectButtonColor READ connectButtonColor NOTIFY connectedChanged)
     Q_PROPERTY(QString statusMessage READ statusMessage NOTIFY statusMessageChanged)
 
-    // Updated Telemetry properties (renamed fields)
+    // Telemetry properties
     Q_PROPERTY(int gimbalRoll READ gimbalRoll NOTIFY telemetryChanged)
     Q_PROPERTY(int gimbalPitch READ gimbalPitch NOTIFY telemetryChanged)
     Q_PROPERTY(int gimbalYaw READ gimbalYaw NOTIFY telemetryChanged)
@@ -29,12 +30,12 @@ class SerialViewModel : public QObject
     Q_PROPERTY(int battery READ battery NOTIFY telemetryChanged)
     Q_PROPERTY(int signalStrength READ signalStrength NOTIFY telemetryChanged)
 
-    // Target GPS properties (updated names)
+    // Target GPS properties
     Q_PROPERTY(double targetPoseLat READ targetPoseLat NOTIFY targetGPSChanged)
     Q_PROPERTY(double targetPoseLon READ targetPoseLon NOTIFY targetGPSChanged)
     Q_PROPERTY(double targetPoseAlt READ targetPoseAlt NOTIFY targetGPSChanged)
 
-    // Tracked pose properties (updated names)
+    // Tracked pose properties
     Q_PROPERTY(int targetTrackedPoseXp READ targetTrackedPoseXp NOTIFY trackedPoseChanged)
     Q_PROPERTY(int targetTrackedPoseYp READ targetTrackedPoseYp NOTIFY trackedPoseChanged)
 
@@ -52,19 +53,19 @@ class SerialViewModel : public QObject
     // Acknowledgment properties
     Q_PROPERTY(int lastAcknowledgedMessageId READ lastAcknowledgedMessageId NOTIFY acknowledgmentChanged)
 
-    // Joystick properties (updated)
+    // Joystick properties
     Q_PROPERTY(int joystickX READ joystickX WRITE setJoystickX NOTIFY joystickChanged)
     Q_PROPERTY(int joystickY READ joystickY WRITE setJoystickY NOTIFY joystickChanged)
     Q_PROPERTY(int joystickResetFlag READ joystickResetFlag WRITE setJoystickResetFlag NOTIFY joystickChanged)
     Q_PROPERTY(bool joystickActive READ joystickActive NOTIFY joystickActiveChanged)
 
-    // PID Gain properties (no Kd)
+    // PID Gain properties
     Q_PROPERTY(int azimuthKp READ azimuthKp WRITE setAzimuthKp NOTIFY pidGainsChanged)
     Q_PROPERTY(int azimuthKi READ azimuthKi WRITE setAzimuthKi NOTIFY pidGainsChanged)
     Q_PROPERTY(int elevationKp READ elevationKp WRITE setElevationKp NOTIFY pidGainsChanged)
     Q_PROPERTY(int elevationKi READ elevationKi WRITE setElevationKi NOTIFY pidGainsChanged)
 
-    // Zoom properties (updated)
+    // Zoom properties
     Q_PROPERTY(int zoomLevel READ zoomLevel WRITE setZoomLevel NOTIFY zoomLevelChanged)
     Q_PROPERTY(int zoomResetFlag READ zoomResetFlag WRITE setZoomResetFlag NOTIFY zoomLevelChanged)
 
@@ -81,16 +82,17 @@ class SerialViewModel : public QObject
 
 public:
     explicit SerialViewModel(QObject *parent = nullptr);
+    ~SerialViewModel();
 
     // Serial/connection getters
     QStringList availablePorts() const { return m_availablePorts; }
-    QStringList baudRates() const { return m_serialModel->getBaudRates(); }
+    QStringList baudRates() const { return {"9600", "19200", "38400", "57600", "115200"}; }
     bool connected() const { return m_connected; }
     QString connectButtonText() const { return m_connected ? "Disconnect" : "Connect"; }
     QString connectButtonColor() const { return m_connected ? "#FF4444" : "#44FF44"; }
     QString statusMessage() const { return m_statusMessage; }
 
-    // Updated Telemetry getters
+    // Telemetry getters
     int gimbalRoll() const { return m_telemetryData.gimbalRoll; }
     int gimbalPitch() const { return m_telemetryData.gimbalPitch; }
     int gimbalYaw() const { return m_telemetryData.gimbalYaw; }
@@ -102,12 +104,12 @@ public:
     int battery() const { return m_telemetryData.battery; }
     int signalStrength() const { return m_telemetryData.signalStrength; }
 
-    // Target GPS getters (updated names)
-    // Target GPS getters (updated names) - with proper coordinate conversion
+    // Target GPS getters
     double targetPoseLat() const { return static_cast<double>(m_targetGPSData.targetPoseLat) / 10000000.0; }
     double targetPoseLon() const { return static_cast<double>(m_targetGPSData.targetPoseLon) / 10000000.0; }
     double targetPoseAlt() const { return static_cast<double>(m_targetGPSData.targetPoseAlt); }
-    // Tracked pose getters (updated names)
+
+    // Tracked pose getters
     int targetTrackedPoseXp() const { return m_trackedPoseData.targetTrackedPoseXp; }
     int targetTrackedPoseYp() const { return m_trackedPoseData.targetTrackedPoseYp; }
 
@@ -125,7 +127,7 @@ public:
     // Acknowledgment getters
     int lastAcknowledgedMessageId() const { return m_lastAckData.acknowledgedMessageId; }
 
-    // Joystick getters/setters (updated)
+    // Joystick getters/setters
     int joystickX() const { return m_joystickX; }
     void setJoystickX(int x);
     int joystickY() const { return m_joystickY; }
@@ -167,13 +169,11 @@ public:
     void setStabilizationFlag(int flag);
     bool absolutePointingActive() const { return m_absolutePointingActive; }
 
-    // Add new method to Q_INVOKABLE section:
-    Q_INVOKABLE void sendPitchYaw();
-    // QML-callable slots
+    // QML-callable methods
     Q_INVOKABLE void connectToSerial(const QString &portName, int baudRate);
     Q_INVOKABLE void refreshPorts();
+    Q_INVOKABLE void sendPitchYaw();
 
-    // Updated control methods
     Q_INVOKABLE void startJoystickCommand();
     Q_INVOKABLE void stopJoystickCommand();
     Q_INVOKABLE void sendSoftwareJoystickCommand(int x, int y);
@@ -189,7 +189,8 @@ public:
     Q_INVOKABLE void stopAbsolutePointing();
     Q_INVOKABLE void sendRequestGains();
     Q_INVOKABLE void sendFrameInfoAndGains(int frameW, int frameH);
-    Q_INVOKABLE void sendSelectTarget(int x, int y, int frameNum);  // New overloaded method
+    Q_INVOKABLE void sendSelectTarget(int x, int y, int frameNum);
+    Q_INVOKABLE void updateSoftwareJoystick(int x, int y);
 
 signals:
     void availablePortsChanged();
@@ -211,47 +212,47 @@ signals:
 
 private slots:
     void onConnectionStatusChanged(bool connected);
-    void onTelemetryDataReceived(const SerialModel::TelemetryData &data);
-    void onTargetGPSReceived(const SerialModel::TargetGPSData &data);
-    void onTrackedPoseReceived(const SerialModel::TrackedPoseData &data);
-    void onZoomFeedbackReceived(const SerialModel::ZoomFeedbackData &data);
-    void onFrameInfoReceived(const SerialModel::FrameInfoData &data);
-    void onAcknowledgmentReceived(const SerialModel::AckData &data);
+    void onTelemetryDataReceived(const SerialWorker::TelemetryData &data);
+    void onTargetGPSReceived(const SerialWorker::TargetGPSData &data);
+    void onTrackedPoseReceived(const SerialWorker::TrackedPoseData &data);
+    void onZoomFeedbackReceived(const SerialWorker::ZoomFeedbackData &data);
+    void onFrameInfoReceived(const SerialWorker::FrameInfoData &data);
+    void onAcknowledgmentReceived(const SerialWorker::AckData &data);
     void onErrorOccurred(const QString &error);
     void onMessageSent(const QString &messageType);
+    void onAvailablePortsReady(const QStringList &ports);
 
 private:
-    SerialModel *m_serialModel;
+    QThread *m_serialThread;
+    SerialWorker *m_serialWorker;
     QStringList m_availablePorts;
     bool m_connected;
     QString m_statusMessage;
     QTimer *m_refreshTimer;
 
     // Data structures
-    SerialModel::TelemetryData m_telemetryData;
-    SerialModel::TargetGPSData m_targetGPSData;
-    SerialModel::TrackedPoseData m_trackedPoseData;
-    SerialModel::ZoomFeedbackData m_zoomFeedbackData;
-    SerialModel::FrameInfoData m_frameInfoData;
-    SerialModel::AckData m_lastAckData;
+    SerialWorker::TelemetryData m_telemetryData;
+    SerialWorker::TargetGPSData m_targetGPSData;
+    SerialWorker::TrackedPoseData m_trackedPoseData;
+    SerialWorker::ZoomFeedbackData m_zoomFeedbackData;
+    SerialWorker::FrameInfoData m_frameInfoData;
+    SerialWorker::AckData m_lastAckData;
 
     // Control variables
     int m_joystickX;
     int m_joystickY;
     int m_joystickResetFlag;
     bool m_joystickActive;
-    SerialModel::PIDGains m_pidGains;
+    SerialWorker::PIDGains m_pidGains;
     int m_zoomLevel;
     int m_zoomResetFlag;
     int m_targetX;
     int m_targetY;
     int m_frameNumber;
-    int m_pitchAngleCmd;
-    int m_yawAngleCmd;
     int m_stabilizationFlag;
     bool m_absolutePointingActive;
-    double m_pitchAngle;    // Range: -90 to 10
-    double m_yawAngle;      // Range: -180 to 180
+    double m_pitchAngle;
+    double m_yawAngle;
 };
 
 #endif // SERIALVIEWMODEL_H

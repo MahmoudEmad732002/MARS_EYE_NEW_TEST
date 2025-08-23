@@ -1,4 +1,3 @@
-
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include "viewmodels/serialviewmodel.h"
@@ -7,11 +6,21 @@
 #include "viewmodels/mapviewmodel.h"
 #include "viewmodels/thermalcameraviewmodel.h"
 #include "models/joystickreceiver.h"
-
+#include "models/serialworker.h"
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
+    // Register SerialWorker data structures for queued connections
+    qRegisterMetaType<SerialWorker::TelemetryData>("SerialWorker::TelemetryData");
+    qRegisterMetaType<SerialWorker::TargetGPSData>("SerialWorker::TargetGPSData");
+    qRegisterMetaType<SerialWorker::TrackedPoseData>("SerialWorker::TrackedPoseData");
+    qRegisterMetaType<SerialWorker::ZoomFeedbackData>("SerialWorker::ZoomFeedbackData");
+    qRegisterMetaType<SerialWorker::FrameInfoData>("SerialWorker::FrameInfoData");
+    qRegisterMetaType<SerialWorker::AckData>("SerialWorker::AckData");
+    qRegisterMetaType<SerialWorker::PIDGains>("SerialWorker::PIDGains");
+
+    // Register QML types
     qmlRegisterType<SerialViewModel>("SerialApp", 1, 0, "SerialViewModel");
     qmlRegisterType<CameraViewModel>("SerialApp", 1, 0, "CameraViewModel");
     qmlRegisterType<MediaManagerViewModel>("SerialApp", 1, 0, "MediaManagerViewModel");
@@ -21,10 +30,7 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    // Add these lines with the other qmlRegisterType calls:
-
-    // Update the engine.addImageProvider line to include thermal provider:
-    // Register both image providers
+    // Register image providers
     engine.addImageProvider("camera", new CameraImageProvider());
     engine.addImageProvider("thermal", new ThermalImageProvider());
 

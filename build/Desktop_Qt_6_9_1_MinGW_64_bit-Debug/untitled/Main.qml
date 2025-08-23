@@ -13,11 +13,10 @@ ApplicationWindow {
     width: 1200
     height: 800
     minimumHeight: 600
-    minimumWidth: 850
+    minimumWidth: 900
     title: "Serial MVVM Application with Camera Test"
     color: backgroundColor
-
-    // Theme Properties
+     // Theme Properties
     property string primaryColor: "#FF4713"
     property string backgroundColor: "#1a1a1a"
     property string surfaceColor: "#2d2d2d"
@@ -183,9 +182,8 @@ ApplicationWindow {
                                 smooth: true
 
                                 // Constants for source frame dimensions
-                                readonly property int sourceFrameWidth: 1920
-                                readonly property int sourceFrameHeight: 1080
-
+                                readonly property int sourceFrameWidth:  viewModel.frameWidth  > 0 ? viewModel.frameWidth  : 1920
+                                readonly property int sourceFrameHeight: viewModel.frameHeight > 0 ? viewModel.frameHeight : 1080
                                 // Calculate the actual rendered image dimensions within the Image component
                                 readonly property real imageAspectRatio: sourceFrameWidth / sourceFrameHeight
                                 readonly property real componentAspectRatio: width / height
@@ -240,6 +238,16 @@ ApplicationWindow {
                                         x: sourceX,
                                         y: sourceY
                                     }
+                                }
+                                // Convert source-frame coords (0..sourceW/H) to UI coords in the Image
+                                function sourceToUiCoordinates(srcX, srcY) {
+                                    // Clamp to valid range
+                                    var x = Math.max(0, Math.min(sourceFrameWidth  - 1, srcX))
+                                    var y = Math.max(0, Math.min(sourceFrameHeight - 1, srcY))
+
+                                    var uiX = renderedImageX + (x / sourceFrameWidth)  * renderedImageWidth
+                                    var uiY = renderedImageY + (y / sourceFrameHeight) * renderedImageHeight
+                                    return { x: uiX, y: uiY }
                                 }
 
                                 // Tracking selection overlay rectangle
@@ -771,45 +779,44 @@ visible: root.controlsPanelVisible || root.telemetryPanelVisible || root.testPan
                         }
 
                         SpinBox {
-                            id: thermalPortSpin
-                            Layout.preferredWidth: 80
-                            from: 1
-                            to: 65535
-                            stepSize: 1
-                            value: thermalCameraViewModel.thermalPort
-                            enabled: !thermalCameraViewModel.thermalStreaming
-                            editable: true
+                                                   id: thermalPortSpin
+                                                   Layout.preferredWidth: 80
+                                                   from: 1
+                                                   to: 65535
+                                                   stepSize: 1
+                                                   value: thermalCameraViewModel.thermalPort
+                                                   enabled: !thermalCameraViewModel.thermalStreaming
+                                                   editable: true
 
-                            // leave space so arrows receive clicks
-                            leftPadding: 6
-                            rightPadding: 28
+                                                   // leave space so arrows receive clicks
+                                                   leftPadding: 6
+                                                   rightPadding: 28
 
-                            background: Rectangle {
-                                color: surfaceColor
-                                border.color: borderColor
-                                border.width: 1
-                                radius: 3
-                            }
+                                                   background: Rectangle {
+                                                       color: surfaceColor
+                                                       border.color: borderColor
+                                                       border.width: 1
+                                                       radius: 3
+                                                   }
 
-                            // Custom display/editor that doesn't block the arrows
-                            contentItem: TextInput {
-                                text: thermalPortSpin.displayText
-                                color: textColor
-                                horizontalAlignment: Qt.AlignHCenter
-                                verticalAlignment: Qt.AlignVCenter
-                                validator: IntValidator { bottom: thermalPortSpin.from; top: thermalPortSpin.to }
-                                inputMethodHints: Qt.ImhDigitsOnly
+                                                   // Custom display/editor that doesn't block the arrows
+                                                   contentItem: TextInput {
+                                                       text: thermalPortSpin.displayText
+                                                       color: textColor
+                                                       horizontalAlignment: Qt.AlignHCenter
+                                                       verticalAlignment: Qt.AlignVCenter
+                                                       validator: IntValidator { bottom: thermalPortSpin.from; top: thermalPortSpin.to }
+                                                       inputMethodHints: Qt.ImhDigitsOnly
 
-                                // user pressed Enter
-                                onAccepted: {
-                                    thermalPortSpin.value = thermalPortSpin.valueFromText(text, thermalPortSpin.locale)
-                                }
-                            }
+                                                       // user pressed Enter
+                                                       onAccepted: {
+                                                           thermalPortSpin.value = thermalPortSpin.valueFromText(text, thermalPortSpin.locale)
+                                                       }
+                                                   }
 
-                            // single source of truth -> ViewModel
-                            onValueChanged: thermalCameraViewModel.thermalPort = value
-                        }
-
+                                                   // single source of truth -> ViewModel
+                                                   onValueChanged: thermalCameraViewModel.thermalPort = value
+                                               }
 
                         Button {
                             text: thermalCameraViewModel.thermalStreamButtonText
@@ -885,7 +892,7 @@ visible: root.controlsPanelVisible || root.telemetryPanelVisible || root.testPan
                         height: parent.height - 40
 
                         // Calculate maximum size that maintains 16:9 aspect ratio
-                        property real targetAspect: 16.0 / 9.0
+                        property real targetAspect: cameraImage.sourceFrameWidth / cameraImage.sourceFrameHeight
                         property real availableWidth: width - 20  // Account for margins
                         property real availableHeight: height - 20
 
@@ -976,31 +983,82 @@ visible: root.controlsPanelVisible || root.telemetryPanelVisible || root.testPan
             }
 
             // Thermal Analysis Tools
-            Rectangle {
-                Layout.fillWidth: true
-                Layout.preferredHeight: 300  // Increased height
-                Layout.fillHeight: true
-                color: surfaceColor
-                border.color: borderColor
-                border.width: 1
-                radius: 8
 
-                Column {
-                    anchors.fill: parent
-                    anchors.margins: 15
-                    spacing: 15
 
-                    Text {
-                        text: "DETECTED OBJECT"
-                        font.pixelSize: 14
-                        font.bold: true
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        color: textColor
+                    Item {
+                        id: detectedObjectView
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 220
+                        clip: true   // we will offset the full image and let this crop it
+
+                        // Padding around the tracked center (tune 50..100)
+                        property int pad: 80
+
+                        // Source frame size (from 0x10), safe defaults
+                        readonly property int srcW: viewModel.frameWidth  > 0 ? viewModel.frameWidth  : 1920
+                        readonly property int srcH: viewModel.frameHeight > 0 ? viewModel.frameHeight : 1080
+
+                        // Tracked center (from 0x08)
+                        readonly property int cx: viewModel.targetTrackedPoseXp
+                        readonly property int cy: viewModel.targetTrackedPoseYp
+
+                        // Crop rect (clamped to source) — avoid reserved names
+                        readonly property int cropLeft:   Math.max(0, cx - pad)
+                        readonly property int cropTop:    Math.max(0, cy - pad)
+                        readonly property int cropRight:  Math.min(srcW, cx + pad)
+                        readonly property int cropBottom: Math.min(srcH, cy + pad)
+                        readonly property int cropW:      Math.max(1, cropRight - cropLeft)
+                        readonly property int cropH:      Math.max(1, cropBottom - cropTop)
+
+                        // Scale so the crop fits inside this view (contain)
+                        readonly property real scale: Math.min(width / cropW, height / cropH)
+
+                        // Center the crop inside this view
+                        readonly property real cropDrawW: cropW * scale
+                        readonly property real cropDrawH: cropH * scale
+                        readonly property real centerOffsetX: (width  - cropDrawW) / 2
+                        readonly property real centerOffsetY: (height - cropDrawH) / 2
+
+                        // Full-frame image, scaled then offset so only the crop shows inside the clipped Item
+                        Image {
+                            id: detectedImage
+                            source: cameraViewModel.currentFrameUrl
+                            cache: false
+                            smooth: true
+                            visible: (cx >= 0 && cy >= 0 && cropW > 1 && cropH > 1)
+
+                            // scale the full source to keep pixel space consistent
+                            width:  detectedObjectView.srcW * detectedObjectView.scale
+                            height: detectedObjectView.srcH * detectedObjectView.scale
+
+                            // shift so that (cropLeft,cropTop)-(cropRight,cropBottom) ends up centered
+                            x: detectedObjectView.centerOffsetX - detectedObjectView.cropLeft * detectedObjectView.scale
+                            y: detectedObjectView.centerOffsetY - detectedObjectView.cropTop  * detectedObjectView.scale
+
+                            fillMode: Image.Stretch  // we control sizing/positioning explicitly
+
+                            // nice border around the viewport
+                            Rectangle {
+                                anchors.fill: detectedObjectView
+                                color: "transparent"
+                                border.color: root.primaryColor
+                                border.width: 2
+                                radius: 6
+                            }
+                        }
+
+                        // Placeholder while waiting for 0x08
+                        Text {
+                            anchors.centerIn: parent
+                            visible: !detectedImage.visible
+                            text: "DETECTED OBJECT\n(waiting for 0x08)"
+                            color: "#888"
+                            horizontalAlignment: Text.AlignHCenter
+                        }
                     }
 
 
                 }
             }
-         }
-   }
+
 }

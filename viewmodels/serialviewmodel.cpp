@@ -3,7 +3,8 @@
 
 SerialViewModel::SerialViewModel(QObject *parent)
     : QObject(parent)
-    , m_serialModel(new SerialModel(this))
+    , m_serialThread(new QThread(this))
+    , m_serialWorker(new SerialWorker())
     , m_connected(false)
     , m_refreshTimer(new QTimer(this))
     , m_joystickX(100)
@@ -15,30 +16,42 @@ SerialViewModel::SerialViewModel(QObject *parent)
     , m_targetX(0)
     , m_targetY(0)
     , m_frameNumber(0)
-    , m_pitchAngleCmd(0.0)
-    , m_yawAngleCmd(0.0)
     , m_stabilizationFlag(1)
     , m_absolutePointingActive(false)
+    , m_pitchAngle(0.0)
+    , m_yawAngle(0.0)
 {
-    // Connect all signals from SerialModel
-    connect(m_serialModel, &SerialModel::connectionStatusChanged,
-            this, &SerialViewModel::onConnectionStatusChanged);
-    connect(m_serialModel, &SerialModel::telemetryDataReceived,
-            this, &SerialViewModel::onTelemetryDataReceived);
-    connect(m_serialModel, &SerialModel::targetGPSReceived,
-            this, &SerialViewModel::onTargetGPSReceived);
-    connect(m_serialModel, &SerialModel::trackedPoseReceived,
-            this, &SerialViewModel::onTrackedPoseReceived);
-    connect(m_serialModel, &SerialModel::zoomFeedbackReceived,
-            this, &SerialViewModel::onZoomFeedbackReceived);
-    connect(m_serialModel, &SerialModel::frameInfoReceived,
-            this, &SerialViewModel::onFrameInfoReceived);
-    connect(m_serialModel, &SerialModel::acknowledgmentReceived,
-            this, &SerialViewModel::onAcknowledgmentReceived);
-    connect(m_serialModel, &SerialModel::errorOccurred,
-            this, &SerialViewModel::onErrorOccurred);
-    connect(m_serialModel, &SerialModel::messageSent,
-            this, &SerialViewModel::onMessageSent);
+    // Move worker to thread
+    m_serialWorker->moveToThread(m_serialThread);
+
+    // Connect thread lifecycle
+    connect(m_serialThread, &QThread::started, m_serialWorker, &SerialWorker::initializeSerial);
+    connect(m_serialThread, &QThread::finished, m_serialWorker, &QObject::deleteLater);
+
+    // Connect all signals from SerialWorker with queued connections for thread safety
+    connect(m_serialWorker, &SerialWorker::connectionStatusChanged,
+            this, &SerialViewModel::onConnectionStatusChanged, Qt::QueuedConnection);
+    connect(m_serialWorker, &SerialWorker::telemetryDataReceived,
+            this, &SerialViewModel::onTelemetryDataReceived, Qt::QueuedConnection);
+    connect(m_serialWorker, &SerialWorker::targetGPSReceived,
+            this, &SerialViewModel::onTargetGPSReceived, Qt::QueuedConnection);
+    connect(m_serialWorker, &SerialWorker::trackedPoseReceived,
+            this, &SerialViewModel::onTrackedPoseReceived, Qt::QueuedConnection);
+    connect(m_serialWorker, &SerialWorker::zoomFeedbackReceived,
+            this, &SerialViewModel::onZoomFeedbackReceived, Qt::QueuedConnection);
+    connect(m_serialWorker, &SerialWorker::frameInfoReceived,
+            this, &SerialViewModel::onFrameInfoReceived, Qt::QueuedConnection);
+    connect(m_serialWorker, &SerialWorker::acknowledgmentReceived,
+            this, &SerialViewModel::onAcknowledgmentReceived, Qt::QueuedConnection);
+    connect(m_serialWorker, &SerialWorker::errorOccurred,
+            this, &SerialViewModel::onErrorOccurred, Qt::QueuedConnection);
+    connect(m_serialWorker, &SerialWorker::messageSent,
+            this, &SerialViewModel::onMessageSent, Qt::QueuedConnection);
+    connect(m_serialWorker, &SerialWorker::availablePortsReady,
+            this, &SerialViewModel::onAvailablePortsReady, Qt::QueuedConnection);
+
+    // Start the worker thread
+    m_serialThread->start();
 
     // Auto-refresh ports every 2 seconds
     m_refreshTimer->setInterval(2000);
@@ -54,28 +67,34 @@ SerialViewModel::SerialViewModel(QObject *parent)
     refreshPorts();
 }
 
+SerialViewModel::~SerialViewModel()
+{
+    // Clean thread shutdown
+    if (m_serialThread->isRunning()) {
+        m_serialThread->quit();
+        if (!m_serialThread->wait(3000)) {
+            m_serialThread->terminate();
+            m_serialThread->wait();
+        }
+    }
+}
+
 // Serial connection controls
 void SerialViewModel::connectToSerial(const QString &portName, int baudRate)
 {
     if (m_connected) {
-        m_serialModel->disconnect();
+        QMetaObject::invokeMethod(m_serialWorker, "disconnectFromPort", Qt::QueuedConnection);
     } else {
-        if (m_serialModel->connectToPort(portName, baudRate)) {
-            m_statusMessage = "Connected to " + portName;
-        } else {
-            m_statusMessage = "Failed to connect to " + portName;
-        }
+        QMetaObject::invokeMethod(m_serialWorker, "connectToPort", Qt::QueuedConnection,
+                                  Q_ARG(QString, portName), Q_ARG(int, baudRate));
+        m_statusMessage = "Connecting to " + portName + "...";
         emit statusMessageChanged();
     }
 }
 
 void SerialViewModel::refreshPorts()
 {
-    QStringList newPorts = m_serialModel->getAvailablePorts();
-    if (newPorts != m_availablePorts) {
-        m_availablePorts = newPorts;
-        emit availablePortsChanged();
-    }
+    QMetaObject::invokeMethod(m_serialWorker, "getAvailablePorts", Qt::QueuedConnection);
 }
 
 // Signal handlers for received data
@@ -99,7 +118,7 @@ void SerialViewModel::onConnectionStatusChanged(bool connected)
     }
 }
 
-void SerialViewModel::onTelemetryDataReceived(const SerialModel::TelemetryData &data)
+void SerialViewModel::onTelemetryDataReceived(const SerialWorker::TelemetryData &data)
 {
     m_telemetryData = data;
     emit telemetryChanged();
@@ -107,7 +126,7 @@ void SerialViewModel::onTelemetryDataReceived(const SerialModel::TelemetryData &
     emit statusMessageChanged();
 }
 
-void SerialViewModel::onTargetGPSReceived(const SerialModel::TargetGPSData &data)
+void SerialViewModel::onTargetGPSReceived(const SerialWorker::TargetGPSData &data)
 {
     m_targetGPSData = data;
     emit targetGPSChanged();
@@ -115,7 +134,7 @@ void SerialViewModel::onTargetGPSReceived(const SerialModel::TargetGPSData &data
     emit statusMessageChanged();
 }
 
-void SerialViewModel::onTrackedPoseReceived(const SerialModel::TrackedPoseData &data)
+void SerialViewModel::onTrackedPoseReceived(const SerialWorker::TrackedPoseData &data)
 {
     m_trackedPoseData = data;
     emit trackedPoseChanged();
@@ -123,7 +142,7 @@ void SerialViewModel::onTrackedPoseReceived(const SerialModel::TrackedPoseData &
     emit statusMessageChanged();
 }
 
-void SerialViewModel::onZoomFeedbackReceived(const SerialModel::ZoomFeedbackData &data)
+void SerialViewModel::onZoomFeedbackReceived(const SerialWorker::ZoomFeedbackData &data)
 {
     m_zoomFeedbackData = data;
     emit zoomFeedbackChanged();
@@ -131,17 +150,24 @@ void SerialViewModel::onZoomFeedbackReceived(const SerialModel::ZoomFeedbackData
     emit statusMessageChanged();
 }
 
-void SerialViewModel::onFrameInfoReceived(const SerialModel::FrameInfoData &data)
+void SerialViewModel::onFrameInfoReceived(const SerialWorker::FrameInfoData &data)
 {
     m_frameInfoData = data;
     emit frameInfoChanged();
-    m_statusMessage = QString("Received frame info: %1x%2")
-                          .arg(data.frameWidth)
-                          .arg(data.frameHeight);
+
+    // Sync editable PID gains with received values
+    bool changed = false;
+    if (m_pidGains.azimuthKp != data.azimuthKp) { m_pidGains.azimuthKp = data.azimuthKp; changed = true; }
+    if (m_pidGains.azimuthKi != data.azimuthKi) { m_pidGains.azimuthKi = data.azimuthKi; changed = true; }
+    if (m_pidGains.elevationKp != data.elevationKp) { m_pidGains.elevationKp = data.elevationKp; changed = true; }
+    if (m_pidGains.elevationKi != data.elevationKi) { m_pidGains.elevationKi = data.elevationKi; changed = true; }
+    if (changed) emit pidGainsChanged();
+
+    m_statusMessage = QString("Received frame info: %1x%2").arg(data.frameWidth).arg(data.frameHeight);
     emit statusMessageChanged();
 }
 
-void SerialViewModel::onAcknowledgmentReceived(const SerialModel::AckData &data)
+void SerialViewModel::onAcknowledgmentReceived(const SerialWorker::AckData &data)
 {
     m_lastAckData = data;
     emit acknowledgmentChanged();
@@ -181,6 +207,14 @@ void SerialViewModel::onMessageSent(const QString &messageType)
     emit statusMessageChanged();
 }
 
+void SerialViewModel::onAvailablePortsReady(const QStringList &ports)
+{
+    if (ports != m_availablePorts) {
+        m_availablePorts = ports;
+        emit availablePortsChanged();
+    }
+}
+
 // Joystick control setters and methods
 void SerialViewModel::setJoystickX(int x)
 {
@@ -209,11 +243,10 @@ void SerialViewModel::setJoystickResetFlag(int flag)
 void SerialViewModel::startJoystickCommand()
 {
     if (m_connected && !m_joystickActive) {
-        m_serialModel->sendJoystickCommand(
-            static_cast<quint8>(m_joystickX),
-            static_cast<quint8>(m_joystickY),
-            static_cast<quint8>(m_joystickResetFlag)
-            );
+        QMetaObject::invokeMethod(m_serialWorker, "sendJoystickCommand", Qt::QueuedConnection,
+                                  Q_ARG(quint8, static_cast<quint8>(m_joystickX)),
+                                  Q_ARG(quint8, static_cast<quint8>(m_joystickY)),
+                                  Q_ARG(quint8, static_cast<quint8>(m_joystickResetFlag)));
         m_joystickActive = true;
         emit joystickActiveChanged();
     }
@@ -222,7 +255,7 @@ void SerialViewModel::startJoystickCommand()
 void SerialViewModel::stopJoystickCommand()
 {
     if (m_joystickActive) {
-        m_serialModel->stopJoystickCommand();
+        QMetaObject::invokeMethod(m_serialWorker, "stopJoystickCommand", Qt::QueuedConnection);
         m_joystickActive = false;
         emit joystickActiveChanged();
     }
@@ -233,12 +266,12 @@ void SerialViewModel::sendSoftwareJoystickCommand(int x, int y)
     if (m_connected) {
         setJoystickX(x);
         setJoystickY(y);
-        m_serialModel->sendJoystickCommand(
-            static_cast<quint8>(x),
-            static_cast<quint8>(y),
-            static_cast<quint8>(m_joystickResetFlag)
-            );
-        // Update ViewModel joystick state to match SerialModel state
+
+        QMetaObject::invokeMethod(m_serialWorker, "sendJoystickCommand", Qt::QueuedConnection,
+                                  Q_ARG(quint8, static_cast<quint8>(x)),
+                                  Q_ARG(quint8, static_cast<quint8>(y)),
+                                  Q_ARG(quint8, static_cast<quint8>(m_joystickResetFlag)));
+
         if (!m_joystickActive) {
             m_joystickActive = true;
             emit joystickActiveChanged();
@@ -246,11 +279,8 @@ void SerialViewModel::sendSoftwareJoystickCommand(int x, int y)
     }
 }
 
-
-// Replace the existing pitch/yaw setter methods:
 void SerialViewModel::setPitchAngle(double angle)
 {
-    // Clamp to valid range
     angle = qMax(-90.0, qMin(10.0, angle));
     if (qAbs(m_pitchAngle - angle) > 0.001) {
         m_pitchAngle = angle;
@@ -260,7 +290,6 @@ void SerialViewModel::setPitchAngle(double angle)
 
 void SerialViewModel::setYawAngle(double angle)
 {
-    // Clamp to valid range
     angle = qMax(-180.0, qMin(180.0, angle));
     if (qAbs(m_yawAngle - angle) > 0.001) {
         m_yawAngle = angle;
@@ -268,15 +297,17 @@ void SerialViewModel::setYawAngle(double angle)
     }
 }
 
-// Replace the startAbsolutePointing method:
 void SerialViewModel::sendPitchYaw()
 {
     if (m_connected) {
-        // Apply mapping formulas
-        quint16 pitchCmd = static_cast<quint16>((m_pitchAngle + 180) * 100);  // -90 to 10 -> 0 to 10000
-        quint16 yawCmd = static_cast<quint16>((m_yawAngle + 180) * 100);     // -180 to 180 -> 0 to 36000
+        quint16 pitchCmd = static_cast<quint16>((m_pitchAngle + 180) * 100);
+        quint16 yawCmd = static_cast<quint16>((m_yawAngle + 180) * 100);
 
-        m_serialModel->sendAbsolutePointing(pitchCmd, yawCmd, static_cast<quint8>(m_stabilizationFlag));
+        QMetaObject::invokeMethod(m_serialWorker, "sendAbsolutePointing", Qt::QueuedConnection,
+                                  Q_ARG(quint16, pitchCmd),
+                                  Q_ARG(quint16, yawCmd),
+                                  Q_ARG(quint8, static_cast<quint8>(m_stabilizationFlag)));
+
         if (!m_absolutePointingActive) {
             m_absolutePointingActive = true;
             emit absolutePointingActiveChanged();
@@ -287,40 +318,28 @@ void SerialViewModel::sendPitchYaw()
     }
 }
 
-// Remove or update the directional joystick methods (sendJoystickUp, Down, Left, Right):
-// Replace these methods to work with new ranges:
 void SerialViewModel::sendJoystickUp()
 {
-    // Increase pitch angle (up movement)
     double newPitch = qMin(10.0, m_pitchAngle + 1.0);
-
     setPitchAngle(newPitch);
-    // Note: Don't auto-send, wait for manual button press
 }
 
 void SerialViewModel::sendJoystickDown()
 {
-    // Decrease pitch angle (down movement)
     double newPitch = qMax(-90.0, m_pitchAngle - 1.0);
-
     setPitchAngle(newPitch);
-    // Note: Don't auto-send, wait for manual button press
 }
 
 void SerialViewModel::sendJoystickLeft()
 {
-    // Decrease yaw angle (left movement)
     double newYaw = qMax(-180.0, m_yawAngle - 1.0);
     setYawAngle(newYaw);
-    // Note: Don't auto-send, wait for manual button press
 }
 
 void SerialViewModel::sendJoystickRight()
 {
-    // Increase yaw angle (right movement)
     double newYaw = qMin(180.0, m_yawAngle + 1.0);
     setYawAngle(newYaw);
-    // Note: Don't auto-send, wait for manual button press
 }
 
 // PID gains control
@@ -359,7 +378,8 @@ void SerialViewModel::setElevationKi(int ki)
 void SerialViewModel::sendPIDGains()
 {
     if (m_connected) {
-        m_serialModel->sendPIDGains(m_pidGains);
+        QMetaObject::invokeMethod(m_serialWorker, "sendPIDGains", Qt::QueuedConnection,
+                                  Q_ARG(SerialWorker::PIDGains, m_pidGains));
     } else {
         m_statusMessage = "Cannot send PID gains: Not connected";
         emit statusMessageChanged();
@@ -386,10 +406,9 @@ void SerialViewModel::setZoomResetFlag(int flag)
 void SerialViewModel::sendZoomCommand()
 {
     if (m_connected) {
-        m_serialModel->sendZoomCommand(
-            static_cast<quint8>(m_zoomLevel),
-            static_cast<quint8>(m_zoomResetFlag)
-            );
+        QMetaObject::invokeMethod(m_serialWorker, "sendZoomCommand", Qt::QueuedConnection,
+                                  Q_ARG(quint8, static_cast<quint8>(m_zoomLevel)),
+                                  Q_ARG(quint8, static_cast<quint8>(m_zoomResetFlag)));
     } else {
         m_statusMessage = "Cannot send zoom command: Not connected";
         emit statusMessageChanged();
@@ -424,11 +443,11 @@ void SerialViewModel::setFrameNumber(int frameNum)
 void SerialViewModel::sendSelectTarget()
 {
     if (m_connected) {
-        m_serialModel->sendSelectTarget(
-            static_cast<quint16>(m_targetX),
-            static_cast<quint16>(m_targetY),
-            static_cast<quint16>(m_frameNumber)
-            );
+        QMetaObject::invokeMethod(m_serialWorker, "sendSelectTarget", Qt::QueuedConnection,
+                                  Q_ARG(quint16, static_cast<quint16>(m_targetX)),
+                                  Q_ARG(quint16, static_cast<quint16>(m_targetY)),
+                                  Q_ARG(quint16, static_cast<quint16>(m_frameNumber)),
+                                  Q_ARG(quint8, 0));
     } else {
         m_statusMessage = "Cannot send select target: Not connected";
         emit statusMessageChanged();
@@ -441,12 +460,26 @@ void SerialViewModel::sendSelectTarget(int x, int y, int frameNum)
         setTargetX(x);
         setTargetY(y);
         setFrameNumber(frameNum);
-        sendSelectTarget(); // Call the parameterless version
+        sendSelectTarget();
     } else {
         m_statusMessage = "Cannot send select target: Not connected";
         emit statusMessageChanged();
     }
 }
+
+void SerialViewModel::updateSoftwareJoystick(int x, int y)
+{
+    if (m_connected && m_joystickActive) {
+        setJoystickX(x);
+        setJoystickY(y);
+
+        QMetaObject::invokeMethod(m_serialWorker, "sendJoystickCommand", Qt::QueuedConnection,
+                                  Q_ARG(quint8, static_cast<quint8>(x)),
+                                  Q_ARG(quint8, static_cast<quint8>(y)),
+                                  Q_ARG(quint8, static_cast<quint8>(m_joystickResetFlag)));
+    }
+}
+
 void SerialViewModel::setStabilizationFlag(int flag)
 {
     if (m_stabilizationFlag != flag) {
@@ -458,11 +491,14 @@ void SerialViewModel::setStabilizationFlag(int flag)
 void SerialViewModel::startAbsolutePointing()
 {
     if (m_connected) {
-        m_serialModel->sendAbsolutePointing(
-            static_cast<quint16>(m_pitchAngleCmd),
-            static_cast<quint16>(m_yawAngleCmd),
-            static_cast<quint8>(m_stabilizationFlag)
-            );
+        quint16 pitchCmd = static_cast<quint16>((m_pitchAngle + 180) * 100);
+        quint16 yawCmd = static_cast<quint16>((m_yawAngle + 180) * 100);
+
+        QMetaObject::invokeMethod(m_serialWorker, "sendAbsolutePointing", Qt::QueuedConnection,
+                                  Q_ARG(quint16, pitchCmd),
+                                  Q_ARG(quint16, yawCmd),
+                                  Q_ARG(quint8, static_cast<quint8>(m_stabilizationFlag)));
+
         if (!m_absolutePointingActive) {
             m_absolutePointingActive = true;
             emit absolutePointingActiveChanged();
@@ -476,32 +512,29 @@ void SerialViewModel::startAbsolutePointing()
 void SerialViewModel::stopAbsolutePointing()
 {
     if (m_absolutePointingActive) {
-        m_serialModel->stopAbsolutePointing();
+        QMetaObject::invokeMethod(m_serialWorker, "stopAbsolutePointing", Qt::QueuedConnection);
         m_absolutePointingActive = false;
         emit absolutePointingActiveChanged();
     }
 }
 
-// Request gains
 void SerialViewModel::sendRequestGains()
 {
     if (m_connected) {
-        m_serialModel->sendRequestGains();
+        QMetaObject::invokeMethod(m_serialWorker, "sendRequestGains", Qt::QueuedConnection);
     } else {
         m_statusMessage = "Cannot send request gains: Not connected";
         emit statusMessageChanged();
     }
 }
 
-// Send frame info and gains
 void SerialViewModel::sendFrameInfoAndGains(int frameW, int frameH)
 {
     if (m_connected) {
-        m_serialModel->sendFrameInfoAndGains(
-            static_cast<quint16>(frameW),
-            static_cast<quint16>(frameH),
-            m_pidGains
-            );
+        QMetaObject::invokeMethod(m_serialWorker, "sendFrameInfoAndGains", Qt::QueuedConnection,
+                                  Q_ARG(quint16, static_cast<quint16>(frameW)),
+                                  Q_ARG(quint16, static_cast<quint16>(frameH)),
+                                  Q_ARG(SerialWorker::PIDGains, m_pidGains));
     } else {
         m_statusMessage = "Cannot send frame info and gains: Not connected";
         emit statusMessageChanged();
